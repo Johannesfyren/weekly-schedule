@@ -1,0 +1,116 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	--board-background: #895eff;
+	color: white;
+}
+root {
+	position: absolute;
+}
+
+.ribbon {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 10px 0 10px;
+	height: 80px;
+	border-bottom: 1px;
+	background-color: blue;
+}
+.board {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	background-color: black;
+	gap: 1px;
+}
+
+.day-container {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	background-color: var(--board-background);
+	align-items: start;
+	color: rgb(84, 83, 83);
+	padding-left: 10px;
+	h2 {
+		align-self: center;
+	}
+}
+
+.attendances-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 30px;
+}
+
+.current-day {
+	width: 130%;
+	font-weight: 800;
+	font-size: 1.3em;
+	color: black;
+}
+
+.attendant-container {
+	display: flex;
+	flex-direction: row;
+	height: 40px;
+	gap: 10px;
+	align-items: center;
+}
+.avatar {
+	height: 100%;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+	background-color: grey;
+}
+
+/*UTILITIES*/
+
+.btn-primary {
+	height: 30px;
+	min-width: 100px;
+	padding: 0 5px 0 5px;
+	background-color: white;
+	border: 1px solid white;
+	border-radius: 6px;
+	color: blue;
+	&:hover {
+		cursor: pointer;
+	}
+}
+.btn-secondary {
+	height: 30px;
+	min-width: 100px;
+	padding: 0 5px 0 5px;
+	background-color: transparent;
+	border: 1px solid white;
+	border-radius: 6px;
+	color: white;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.att-picker-container {
+	position: absolute;
+	top: 60px;
+	right: 10px;
+	padding: 20px 10px 20px 10px;
+	display: flex;
+	background-color: rgb(243, 243, 243);
+
+	border-radius: 10px;
+	box-shadow: 0 0 2px 0;
+	flex-direction: column;
+	min-width: 300px;
+	max-height: 600px;
+	overflow-y: scroll;
+	p {
+		color: black;
+	}
+}
