@@ -11,6 +11,7 @@ export default function AttendancePicker({ attPickerRef }) {
 		<div className="att-picker-container" ref={attPickerRef}>
 			{getUsers.length > 0 && getUsers.map((user) => {})}
 			<Attendance name="Joha" />
+			<Attendance name="Joha" />
 		</div>
 	);
 }

@@ -4,9 +4,10 @@ export type btnType = {
 	clickEvent: React.MouseEventHandler<HTMLButtonElement>;
 	iconName?: string;
 	customClass?: string;
+	btnRef?: React.Ref<HTMLButtonElement>;
 };
 
-const icons = import.meta.glob("../assets/*.svg", { eager: true, as: "url" });
+const icons = import.meta.glob("../assets/*.svg", { eager: true, query: '?url', import: 'default' });
 
 export default function Button({
 	type,
@@ -14,12 +15,14 @@ export default function Button({
 	clickEvent,
 	iconName,
 	customClass,
+	btnRef
 }: btnType) {
 	const iconUrl = iconName && icons[`../assets/${iconName}`];
 
 	return (
 		<div style={{ display: "flex", flexDirection: "row" }}>
 			<button
+			ref={btnRef}
 				className={`${
 					type == "Primary" ? "btn-primary" : "btn-secondary"
 				} ${customClass && customClass}`}

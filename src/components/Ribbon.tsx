@@ -8,6 +8,7 @@ export default function Ribbon() {
 	const [showAttPicker, setShowAttPicker] = useState(false);
 	const date = new Date();
 	const attPickerRef = useRef<HTMLDivElement>(null);
+	const buttonRef = useRef<HTMLButtonElement>(null)
 
 	const getUsers = async () => {
 		const { data, error } = await supabase.from("user").select("*");
@@ -17,10 +18,8 @@ export default function Ribbon() {
 
 	useEffect(() => {
 		const handleRandomClick = (event: MouseEvent) => {
-			console.log(attPickerRef.current);
-			console.log(event.target);
-			if (attPickerRef.current == null) {
-				if (attPickerRef.current != event.target)
+
+			if (showAttPicker && !attPickerRef.current?.contains(event.target as Node) && buttonRef.current != event.target ) { //Vi tjekker at der trykkes udenfor pop-up OG knappen (check ind/ud)
 					setShowAttPicker(false);
 			}
 		};
@@ -45,6 +44,7 @@ export default function Ribbon() {
 					name="Check ind/ud"
 					type="Secondary"
 					iconName="trash2.svg"
+					btnRef={buttonRef}
 				/>
 				<Button
 					clickEvent={getUsers}
