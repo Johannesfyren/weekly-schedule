@@ -2,6 +2,8 @@ import type { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabaseClient";
 import Attendance from "./Attendance";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import Profile from "./Profile";
 
 export type userType = {
     id: number;
@@ -37,6 +39,7 @@ export default function AttendancePicker({ attPickerRef }: attPickerRefType) {
                         />
                     );
                 })}
+            {createPortal(<Profile />, document.body!)}
         </div>
     );
 }
