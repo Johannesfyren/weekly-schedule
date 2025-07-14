@@ -1,9 +1,6 @@
-import type { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabaseClient";
 import Attendance from "./Attendance";
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import Profile from "./Profile";
 
 export type userType = {
     id: number;
@@ -14,9 +11,14 @@ export type userType = {
 
 export type attPickerRefType = {
     attPickerRef: React.Ref<HTMLDivElement>;
+    setSelectedAtt?: (name: string) => void;
 };
-export default function AttendancePicker({ attPickerRef }: attPickerRefType) {
+export default function AttendancePicker({
+    attPickerRef,
+    setSelectedAtt,
+}: attPickerRefType) {
     const [userData, setUserData] = useState<userType[] | null>(null);
+
     useEffect(() => {
         async function fetchUsers() {
             const { data, error } = await supabase.from("user").select("*");
@@ -36,10 +38,10 @@ export default function AttendancePicker({ attPickerRef }: attPickerRefType) {
                             name={user.name}
                             key={user.id}
                             canOpenProfile={true}
+                            setSelectedAtt={setSelectedAtt}
                         />
                     );
                 })}
-            {createPortal(<Profile />, document.body!)}
         </div>
     );
 }
