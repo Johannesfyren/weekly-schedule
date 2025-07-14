@@ -1,11 +1,3 @@
-export default function Profile(){
-    const constraints = {
-  audio: false,
-  video: true,
-
-  return(
-    {navigator.mediaDevices(constraints)}
-  )
-};
-
+export default function Profile() {
+    return <div className="profile-container"></div>;
 }

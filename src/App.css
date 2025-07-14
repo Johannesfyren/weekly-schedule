@@ -79,7 +79,27 @@ root {
     height: 100%;
     border-radius: 50%;
 }
+.profile-container {
+}
+.att-picker-container {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    gap: 10px;
+    padding: 20px 10px 20px 10px;
+    display: flex;
+    background-color: rgb(243, 243, 243);
 
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0;
+    flex-direction: column;
+    min-width: 300px;
+    max-height: 600px;
+    overflow-y: scroll;
+    p {
+        color: black;
+    }
+}
 /*UTILITIES*/
 
 .btn-primary {
@@ -104,24 +124,5 @@ root {
     color: white;
     &:hover {
         cursor: pointer;
-    }
-}
-
-.att-picker-container {
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    padding: 20px 10px 20px 10px;
-    display: flex;
-    background-color: rgb(243, 243, 243);
-
-    border-radius: 10px;
-    box-shadow: 0 0 2px 0;
-    flex-direction: column;
-    min-width: 300px;
-    max-height: 600px;
-    overflow-y: scroll;
-    p {
-        color: black;
     }
 }
