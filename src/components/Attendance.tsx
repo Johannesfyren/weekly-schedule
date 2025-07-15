@@ -15,6 +15,7 @@ export default function Attendance({
     setSelectedAtt,
 }: attendType) {
     const [publicUrl, setPublicUrl] = useState("");
+
     useEffect(() => {
         if (imgUrl) {
             async function gogo() {
