@@ -34,7 +34,10 @@ export default function Board() {
             </div>
             {selectedAtt &&
                 createPortal(
-                    <Profile userName={selectedAtt} />,
+                    <Profile
+                        userName={selectedAtt}
+                        setSelectedAtt={setSelectedAtt}
+                    />,
                     document.body!
                 )}
         </>

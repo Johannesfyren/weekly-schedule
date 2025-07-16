@@ -19,13 +19,19 @@ export default function ProfileImage({ imgUrl, name, size }: profileImageType) {
     }, []);
 
     return (
-        <div className="avatar">
-            {!imgUrl
-                ? name.slice(0, 2).toUpperCase()
-                : publicUrl && (
-                      <img src={publicUrl} className="profile-pictures"></img>
-                  )}
-            {/* TODO: ADD POSSIBILITY TO ADD/EDIT IMAGE */}
-        </div>
+        <>
+            <div className="avatar">
+                {!imgUrl
+                    ? name.slice(0, 2).toUpperCase()
+                    : publicUrl && (
+                          <img
+                              src={publicUrl}
+                              className="profile-pictures"
+                          ></img>
+                      )}
+
+                {/* TODO: ADD POSSIBILITY TO ADD/EDIT IMAGE */}
+            </div>
+        </>
     );
 }

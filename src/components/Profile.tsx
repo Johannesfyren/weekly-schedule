@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import Attendance from "./Attendance";
 import ProfileImage from "./ProfileImage";
+import Button from "./Button";
 export type userType = {
     id: number;
     created_at: string;
     name: string;
     img_ref: string;
 };
-export default function Profile({ userName }) {
+export default function Profile({ userName, setSelectedAtt }) {
     const [userDetails, setUserDetails] = useState<userType>();
 
     useEffect(() => {
@@ -31,9 +32,12 @@ export default function Profile({ userName }) {
                         name={userDetails?.name}
                         imgUrl={"imageTest.png"}
                     />
-                    {userDetails && (
-                        <Attendance name={userDetails?.name}></Attendance>
-                    )}
+                    <h2>{userDetails?.name}</h2>
+                    <Button
+                        type="Secondary"
+                        clickEvent={() => setSelectedAtt("")}
+                        name="Luk"
+                    />
                 </div>
             </div>
         </div>
