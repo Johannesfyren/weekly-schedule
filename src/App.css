@@ -132,6 +132,36 @@ root {
     h2 {
         font-size: 1.5rem;
     }
+    & :nth-child(3) {
+        margin-left: auto;
+        margin-right: 10px;
+    }
+}
+
+.week-form {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    gap: 20px;
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-end;
+    }
+    fieldset {
+        background: none;
+        border: none;
+        display: flex;
+        gap: 80px;
+        margin-right: 30px;
+    }
+    .form-headers {
+        align-self: flex-end;
+        gap: 33px;
+        margin-right: 10px;
+    }
 }
 
 /*UTILITIES*/

@@ -3,6 +3,7 @@ import { supabase } from "../utils/supabaseClient";
 import Attendance from "./Attendance";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
+import WeekPlanForm from "./WeekPlanForm";
 export type userType = {
     id: number;
     created_at: string;
@@ -39,6 +40,7 @@ export default function Profile({ userName, setSelectedAtt }) {
                         name="Luk"
                     />
                 </div>
+                <WeekPlanForm />
             </div>
         </div>
     );
