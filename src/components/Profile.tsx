@@ -4,6 +4,8 @@ import Attendance from "./Attendance";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
 import WeekPlanForm from "./WeekPlanForm";
+import { weekNumber } from "weeknumber";
+import WeekPicker from "./WeekPicker";
 export type userType = {
     id: number;
     created_at: string;
@@ -12,6 +14,7 @@ export type userType = {
 };
 export default function Profile({ userName, setSelectedAtt }) {
     const [userDetails, setUserDetails] = useState<userType>();
+    const weeknumber = weekNumber;
 
     useEffect(() => {
         async function fetchUsers(): Promise<userType | undefined> {
@@ -40,6 +43,7 @@ export default function Profile({ userName, setSelectedAtt }) {
                         name="Luk"
                     />
                 </div>
+                <WeekPicker />
                 <WeekPlanForm />
             </div>
         </div>
