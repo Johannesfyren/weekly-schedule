@@ -1,4 +1,34 @@
-export default function WeekPlanForm() {
+import { supabase } from "../utils/supabaseClient";
+export type formType = {
+    fk_user: number;
+    mon: number;
+    tue: number;
+    wed: number;
+    thu: number;
+    fri: number;
+    week: number;
+    year: number;
+};
+export type formTypeInherited = {
+    setFormData: (data: formType) => void;
+    formData: formType;
+};
+export default function WeekPlanForm({
+    setFormData,
+    formData,
+}: formTypeInherited) {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
+    };
+    const handleSubmit = async () => {
+        const { error } = await supabase.from("attendances").upsert(formData);
+        if (error) {
+            console.log(error);
+        } else {
+            setFormData(undefined);
+        }
+    };
+
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
             <div
@@ -26,63 +56,130 @@ export default function WeekPlanForm() {
                         <label>Ved ikke</label>
                     </fieldset>
                     <fieldset name="fs_mandag">
-                        {/* <label htmlFor="mandag">mandag</label> */}
-                        <input type="radio" value={1} name="mandag" />
-                        <input type="radio" value={2} name="mandag" />
+                        <input
+                            type="radio"
+                            value={1}
+                            checked={formData?.mon === 1}
+                            onChange={handleChange}
+                            name="mon"
+                        />
+                        <input
+                            type="radio"
+                            value={2}
+                            checked={formData?.mon === 2}
+                            onChange={handleChange}
+                            name="mon"
+                        />
                         <input
                             type="radio"
                             value={3}
-                            defaultChecked
-                            name="mandag"
+                            checked={formData?.mon === 3}
+                            onChange={handleChange}
+                            name="mon"
                         />
                     </fieldset>
 
                     <fieldset name="fs_tirsdag">
-                        {/* <label htmlFor="tirsdag">tirsdag</label> */}
-                        <input type="radio" value={1} name="tirsdag" />
-                        <input type="radio" value={2} name="tirsdag" />
+                        <input
+                            type="radio"
+                            value={1}
+                            checked={formData?.tue === 1}
+                            onChange={handleChange}
+                            name="tue"
+                        />
+                        <input
+                            type="radio"
+                            value={2}
+                            checked={formData?.tue === 2}
+                            onChange={handleChange}
+                            name="tue"
+                        />
                         <input
                             type="radio"
                             value={3}
-                            defaultChecked
-                            name="tirsdag"
+                            checked={formData?.tue === 3}
+                            onChange={handleChange}
+                            name="tue"
                         />
                     </fieldset>
                     <fieldset>
-                        {/* <label htmlFor="onsdag">onsdag</label> */}
-                        <input type="radio" value={1} name="onsdag" />
-                        <input type="radio" value={2} name="onsdag" />
+                        <input
+                            type="radio"
+                            value={1}
+                            checked={formData?.wed === 1}
+                            onChange={handleChange}
+                            name="wed"
+                        />
+                        <input
+                            type="radio"
+                            value={2}
+                            checked={formData?.wed === 2}
+                            onChange={handleChange}
+                            name="wed"
+                        />
                         <input
                             type="radio"
                             value={3}
-                            defaultChecked
-                            name="onsdag"
+                            checked={formData?.wed === 3}
+                            onChange={handleChange}
+                            name="wed"
                         />
                     </fieldset>
                     <fieldset>
-                        {/* <label htmlFor="torsdag">torsdag</label> */}
-                        <input type="radio" value={1} name="torsdag" />
-                        <input type="radio" value={2} name="torsdag" />
+                        <input
+                            type="radio"
+                            value={1}
+                            checked={formData?.thu === 1}
+                            onChange={handleChange}
+                            name="thu"
+                        />
+                        <input
+                            type="radio"
+                            value={2}
+                            checked={formData?.thu === 2}
+                            onChange={handleChange}
+                            name="thu"
+                        />
                         <input
                             type="radio"
                             value={3}
-                            defaultChecked
-                            name="torsdag"
+                            checked={formData?.thu === 3}
+                            onChange={handleChange}
+                            name="thu"
                         />
                     </fieldset>
                     <fieldset>
-                        {/* <label htmlFor="fredag">fredag</label> */}
-                        <input type="radio" value={1} name="fredag" />
-                        <input type="radio" value={2} name="fredag" />
+                        <input
+                            type="radio"
+                            value={1}
+                            checked={formData?.fri === 1}
+                            onChange={handleChange}
+                            name="fri"
+                        />
+                        <input
+                            type="radio"
+                            value={2}
+                            checked={formData?.fri === 2}
+                            onChange={handleChange}
+                            name="fri"
+                        />
                         <input
                             type="radio"
                             value={3}
-                            defaultChecked
-                            name="fredag"
+                            checked={formData?.fri === 3}
+                            onChange={handleChange}
+                            name="fri"
                         />
                     </fieldset>
                 </div>
-                <button type="submit" onClick={(e) => e.preventDefault()}>
+                <button
+                    type="submit"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit();
+                        console.log("submitted :", formData);
+                    }}
+                >
                     gogo
                 </button>
             </form>
