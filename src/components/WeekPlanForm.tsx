@@ -1,4 +1,3 @@
-import { supabase } from "../utils/supabaseClient";
 export type formType = {
     fk_user: number;
     mon: number;
@@ -11,7 +10,7 @@ export type formType = {
 };
 export type formTypeInherited = {
     setFormData: (data: formType) => void;
-    formData: formType;
+    formData: formType | undefined;
 };
 export default function WeekPlanForm({
     setFormData,
@@ -19,14 +18,6 @@ export default function WeekPlanForm({
 }: formTypeInherited) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
-    };
-    const handleSubmit = async () => {
-        const { error } = await supabase.from("attendances").upsert(formData);
-        if (error) {
-            console.log(error);
-        } else {
-            setFormData(undefined);
-        }
     };
 
     return (
@@ -172,16 +163,6 @@ export default function WeekPlanForm({
                         />
                     </fieldset>
                 </div>
-                <button
-                    type="submit"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        handleSubmit();
-                        console.log("submitted :", formData);
-                    }}
-                >
-                    gogo
-                </button>
             </form>
         </div>
     );

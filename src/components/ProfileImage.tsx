@@ -6,7 +6,7 @@ export type profileImageType = {
     size?: number;
     name: string;
 };
-export default function ProfileImage({ imgUrl, name, size }: profileImageType) {
+export default function ProfileImage({ imgUrl, name }: profileImageType) {
     const [publicUrl, setPublicUrl] = useState("");
 
     useEffect(() => {
@@ -20,9 +20,9 @@ export default function ProfileImage({ imgUrl, name, size }: profileImageType) {
 
     return (
         <>
-            <div className="avatar">
-                {!imgUrl
-                    ? name.slice(0, 2).toUpperCase()
+            <div className="avatar-big">
+                {!publicUrl
+                    ? name && name.slice(0, 2).toUpperCase()
                     : publicUrl && (
                           <img
                               src={publicUrl}

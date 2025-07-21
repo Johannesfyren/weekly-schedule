@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
-import Attendance from "./Attendance";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
 import WeekPlanForm from "./WeekPlanForm";
@@ -47,12 +46,6 @@ export default function Profile({ userName, setSelectedAtt }) {
     }, []);
 
     useEffect(() => {
-        console.log(
-            "id: ",
-            userDetails?.id,
-            "chosenWeekNumber",
-            chosenWeekNumber
-        );
         async function fetchWeekPlan(): Promise<formType | undefined> {
             if (userDetails) {
                 const { data, error } = await supabase
@@ -64,7 +57,6 @@ export default function Profile({ userName, setSelectedAtt }) {
 
                 if (data.length > 0) {
                     setFormData(data && data[0]);
-                    console.log("there was data, setting data: ", data);
                 } else {
                     console.log("no data...");
                     setFormData({
@@ -84,13 +76,21 @@ export default function Profile({ userName, setSelectedAtt }) {
         fetchWeekPlan();
     }, [chosenWeekNumber, userDetails]);
 
+    const handleSubmit = async () => {
+        const { error } = await supabase.from("attendances").upsert(formData);
+        if (error) {
+            console.log(error);
+        } else {
+        }
+    };
+
     return (
         <div className="profile-container-bg">
             <div className="profile-container">
                 <div className="profile-details">
                     <ProfileImage
                         name={userDetails?.name}
-                        imgUrl={"imageTest.png"}
+                        imgUrl={userDetails?.img_ref}
                     />
                     <h2>{userDetails?.name}</h2>
                     <Button
@@ -99,8 +99,29 @@ export default function Profile({ userName, setSelectedAtt }) {
                         name="Luk"
                     />
                 </div>
-                <WeekPicker setFormData={setFormData} formData={formData} />
-                <WeekPlanForm setFormData={setFormData} formData={formData} />
+
+                <div className="submit-details">
+                    <WeekPicker
+                        setFormData={setFormData}
+                        formData={formData}
+                        setChosenWeekNumber={setChosenWeekNumber}
+                        chosenWeekNumber={chosenWeekNumber}
+                    />
+                    <WeekPlanForm
+                        setFormData={setFormData}
+                        formData={formData}
+                    />
+
+                    <Button
+                        type="Primary"
+                        name="Tilføj"
+                        clickEvent={(e) => {
+                            e.preventDefault();
+                            handleSubmit();
+                            console.log("submitted :", formData);
+                        }}
+                    ></Button>
+                </div>
             </div>
         </div>
     );

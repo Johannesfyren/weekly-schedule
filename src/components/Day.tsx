@@ -1,28 +1,47 @@
 import Attendance from "./Attendance";
+import { weekNumber } from "weeknumber";
+import { useEffect, useState } from "react";
+import { supabase } from "../utils/supabaseClient";
 type dayType = {
-	dayName: string;
-	currentDay: boolean;
+    dayName: string;
+    currentDay: boolean;
+    dayDBName: string;
 };
 
-export default function Day({ dayName, currentDay }: dayType) {
-	const attendances = [
-		{ ID: 1, name: "Johannes Hergaard" },
-		{ ID: 2, name: "Viktoria Pajuste" },
-	];
-	return (
-		<div
-			className={
-				currentDay ? "day-container current-day" : "day-container"
-			}
-		>
-			<h2>{dayName}</h2>
+export default function Day({ dayName, currentDay, dayDBName }: dayType) {
+    const [attendees, setAttendees] = useState();
+    const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
+    const date = new Date();
+    useEffect(() => {
+        async function fetchAttendances(): Promise<userType | undefined> {
+            const { data, error } = await supabase
+                .from("attendances")
+                .select(`"mon","tue","wed","thu","fri",user("id", "name")`)
+                .eq(dayDBName, 1)
+                .eq("week", selectedWeek)
+                .eq("year", date.getFullYear());
 
-			{console.log(attendances.length)}
-			<div className="attendances-container">
-				{attendances.map((att, index) => (
-					<Attendance name={att.name} key={index} />
-				))}
-			</div>
-		</div>
-	);
+            if (error) return undefined;
+            setAttendees(data && data);
+        }
+
+        fetchAttendances();
+    }, []);
+
+    return (
+        <div
+            className={
+                currentDay ? "day-container current-day" : "day-container"
+            }
+        >
+            <h2>{dayName}</h2>
+
+            <div className="attendances-container">
+                {attendees &&
+                    attendees.map((att, index) => (
+                        <Attendance name={att.user.name} key={index} />
+                    ))}
+            </div>
+        </div>
+    );
 }
