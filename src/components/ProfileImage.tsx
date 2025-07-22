@@ -10,13 +10,14 @@ export default function ProfileImage({ imgUrl, name }: profileImageType) {
     const [publicUrl, setPublicUrl] = useState("");
 
     useEffect(() => {
+        console.log("test", imgUrl);
         if (imgUrl) {
             async function getImg() {
                 setPublicUrl(await fetchImage(imgUrl!));
             }
             getImg();
         }
-    }, []);
+    }, [imgUrl]);
 
     return (
         <>
@@ -29,7 +30,7 @@ export default function ProfileImage({ imgUrl, name }: profileImageType) {
                               className="profile-pictures"
                           ></img>
                       )}
-
+                <button className="btn-edit-pp">✍️</button>
                 {/* TODO: ADD POSSIBILITY TO ADD/EDIT IMAGE */}
             </div>
         </>

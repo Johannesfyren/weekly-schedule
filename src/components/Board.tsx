@@ -19,7 +19,7 @@ export default function Board() {
                 ></Day>
                 <Day
                     dayName={"Tirsdag"}
-                    dayDBName={"fri"}
+                    dayDBName={"tue"}
                     currentDay={date == 2 ? true : false}
                 ></Day>
                 <Day

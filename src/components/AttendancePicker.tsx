@@ -39,6 +39,7 @@ export default function AttendancePicker({
                             key={user.id}
                             canOpenProfile={true}
                             setSelectedAtt={setSelectedAtt}
+                            imgUrl={user.img_ref}
                         />
                     );
                 })}

@@ -93,11 +93,11 @@ export default function Profile({ userName, setSelectedAtt }) {
                         imgUrl={userDetails?.img_ref}
                     />
                     <h2>{userDetails?.name}</h2>
-                    <Button
+                    {/* <Button
                         type="Secondary"
                         clickEvent={() => setSelectedAtt("")}
                         name="Luk"
-                    />
+                    /> */}
                 </div>
 
                 <div className="submit-details">
@@ -111,16 +111,28 @@ export default function Profile({ userName, setSelectedAtt }) {
                         setFormData={setFormData}
                         formData={formData}
                     />
-
-                    <Button
-                        type="Primary"
-                        name="Tilføj"
-                        clickEvent={(e) => {
-                            e.preventDefault();
-                            handleSubmit();
-                            console.log("submitted :", formData);
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "10px",
                         }}
-                    ></Button>
+                    >
+                        <Button
+                            type="Secondary"
+                            clickEvent={() => setSelectedAtt("")}
+                            name="Annullér"
+                        />
+                        <Button
+                            type="Primary"
+                            name="Gem og luk"
+                            clickEvent={(e) => {
+                                e.preventDefault();
+                                handleSubmit();
+                                setSelectedAtt("");
+                            }}
+                        ></Button>
+                    </div>
                 </div>
             </div>
         </div>

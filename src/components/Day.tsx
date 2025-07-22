@@ -16,7 +16,9 @@ export default function Day({ dayName, currentDay, dayDBName }: dayType) {
         async function fetchAttendances(): Promise<userType | undefined> {
             const { data, error } = await supabase
                 .from("attendances")
-                .select(`"mon","tue","wed","thu","fri",user("id", "name")`)
+                .select(
+                    `"mon","tue","wed","thu","fri",user("id", "name", "img_ref")`
+                )
                 .eq(dayDBName, 1)
                 .eq("week", selectedWeek)
                 .eq("year", date.getFullYear());
@@ -34,12 +36,17 @@ export default function Day({ dayName, currentDay, dayDBName }: dayType) {
                 currentDay ? "day-container current-day" : "day-container"
             }
         >
+            {console.log(attendees)}
             <h2>{dayName}</h2>
 
             <div className="attendances-container">
                 {attendees &&
                     attendees.map((att, index) => (
-                        <Attendance name={att.user.name} key={index} />
+                        <Attendance
+                            name={att.user.name}
+                            key={index}
+                            imgUrl={att.user.img_ref}
+                        />
                     ))}
             </div>
         </div>

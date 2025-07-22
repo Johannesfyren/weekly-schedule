@@ -32,7 +32,7 @@ export default function WeekPicker({
                     fontSize: "1.2rem",
                 }}
             >
-                Ugenummer{": "}
+                <p style={{ color: "white" }}>Ugenummer{": "}</p>
             </label>
             <input
                 type="number"
