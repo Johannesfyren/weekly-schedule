@@ -91,6 +91,7 @@ export default function Profile({ userName, setSelectedAtt }) {
                     <ProfileImage
                         name={userDetails?.name}
                         imgUrl={userDetails?.img_ref}
+                        id={userDetails?.id}
                     />
                     <h2>{userDetails?.name}</h2>
                     {/* <Button

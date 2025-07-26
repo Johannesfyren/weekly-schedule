@@ -74,7 +74,8 @@ root {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 40px;
+    width: 40px;
     aspect-ratio: 1/1;
     border-radius: 50%;
     background-color: grey;
@@ -83,6 +84,7 @@ root {
     border: 1px solid white;
 }
 .avatar-big {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,8 +96,18 @@ root {
     font-weight: 700;
     border: 1px solid white;
 }
+.btn-edit-pp {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: none;
+    bottom: 2px;
+    right: 2px;
+    border-radius: 100%;
+}
 
 .profile-pictures {
+    width: 100%;
     height: 100%;
     border-radius: 50%;
 }
@@ -200,6 +212,57 @@ root {
         align-self: flex-end;
     }
 }
+
+.media-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: auto;
+    background-color: white;
+    font-size: 1rem;
+    input[type="file"] {
+        display: none;
+    }
+
+    .img-upload-label {
+        color: black;
+    }
+    div {
+        color: black;
+    }
+}
+.video-frame {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+
+    z-index: 1;
+    background-color: rgb(189, 189, 189);
+    align-items: center;
+    width: 100%;
+    height: auto;
+
+    canvas {
+        display: none;
+    }
+}
+.output {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    gap: 20px;
+
+    img {
+        width: 200px;
+    }
+}
+
+/* GENERAL EDITS */
 input[type="radio"] {
     transform: scale(1.5);
 }
@@ -229,4 +292,15 @@ input[type="radio"] {
     &:hover {
         cursor: pointer;
     }
+}
+.btn-camera {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: blue;
+    border: 4px solid white;
+    align-self: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
 }
