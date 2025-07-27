@@ -18,7 +18,6 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const imgRef = useRef(null);
-    let vidAct = false;
     let file: React.HTMLInputTypeAttribute;
 
     useEffect(() => {
@@ -35,7 +34,10 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
         const video = videoRef.current;
         if (video) {
             navigator.mediaDevices
-                .getUserMedia({ video: true, audio: false })
+                .getUserMedia({
+                    video: { width: 500, height: 500 },
+                    audio: false,
+                })
                 .then((stream) => {
                     video.srcObject = stream;
                     video.play();
@@ -47,23 +49,26 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     }, [videoStreamActivated]);
 
     const handleImgUpload = async (file: React.HTMLInputTypeAttribute) => {
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
             .from("profile-pictures")
-            .upload(`PF/${name.replace(/\s/g, "")}image.png`, file, {
+            .upload(`PF/${name.replace(/[\sæøå]/gi, "")}image.png`, file, {
                 cacheControl: "0",
                 upsert: true,
             });
         if (error) {
             console.error("Upload error:", error.message);
         } else {
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from("user")
                 .update({
-                    img_ref: `${name.replace(/\s/g, "")}image.png`,
+                    img_ref: `${name.replace(/[\sæøå]/gi, "")}image.png`,
                 })
                 .eq("id", id);
-            console.log("Upload success:", data);
-            if (error) console.log(error);
+
+            if (error) {
+                console.log(error);
+                alert("Der skete en fejl ved upload af billede");
+            }
         }
     };
 
@@ -103,27 +108,26 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                 {showMediaMenu && (
                     <div className="media-menu">
                         <div>
-                            <label
-                                htmlFor="img-upload"
-                                className="img-upload-label"
-                            >
-                                Vælg billede
-                                <input
-                                    type="file"
-                                    onChange={(event) => {
-                                        console.log("event detected");
-                                        file = event.target.files[0];
-                                        if (file) {
-                                            handleImgUpload(file);
-                                        }
-                                    }}
-                                    ref={inputRef}
-                                    name="img-upload"
-                                ></input>
-                            </label>
+                            <input
+                                type="file"
+                                onChange={(event) => {
+                                    console.log("event detected");
+                                    file = event.target.files[0];
+                                    if (file) {
+                                        handleImgUpload(file);
+                                    }
+                                }}
+                                ref={inputRef}
+                                name="img-upload"
+                                onClick={() => console.log("yo")}
+                            />
                         </div>
 
-                        <div onClick={() => setVideoStreamActivated(true)}>
+                        <div
+                            onClick={() => {
+                                setVideoStreamActivated(true);
+                            }}
+                        >
                             Tag billede
                         </div>
                         {videoStreamActivated && (
@@ -171,6 +175,18 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                         ></Button>
                                     )}
                                 </div>
+                                <Button
+                                    type="Secondary"
+                                    clickEvent={() => {
+                                        setVideoStreamActivated(false);
+                                        setCapturedImage(null);
+                                        videoRef.current.srcObject
+                                            .getTracks()[0]
+                                            .stop();
+                                        setShowMediaMenu(false);
+                                    }}
+                                    name="Annullér"
+                                ></Button>
                             </div>
                         )}
                     </div>

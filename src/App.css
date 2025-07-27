@@ -217,12 +217,21 @@ root {
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 200px;
+
+    gap: 10px;
+    padding: 10px;
     height: auto;
-    background-color: white;
+    top: 60px;
+    left: 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 black;
+    background-color: rgb(227, 227, 227);
     font-size: 1rem;
-    input[type="file"] {
-        display: none;
+    input::file-selector-button {
+        border: none;
+        background-color: inherit;
+        font-weight: 700;
+        cursor: pointer;
     }
 
     .img-upload-label {
@@ -259,6 +268,9 @@ root {
 
     img {
         width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: fill;
     }
 }
 
