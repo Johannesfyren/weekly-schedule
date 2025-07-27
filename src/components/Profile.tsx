@@ -24,7 +24,11 @@ export type formType = {
     year: number;
 };
 
-export default function Profile({ userName, setSelectedAtt }) {
+export default function Profile({
+    userName,
+    setSelectedAtt,
+    setRefetchAttendees,
+}) {
     const date = new Date();
     const [userDetails, setUserDetails] = useState<userType>();
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
@@ -94,11 +98,6 @@ export default function Profile({ userName, setSelectedAtt }) {
                         id={userDetails?.id}
                     />
                     <h2>{userDetails?.name}</h2>
-                    {/* <Button
-                        type="Secondary"
-                        clickEvent={() => setSelectedAtt("")}
-                        name="Luk"
-                    /> */}
                 </div>
 
                 <div className="submit-details">
@@ -130,6 +129,7 @@ export default function Profile({ userName, setSelectedAtt }) {
                             clickEvent={(e) => {
                                 e.preventDefault();
                                 handleSubmit();
+                                setRefetchAttendees(true);
                                 setSelectedAtt("");
                             }}
                         ></Button>
