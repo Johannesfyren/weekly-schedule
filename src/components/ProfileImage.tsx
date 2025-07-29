@@ -111,10 +111,10 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                             <input
                                 type="file"
                                 onChange={(event) => {
-                                    console.log("event detected");
                                     file = event.target.files[0];
                                     if (file) {
                                         handleImgUpload(file);
+                                        setShowMediaMenu(false);
                                     }
                                 }}
                                 ref={inputRef}
@@ -127,6 +127,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                             onClick={() => {
                                 setVideoStreamActivated(true);
                             }}
+                            style={{ cursor: "pointer" }}
                         >
                             Tag billede
                         </div>
@@ -171,6 +172,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                                 videoRef.current.srcObject
                                                     .getTracks()[0]
                                                     .stop();
+                                                setShowMediaMenu(false);
                                             }}
                                         ></Button>
                                     )}
