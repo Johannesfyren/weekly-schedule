@@ -285,7 +285,8 @@ root {
 
 /* GENERAL EDITS */
 input[type="radio"] {
-    transform: scale(1.5);
+    transform: scale(1.4);
+    accent-color: rgb(10, 1, 87);
 }
 /*UTILITIES*/
 
