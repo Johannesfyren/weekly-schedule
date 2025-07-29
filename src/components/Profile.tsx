@@ -62,7 +62,6 @@ export default function Profile({
                 if (data.length > 0) {
                     setFormData(data && data[0]);
                 } else {
-                    console.log("no data...");
                     setFormData({
                         fk_user: userDetails.id,
                         mon: 3,
