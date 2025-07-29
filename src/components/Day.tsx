@@ -2,7 +2,7 @@ import Attendance from "./Attendance";
 import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
-
+import { motion, stagger } from "motion/react";
 type dayType = {
     dayName: string;
     currentDay: boolean;
@@ -30,18 +30,20 @@ export default function Day({
             )
             .eq(dayDBName, 1)
             .eq("week", selectedWeek)
-            .eq("year", date.getFullYear());
+            .eq("year", date.getFullYear())
+            .order(`user("name")`, { ascending: true });
 
         if (error) return undefined;
+
         setAttendees(data && data);
-        console.log("fetching");
     }
+
     useEffect(() => {
         fetchAttendances();
         const timeOut = setInterval(() => {
             console.log("fetching");
             fetchAttendances();
-        }, 36000);
+        }, 5000); //900000
         setRefetchAttendees(false);
 
         return () => clearInterval(timeOut);
@@ -54,8 +56,8 @@ export default function Day({
             }
         >
             <h2>{dayName}</h2>
-
-            <div className="attendances-container">
+            <button onClick={fetchAttendances}>testfetch</button>
+            <motion.div className="attendances-container">
                 {attendees &&
                     attendees.map((att, index) => (
                         <Attendance
@@ -64,7 +66,7 @@ export default function Day({
                             imgUrl={att.user.img_ref}
                         />
                     ))}
-            </div>
+            </motion.div>
         </div>
     );
 }

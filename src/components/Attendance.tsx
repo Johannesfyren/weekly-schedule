@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { motion } from "motion/react";
 import fetchImage from "../utils/fetchImage";
 type attendType = {
     name: string;
@@ -17,13 +17,14 @@ export default function Attendance({
     const [publicUrl, setPublicUrl] = useState("");
 
     useEffect(() => {
+        console.log("get new img");
         if (imgUrl) {
             async function gogo() {
                 setPublicUrl(await fetchImage(imgUrl));
             }
             gogo();
         }
-    }, []);
+    }, [imgUrl]);
 
     return (
         <div
@@ -32,6 +33,7 @@ export default function Attendance({
                 canOpenProfile && setSelectedAtt && setSelectedAtt(name)
             }
         >
+            {console.log("rerender attn profile")}
             <div className="avatar">
                 {!imgUrl
                     ? name.slice(0, 2).toUpperCase()
