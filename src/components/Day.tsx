@@ -43,7 +43,7 @@ export default function Day({
         const timeOut = setInterval(() => {
             console.log("fetching");
             fetchAttendances();
-        }, 5000); //900000
+        }, 900000); //15 min
         setRefetchAttendees(false);
 
         return () => clearInterval(timeOut);

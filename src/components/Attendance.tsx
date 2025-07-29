@@ -11,7 +11,7 @@ type attendType = {
 
 export default function Attendance({
     name,
-    imgUrl = "",
+    imgUrl = undefined,
     canOpenProfile = false,
     setSelectedAtt,
     refetchAttendees,

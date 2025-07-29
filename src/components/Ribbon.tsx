@@ -3,6 +3,8 @@ import { weekNumber } from "weeknumber";
 import Button from "./Button";
 import { useEffect, useState, useRef } from "react";
 import AttendancePicker from "./AttendancePicker";
+import { createPortal } from "react-dom";
+import MenuPlan from "./MenuPlan";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
@@ -10,6 +12,7 @@ export type ribbonType = {
 
 export default function Ribbon({ setSelectedAtt }: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const date = new Date();
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -55,7 +58,7 @@ export default function Ribbon({ setSelectedAtt }: ribbonType) {
                     btnRef={buttonRef}
                 />
                 <Button
-                    clickEvent={getUsers}
+                    clickEvent={() => setMenuOpen(true)}
                     name="Opret madplan"
                     type="Secondary"
                     iconName="trash2.svg"
@@ -68,6 +71,12 @@ export default function Ribbon({ setSelectedAtt }: ribbonType) {
                     setSelectedAtt={setSelectedAtt}
                 />
             )}
+
+            {menuOpen &&
+                createPortal(
+                    <MenuPlan menuOpen={menuOpen} setMenuOpen={setMenuOpen} />,
+                    document.body!
+                )}
         </div>
     );
 }

@@ -283,11 +283,40 @@ root {
     }
 }
 
+.menu-plan-container-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.23);
+}
+.menu-plan-container {
+    background: linear-gradient(
+        137deg,
+        rgba(0, 114, 201, 1) 0%,
+        rgba(50, 76, 156, 1) 51%
+    );
+    width: 80%;
+    height: 60%;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 0 0 10px 0;
+    overflow-y: scroll;
+    input {
+        color: black;
+    }
+}
+
 /* GENERAL EDITS */
 input[type="radio"] {
     transform: scale(1.4);
     accent-color: rgb(10, 1, 87);
 }
+
 /*UTILITIES*/
 
 .btn-primary {
