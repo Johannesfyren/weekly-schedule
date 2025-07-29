@@ -69,6 +69,7 @@ root {
     height: 40px;
     gap: 10px;
     align-items: center;
+    cursor: pointer;
 }
 .avatar {
     display: flex;
@@ -152,6 +153,10 @@ root {
     overflow-y: scroll;
     p {
         color: black;
+    }
+    & :hover {
+        background-color: rgb(159, 210, 255);
+        border-radius: 10px;
     }
 }
 

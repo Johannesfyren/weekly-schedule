@@ -6,6 +6,7 @@ type attendType = {
     imgUrl?: string;
     canOpenProfile?: boolean;
     setSelectedAtt?: (name: string) => void;
+    refetchAttendees: boolean;
 };
 
 export default function Attendance({
@@ -13,18 +14,20 @@ export default function Attendance({
     imgUrl = "",
     canOpenProfile = false,
     setSelectedAtt,
+    refetchAttendees,
 }: attendType) {
     const [publicUrl, setPublicUrl] = useState("");
 
     useEffect(() => {
         console.log("get new img");
         if (imgUrl) {
-            async function gogo() {
-                setPublicUrl(await fetchImage(imgUrl));
+            async function fetchImageFromUrl() {
+                const url = await fetchImage(imgUrl);
+                setPublicUrl(url + "?t=" + Date.now()); //making this
             }
-            gogo();
+            fetchImageFromUrl();
         }
-    }, [imgUrl]);
+    }, [refetchAttendees, imgUrl]);
 
     return (
         <div
@@ -33,7 +36,6 @@ export default function Attendance({
                 canOpenProfile && setSelectedAtt && setSelectedAtt(name)
             }
         >
-            {console.log("rerender attn profile")}
             <div className="avatar">
                 {!imgUrl
                     ? name.slice(0, 2).toUpperCase()

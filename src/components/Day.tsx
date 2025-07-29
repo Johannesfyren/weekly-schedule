@@ -56,7 +56,7 @@ export default function Day({
             }
         >
             <h2>{dayName}</h2>
-            <button onClick={fetchAttendances}>testfetch</button>
+
             <motion.div className="attendances-container">
                 {attendees &&
                     attendees.map((att, index) => (
@@ -64,6 +64,7 @@ export default function Day({
                             name={att.user.name}
                             key={index}
                             imgUrl={att.user.img_ref}
+                            refetchAttendees={refetchAttendees}
                         />
                     ))}
             </motion.div>
