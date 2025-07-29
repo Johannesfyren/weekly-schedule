@@ -21,7 +21,10 @@ export default function AttendancePicker({
 
     useEffect(() => {
         async function fetchUsers() {
-            const { data, error } = await supabase.from("user").select("*");
+            const { data, error } = await supabase
+                .from("user")
+                .select("*")
+                .order("id", { ascending: true });
             if (error) console.log("error: ", error);
             setUserData(data);
         }

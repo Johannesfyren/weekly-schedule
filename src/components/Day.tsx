@@ -9,6 +9,8 @@ type dayType = {
     dayDBName: string;
     refetchAttendees: boolean;
     setRefetchAttendees: React.Dispatch<React.SetStateAction<boolean>>;
+    chosenWeekNumber: number;
+    setChosenWeekNumber: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Day({
@@ -17,6 +19,8 @@ export default function Day({
     dayDBName,
     refetchAttendees,
     setRefetchAttendees,
+    chosenWeekNumber,
+    setChosenWeekNumber,
 }: dayType) {
     const [attendees, setAttendees] = useState();
     const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
@@ -29,7 +33,7 @@ export default function Day({
                 `"mon","tue","wed","thu","fri",user("id", "name", "img_ref")`
             )
             .eq(dayDBName, 1)
-            .eq("week", selectedWeek)
+            .eq("week", chosenWeekNumber)
             .eq("year", date.getFullYear())
             .order(`user("name")`, { ascending: true });
 
@@ -47,7 +51,7 @@ export default function Day({
         setRefetchAttendees(false);
 
         return () => clearInterval(timeOut);
-    }, [refetchAttendees]);
+    }, [refetchAttendees, chosenWeekNumber]);
 
     return (
         <div

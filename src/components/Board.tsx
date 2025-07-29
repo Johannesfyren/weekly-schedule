@@ -3,15 +3,23 @@ import Ribbon from "./Ribbon";
 import { createPortal } from "react-dom";
 import Profile from "./Profile";
 import { useState } from "react";
+import { weekNumber } from "weeknumber";
 
 export default function Board() {
     const date = new Date().getDay();
     const [selectedAtt, setSelectedAtt] = useState<string>("");
     const [refetchAttendees, setRefetchAttendees] = useState<boolean>(false);
+    const [chosenWeekNumber, setChosenWeekNumber] = useState(
+        weekNumber(new Date())
+    );
 
     return (
         <>
-            <Ribbon setSelectedAtt={setSelectedAtt} />
+            <Ribbon
+                setSelectedAtt={setSelectedAtt}
+                setChosenWeekNumber={setChosenWeekNumber}
+                chosenWeekNumber={chosenWeekNumber}
+            />
 
             <div className="board">
                 <Day
@@ -20,6 +28,8 @@ export default function Board() {
                     currentDay={date == 1 ? true : false}
                     refetchAttendees={refetchAttendees}
                     setRefetchAttendees={setRefetchAttendees}
+                    chosenWeekNumber={chosenWeekNumber}
+                    setChosenWeekNumber={setChosenWeekNumber}
                 ></Day>
                 <Day
                     dayName={"Tirsdag"}
@@ -27,6 +37,8 @@ export default function Board() {
                     currentDay={date == 2 ? true : false}
                     refetchAttendees={refetchAttendees}
                     setRefetchAttendees={setRefetchAttendees}
+                    chosenWeekNumber={chosenWeekNumber}
+                    setChosenWeekNumber={setChosenWeekNumber}
                 ></Day>
                 <Day
                     dayName={"Onsdag"}
@@ -34,6 +46,8 @@ export default function Board() {
                     currentDay={date == 3 ? true : false}
                     refetchAttendees={refetchAttendees}
                     setRefetchAttendees={setRefetchAttendees}
+                    chosenWeekNumber={chosenWeekNumber}
+                    setChosenWeekNumber={setChosenWeekNumber}
                 ></Day>
                 <Day
                     dayName={"Torsdag"}
@@ -41,6 +55,8 @@ export default function Board() {
                     currentDay={date == 4 ? true : false}
                     refetchAttendees={refetchAttendees}
                     setRefetchAttendees={setRefetchAttendees}
+                    chosenWeekNumber={chosenWeekNumber}
+                    setChosenWeekNumber={setChosenWeekNumber}
                 ></Day>
                 <Day
                     dayName={"Fredag"}
@@ -48,6 +64,8 @@ export default function Board() {
                     currentDay={date == 5 ? true : false}
                     refetchAttendees={refetchAttendees}
                     setRefetchAttendees={setRefetchAttendees}
+                    chosenWeekNumber={chosenWeekNumber}
+                    setChosenWeekNumber={setChosenWeekNumber}
                 ></Day>
             </div>
             {selectedAtt &&

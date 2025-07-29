@@ -1,27 +1,26 @@
-import { supabase } from "../utils/supabaseClient";
-import { weekNumber } from "weeknumber";
 import Button from "./Button";
 import { useEffect, useState, useRef } from "react";
 import AttendancePicker from "./AttendancePicker";
 import { createPortal } from "react-dom";
 import MenuPlan from "./MenuPlan";
+import UniversalWeekPicker from "./UniversalWeekPicker";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
+    chosenWeekNumber: number;
+    setChosenWeekNumber: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function Ribbon({ setSelectedAtt }: ribbonType) {
+export default function Ribbon({
+    setSelectedAtt,
+    chosenWeekNumber,
+    setChosenWeekNumber,
+}: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-    const date = new Date();
+
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-
-    const getUsers = async () => {
-        const { data, error } = await supabase.from("user").select("*");
-        if (error) console.log("error: ", error);
-        console.log(data);
-    };
 
     useEffect(() => {
         const handleRandomClick = (event: MouseEvent) => {
@@ -44,7 +43,10 @@ export default function Ribbon({ setSelectedAtt }: ribbonType) {
     return (
         <div className="ribbon">
             <h1>SSD Madplan</h1>
-            <h2>Uge {weekNumber(new Date())}</h2>
+            <UniversalWeekPicker
+                chosenWeekNumber={chosenWeekNumber}
+                setChosenWeekNumber={setChosenWeekNumber}
+            />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                 <Button
                     clickEvent={() =>
@@ -54,14 +56,14 @@ export default function Ribbon({ setSelectedAtt }: ribbonType) {
                     }
                     name="Check ind/ud"
                     type="Secondary"
-                    iconName="trash2.svg"
+                    iconName="filled-checkin-icon.svg"
                     btnRef={buttonRef}
                 />
                 <Button
                     clickEvent={() => setMenuOpen(true)}
                     name="Opret madplan"
                     type="Secondary"
-                    iconName="trash2.svg"
+                    iconName="filled-food-icon.svg"
                 />
             </div>
 

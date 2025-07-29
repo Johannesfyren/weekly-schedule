@@ -1,6 +1,5 @@
 import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
-import Button from "./Button";
 import { supabase } from "../utils/supabaseClient";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 
@@ -119,15 +118,15 @@ export default function MenuPlan({ menuOpen, setMenuOpen }) {
                         />
                     </div>
                 </div>
-                <button className="btn-primary btn-floaty" onClick={submitMenu}>
+                <button
+                    className="btn-primary btn-floaty"
+                    onClick={() => {
+                        submitMenu();
+                        setMenuOpen(false);
+                    }}
+                >
                     Gem madplan
                 </button>
-                {/* <Button
-                    clickEvent={submitMenu}
-                    name="Gem madplan"
-                    type="Primary"
-                    customClass="btn-floaty"
-                ></Button> */}
             </div>
         </div>
     );
