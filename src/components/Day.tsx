@@ -3,6 +3,8 @@ import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { motion, stagger } from "motion/react";
+
+import Attnumber from "./AttNumber";
 type dayType = {
     dayName: string;
     currentDay: boolean;
@@ -38,7 +40,7 @@ export default function Day({
             .order(`user("name")`, { ascending: true });
 
         if (error) return undefined;
-
+        console.log(data);
         setAttendees(data && data);
     }
 
@@ -59,7 +61,40 @@ export default function Day({
                 currentDay ? "day-container current-day" : "day-container"
             }
         >
-            <h2>{dayName}</h2>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    width: "100%",
+                }}
+            >
+                <h2>{dayName}</h2>
+                <Attnumber numberOfAttendees={attendees && attendees.length} />
+                {/* <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "5px",
+                        backgroundColor: "white",
+                        padding: "2px 5px",
+                        borderRadius: "5px",
+                        marginRight: "10px",
+                    }}
+                >
+                    <img style={{ width: "20px" }} src={attIcon} alt="" />
+                    <p
+                        style={{
+                            color: "#300276",
+                            fontWeight: "700",
+                            fontSize: "1.1rem",
+                        }}
+                    >
+                        {attendees && attendees.length}
+                    </p>
+                </div> */}
+            </div>
 
             <motion.div className="attendances-container">
                 {attendees &&
