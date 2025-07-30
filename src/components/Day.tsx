@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { motion, stagger } from "motion/react";
 import attIcon from "../assets/people-icon.svg";
-import DailyInfoCard from "./DailyInfoCard";
+import DailyMenuCard from "./DailyMenuCard";
+import LoadingIndicator from "./LoadingIndicator";
 
 import Attnumber from "./AttNumber";
 type dayType = {
@@ -78,7 +79,7 @@ export default function Day({
                 />
             </div>
 
-            <DailyInfoCard
+            <DailyMenuCard
                 dayDBName={dayDBName}
                 weekNumber={chosenWeekNumber}
                 year={new Date().getFullYear()}

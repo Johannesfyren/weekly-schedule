@@ -1,6 +1,7 @@
 import { supabase } from "../utils/supabaseClient";
 import Attendance from "./Attendance";
 import { useEffect, useState } from "react";
+import LoadingIndicator from "./LoadingIndicator";
 
 export type userType = {
     id: number;
@@ -18,6 +19,7 @@ export default function AttendancePicker({
     setSelectedAtt,
 }: attPickerRefType) {
     const [userData, setUserData] = useState<userType[] | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function fetchUsers() {
@@ -27,13 +29,16 @@ export default function AttendancePicker({
                 .order("id", { ascending: true });
             if (error) console.log("error: ", error);
             setUserData(data);
+            setIsLoading(false);
         }
         fetchUsers();
     }, []);
 
     return (
         <div className="att-picker-container" ref={attPickerRef}>
-            {userData &&
+            {isLoading && <LoadingIndicator />}
+            {!isLoading &&
+                userData &&
                 userData.length > 0 &&
                 userData.map((user) => {
                     return (
