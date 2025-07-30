@@ -19,10 +19,9 @@ export default function Attendance({
     const [publicUrl, setPublicUrl] = useState("");
 
     useEffect(() => {
-        console.log("get new img");
         if (imgUrl) {
             async function fetchImageFromUrl() {
-                const url = await fetchImage(imgUrl);
+                const url = await fetchImage(imgUrl!);
                 setPublicUrl(url + "?t=" + Date.now()); //making this
             }
             fetchImageFromUrl();

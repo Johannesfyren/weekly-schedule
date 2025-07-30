@@ -22,7 +22,7 @@ root {
     padding: 0 10px 0 10px;
     height: 80px;
     border-bottom: 1px;
-    background-color: blue;
+    background: var(--board-background);
 }
 .board {
     width: 100vw;
@@ -97,14 +97,23 @@ root {
     font-weight: 700;
     border: 1px solid white;
 }
-.btn-edit-pp {
+
+.btn-edit-pp-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    width: 20px;
-    height: 20px;
-    border: none;
-    bottom: 2px;
-    right: 2px;
+    bottom: -1px;
+    right: -1px;
+    background-color: rgb(4, 99, 4);
+    width: 25px;
+    height: 25px;
     border-radius: 100%;
+}
+.btn-edit-pp {
+    width: 18px;
+    height: 18px;
+    border: none;
 }
 
 .profile-pictures {
@@ -340,7 +349,7 @@ input[type="radio"] {
 /*UTILITIES*/
 
 .btn-primary {
-    height: 30px;
+    height: 33px;
     min-width: 10px;
     padding: 0 5px 0 5px;
     background-color: white;
@@ -353,16 +362,35 @@ input[type="radio"] {
     }
 }
 .btn-secondary {
-    height: 30px;
+    height: 33px;
     min-width: 10px;
-    padding: 0 5px 0 5px;
-    background-color: transparent;
-    border: 1px solid white;
+    padding: 0 7px 0 7px;
+
+    border: 1px solid rgba(255, 255, 255, 0.713);
     border-radius: 6px;
-    color: white;
+    color: rgb(255, 255, 255);
+    background-color: #77e5fb5c;
+    font-weight: 600;
+
     &:hover {
         cursor: pointer;
+        border: 1px solid rgba(238, 158, 158, 0.178);
+        background-color: #77e5fba0;
+        transition: 0.3s;
     }
+}
+.glass-button {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background 0.2s;
+    cursor: pointer;
 }
 .btn-camera {
     height: 100px;

@@ -1,7 +1,7 @@
 import fetchImage from "../utils/fetchImage";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "../utils/supabaseClient";
-import imgTest from "../assets/react.svg";
+import editIcon from "../assets/edit-icon.svg";
 import Button from "./Button";
 
 export type profileImageType = {
@@ -98,12 +98,14 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                       )}
 
                 {/* USER MEDIA UPLOAD FUNCTIONALITY */}
-                <img
-                    src={imgTest}
-                    alt=""
-                    className="btn-edit-pp"
-                    onClick={() => setShowMediaMenu(true)}
-                />
+                <div className="btn-edit-pp-container">
+                    <img
+                        src={editIcon}
+                        alt=""
+                        className="btn-edit-pp"
+                        onClick={() => setShowMediaMenu(true)}
+                    />
+                </div>
 
                 {showMediaMenu && (
                     <div className="media-menu">

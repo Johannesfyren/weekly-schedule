@@ -18,7 +18,7 @@ export default function UniversalWeekPicker({
                 style={{
                     display: "flex",
                     flexDirection: "row",
-                    gap: "10px",
+                    gap: "20px",
                     justifyContent: "center",
                     alignItems: "center",
                 }}
