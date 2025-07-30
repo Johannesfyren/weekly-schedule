@@ -3,6 +3,8 @@ import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { motion, stagger } from "motion/react";
+import attIcon from "../assets/people-icon.svg";
+import DailyInfoCard from "./DailyInfoCard";
 
 import Attnumber from "./AttNumber";
 type dayType = {
@@ -40,7 +42,6 @@ export default function Day({
             .order(`user("name")`, { ascending: true });
 
         if (error) return undefined;
-        console.log(data);
         setAttendees(data && data);
     }
 
@@ -71,30 +72,17 @@ export default function Day({
                 }}
             >
                 <h2>{dayName}</h2>
-                <Attnumber numberOfAttendees={attendees && attendees.length} />
-                {/* <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "5px",
-                        backgroundColor: "white",
-                        padding: "2px 5px",
-                        borderRadius: "5px",
-                        marginRight: "10px",
-                    }}
-                >
-                    <img style={{ width: "20px" }} src={attIcon} alt="" />
-                    <p
-                        style={{
-                            color: "#300276",
-                            fontWeight: "700",
-                            fontSize: "1.1rem",
-                        }}
-                    >
-                        {attendees && attendees.length}
-                    </p>
-                </div> */}
+                <Attnumber
+                    icon={attIcon}
+                    numberOfAttendees={attendees && attendees.length}
+                />
             </div>
+
+            <DailyInfoCard
+                dayDBName={dayDBName}
+                weekNumber={chosenWeekNumber}
+                year={new Date().getFullYear()}
+            />
 
             <motion.div className="attendances-container">
                 {attendees &&

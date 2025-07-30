@@ -1,5 +1,4 @@
-import attIcon from "../assets/people-icon.svg";
-export default function Attnumber({ numberOfAttendees }) {
+export default function Attnumber({ numberOfAttendees, icon }) {
     return (
         <div
             style={{
@@ -9,10 +8,9 @@ export default function Attnumber({ numberOfAttendees }) {
                 backgroundColor: "white",
                 padding: "2px 5px",
                 borderRadius: "5px",
-                marginRight: "10px",
             }}
         >
-            <img style={{ width: "20px" }} src={attIcon} alt="" />
+            <img style={{ width: "20px" }} src={icon} alt="" />
             <p
                 style={{
                     color: "#300276",
