@@ -8,7 +8,7 @@ import UniversalWeekPicker from "./UniversalWeekPicker";
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
     chosenWeekNumber: number;
-    setChosenWeekNumber: React.Dispatch<React.SetStateAction<boolean>>;
+    setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Ribbon({
@@ -46,6 +46,7 @@ export default function Ribbon({
             <UniversalWeekPicker
                 chosenWeekNumber={chosenWeekNumber}
                 setChosenWeekNumber={setChosenWeekNumber}
+                size="small"
             />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                 <Button

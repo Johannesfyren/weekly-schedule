@@ -114,6 +114,7 @@ root {
     width: 18px;
     height: 18px;
     border: none;
+    cursor: pointer;
 }
 
 .profile-pictures {
@@ -235,6 +236,7 @@ root {
     gap: 10px;
     padding: 10px;
     height: auto;
+    width: 250px;
     top: 60px;
     left: 60px;
     border-radius: 10px;
@@ -369,7 +371,7 @@ input[type="radio"] {
     border: 1px solid rgba(255, 255, 255, 0.713);
     border-radius: 6px;
     color: rgb(255, 255, 255);
-    background-color: #77e5fb5c;
+    background-color: #77e5fb2a;
     font-weight: 600;
 
     &:hover {

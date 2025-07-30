@@ -2,6 +2,8 @@ import fetchImage from "../utils/fetchImage";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "../utils/supabaseClient";
 import editIcon from "../assets/edit-icon.svg";
+import imgIcon from "../assets/black-image-icon.svg";
+import camIcon from "../assets/black-cam-icon.svg";
 import Button from "./Button";
 
 export type profileImageType = {
@@ -109,7 +111,14 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
 
                 {showMediaMenu && (
                     <div className="media-menu">
-                        <div>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                gap: "5px",
+                            }}
+                        >
+                            <img src={imgIcon} alt="" className="btn-edit-pp" />
                             <input
                                 type="file"
                                 onChange={(event) => {
@@ -121,17 +130,30 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                 }}
                                 ref={inputRef}
                                 name="img-upload"
-                                onClick={() => console.log("yo")}
                             />
                         </div>
-
                         <div
-                            onClick={() => {
-                                setVideoStreamActivated(true);
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                gap: "5px",
                             }}
-                            style={{ cursor: "pointer" }}
                         >
-                            Tag billede
+                            <img
+                                src={camIcon}
+                                alt=""
+                                className="btn-edit-pp"
+                                onClick={() => setVideoStreamActivated(true)}
+                            />
+
+                            <div
+                                onClick={() => {
+                                    setVideoStreamActivated(true);
+                                }}
+                                style={{ cursor: "pointer" }}
+                            >
+                                Tag billede
+                            </div>
                         </div>
                         {videoStreamActivated && (
                             <div className="video-frame">

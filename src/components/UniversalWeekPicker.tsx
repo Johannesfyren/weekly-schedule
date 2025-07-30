@@ -2,10 +2,17 @@ import leftArrow from "../assets/leftarrow.svg";
 import rightArrow from "../assets/rightarrow.svg";
 import { weekToDateRangeString } from "../utils/weekToDate";
 
+export type universalWeekpickerType = {
+    chosenWeekNumber: number;
+    setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
+    size?: "small" | undefined;
+};
+
 export default function UniversalWeekPicker({
     chosenWeekNumber,
     setChosenWeekNumber,
-}) {
+    size,
+}: universalWeekpickerType) {
     return (
         <div
             style={{
@@ -27,20 +34,26 @@ export default function UniversalWeekPicker({
                     src={leftArrow}
                     alt=""
                     onClick={() => setChosenWeekNumber(chosenWeekNumber - 1)}
-                    style={{ cursor: "pointer", height: "25px" }}
+                    style={{
+                        cursor: "pointer",
+                        height: size == "small" ? "18px " : "25px",
+                    }}
                 />
                 <h1>Uge {chosenWeekNumber}</h1>
                 <img
                     src={rightArrow}
                     alt=""
                     onClick={() => setChosenWeekNumber(chosenWeekNumber + 1)}
-                    style={{ cursor: "pointer", height: "25px" }}
+                    style={{
+                        cursor: "pointer",
+                        height: size == "small" ? "18px " : "25px",
+                    }}
                 />
             </div>
             <h2
                 style={{
                     fontWeight: "400",
-                    fontSize: "1.1rem",
+                    fontSize: size == "small" ? "1.0rem" : "1.1rem",
                     color: "#DFDFDF",
                 }}
             >
