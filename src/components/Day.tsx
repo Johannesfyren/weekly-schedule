@@ -83,6 +83,7 @@ export default function Day({
                 dayDBName={dayDBName}
                 weekNumber={chosenWeekNumber}
                 year={new Date().getFullYear()}
+                refetchAttendees={refetchAttendees}
             />
 
             <motion.div className="attendances-container">

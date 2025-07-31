@@ -19,6 +19,7 @@ export default function Board() {
                 setSelectedAtt={setSelectedAtt}
                 setChosenWeekNumber={setChosenWeekNumber}
                 chosenWeekNumber={chosenWeekNumber}
+                setRefreshAttendees={setRefetchAttendees}
             />
 
             <div className="board">

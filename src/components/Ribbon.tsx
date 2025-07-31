@@ -9,12 +9,14 @@ export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
     chosenWeekNumber: number;
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
+    setRefreshAttendees: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Ribbon({
     setSelectedAtt,
     chosenWeekNumber,
     setChosenWeekNumber,
+    setRefreshAttendees,
 }: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -77,7 +79,11 @@ export default function Ribbon({
 
             {menuOpen &&
                 createPortal(
-                    <MenuPlan menuOpen={menuOpen} setMenuOpen={setMenuOpen} />,
+                    <MenuPlan
+                        menuOpen={menuOpen}
+                        setMenuOpen={setMenuOpen}
+                        setRefreshAttendees={setRefreshAttendees}
+                    />,
                     document.body!
                 )}
         </div>

@@ -7,12 +7,14 @@ export type menuInfoType = {
     dayDBName: string;
     weekNumber: number;
     year: number;
+    refetchAttendees: boolean;
 };
 
 export default function DailyMenuCard({
     dayDBName,
     weekNumber,
     year,
+    refetchAttendees,
 }: menuInfoType) {
     const [menuData, setMenuData] = useState();
 
@@ -23,12 +25,12 @@ export default function DailyMenuCard({
                 .select(dayDBName)
                 .eq("week", weekNumber)
                 .eq("year", year);
-            // console.log(data[0]);
+
             if (data) setMenuData(data[0]);
             if (error) console.log(error);
         }
         getMenu();
-    }, []);
+    }, [refetchAttendees]);
 
     return (
         <div
