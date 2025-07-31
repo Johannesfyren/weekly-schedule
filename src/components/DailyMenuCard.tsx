@@ -19,6 +19,7 @@ export default function DailyMenuCard({
     const [menuData, setMenuData] = useState();
 
     useEffect(() => {
+        getMenu();
         async function getMenu() {
             const { data, error } = await supabase
                 .from("menu")
@@ -29,8 +30,16 @@ export default function DailyMenuCard({
             if (data) setMenuData(data[0]);
             if (error) console.log(error);
         }
-        getMenu();
-    }, [refetchAttendees]);
+        console.log("fetching menu initially");
+        const timeOut = setInterval(() => {
+            console.log("fetching menu");
+            getMenu();
+        }, 900000); //15 min
+
+        return () => {
+            clearInterval(timeOut);
+        };
+    }, [refetchAttendees, weekNumber]);
 
     return (
         <div

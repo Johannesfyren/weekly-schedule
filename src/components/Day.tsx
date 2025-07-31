@@ -29,6 +29,7 @@ export default function Day({
 }: dayType) {
     const [attendees, setAttendees] = useState();
     const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
+    const [isLoading, setIsLoading] = useState(true);
     const date = new Date();
 
     async function fetchAttendances(): Promise<userType | undefined> {
@@ -44,6 +45,7 @@ export default function Day({
 
         if (error) return undefined;
         setAttendees(data && data);
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -79,24 +81,30 @@ export default function Day({
                 />
             </div>
 
-            <DailyMenuCard
-                dayDBName={dayDBName}
-                weekNumber={chosenWeekNumber}
-                year={new Date().getFullYear()}
-                refetchAttendees={refetchAttendees}
-            />
+            {isLoading && <LoadingIndicator />}
 
-            <motion.div className="attendances-container">
-                {attendees &&
-                    attendees.map((att, index) => (
-                        <Attendance
-                            name={att.user.name}
-                            key={index}
-                            imgUrl={att.user.img_ref}
-                            refetchAttendees={refetchAttendees}
-                        />
-                    ))}
-            </motion.div>
+            {!isLoading && (
+                <>
+                    <DailyMenuCard
+                        dayDBName={dayDBName}
+                        weekNumber={chosenWeekNumber}
+                        year={new Date().getFullYear()}
+                        refetchAttendees={refetchAttendees}
+                    />
+
+                    <motion.div className="attendances-container">
+                        {attendees &&
+                            attendees.map((att, index) => (
+                                <Attendance
+                                    name={att.user.name}
+                                    key={index}
+                                    imgUrl={att.user.img_ref}
+                                    refetchAttendees={refetchAttendees}
+                                />
+                            ))}
+                    </motion.div>
+                </>
+            )}
         </div>
     );
 }

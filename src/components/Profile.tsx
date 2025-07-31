@@ -5,6 +5,7 @@ import Button from "./Button";
 import WeekPlanForm from "./WeekPlanForm";
 import { weekNumber } from "weeknumber";
 import WeekPicker from "./WeekPicker";
+import UniversalWeekPicker from "./UniversalWeekPicker";
 
 export type userType = {
     id: number;
@@ -100,6 +101,11 @@ export default function Profile({
                 </div>
 
                 <div className="submit-details">
+                    {/* <UniversalWeekPicker
+                        chosenWeekNumber={chosenWeekNumber}
+                        setChosenWeekNumber={setChosenWeekNumber}
+                        setIsLoading={() => console.log("yo")}
+                    /> */}
                     <WeekPicker
                         setFormData={setFormData}
                         formData={formData}
