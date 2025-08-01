@@ -7,6 +7,7 @@
         rgba(0, 114, 201, 1) 0%,
         rgb(67, 96, 180) 51%
     );
+    --dimmed-textsize: #eaeaea;
     font-family: "Lato", sans-serif;
     color: white;
 }
@@ -63,7 +64,6 @@ root {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* margin-top: 30px; */
 }
 
 .attendant-container {
@@ -74,21 +74,22 @@ root {
     align-items: center;
     cursor: pointer;
     p {
-        color: rgb(228, 228, 228);
+        color: var(--dimmed-textsize);
     }
 }
 .avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    background-color: grey;
-    font-size: 1.2rem;
+    background-color: rgba(9, 2, 2, 0.168);
+    font-size: 1rem;
     font-weight: 700;
-    border: 1px solid white;
+    border: 1px solid rgb(255, 255, 255);
+    color: var(--dimmed-textsize);
 }
 .avatar-big {
     position: relative;
@@ -159,7 +160,7 @@ root {
     gap: 10px;
     padding: 20px 10px 20px 10px;
     display: flex;
-    background-color: rgb(243, 243, 243);
+    background-color: #ffffff;
 
     border-radius: 10px;
     box-shadow: 0 0 2px 0;

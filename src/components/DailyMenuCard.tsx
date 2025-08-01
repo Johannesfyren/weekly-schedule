@@ -61,7 +61,9 @@ export default function DailyMenuCard({
                     whiteSpace: "pre-line",
                 }}
             >
-                {menuData ? menuData[dayDBName] : "Ingen menu registeret"}
+                {menuData && menuData[dayDBName].length > 1
+                    ? menuData[dayDBName]
+                    : "Ingen menu registeret"}
             </p>
         </div>
     );

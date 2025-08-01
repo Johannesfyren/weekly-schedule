@@ -101,17 +101,17 @@ export default function Profile({
                 </div>
 
                 <div className="submit-details">
-                    {/* <UniversalWeekPicker
+                    <UniversalWeekPicker
                         chosenWeekNumber={chosenWeekNumber}
                         setChosenWeekNumber={setChosenWeekNumber}
                         setIsLoading={() => console.log("yo")}
-                    /> */}
-                    <WeekPicker
+                    />
+                    {/* <WeekPicker
                         setFormData={setFormData}
                         formData={formData}
                         setChosenWeekNumber={setChosenWeekNumber}
                         chosenWeekNumber={chosenWeekNumber}
-                    />
+                    /> */}
                     <WeekPlanForm
                         setFormData={setFormData}
                         formData={formData}

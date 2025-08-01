@@ -6,7 +6,7 @@ import { weekToDateRangeString } from "../utils/weekToDate";
 export type universalWeekpickerType = {
     chosenWeekNumber: number;
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
-    size?: "small" | undefined;
+    size?: "small" | "mobile" | undefined;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -16,6 +16,8 @@ export default function UniversalWeekPicker({
     setIsLoading,
     size,
 }: universalWeekpickerType) {
+    if (window.innerWidth < 850) size = "mobile"; //If the screen is mobile sized, we adjust som font sizing acordingly
+
     return (
         <div
             style={{
@@ -42,10 +44,26 @@ export default function UniversalWeekPicker({
                     }}
                     style={{
                         cursor: "pointer",
-                        height: size == "small" ? "18px " : "25px",
+                        height:
+                            size == "small"
+                                ? "18px"
+                                : size == "mobile"
+                                ? "12px"
+                                : "25px",
                     }}
                 />
-                <h1>Uge {chosenWeekNumber}</h1>
+                <h1
+                    style={{
+                        fontSize:
+                            size == "small"
+                                ? "1.8rem"
+                                : size == "mobile"
+                                ? "1.0rem"
+                                : "2rem",
+                    }}
+                >
+                    Uge {chosenWeekNumber}
+                </h1>
                 <img
                     src={rightArrow}
                     alt=""
@@ -55,14 +73,24 @@ export default function UniversalWeekPicker({
                     }}
                     style={{
                         cursor: "pointer",
-                        height: size == "small" ? "18px " : "25px",
+                        height:
+                            size == "small"
+                                ? "18px"
+                                : size == "mobile"
+                                ? "12px"
+                                : "25px",
                     }}
                 />
             </div>
             <h2
                 style={{
                     fontWeight: "400",
-                    fontSize: size == "small" ? "1.0rem" : "1.1rem",
+                    fontSize:
+                        size == "small"
+                            ? "1.0rem"
+                            : size == "mobile"
+                            ? "0.8rem"
+                            : "1.1rem",
                     color: "#DFDFDF",
                 }}
             >

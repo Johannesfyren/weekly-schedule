@@ -20,9 +20,9 @@ export default function Ribbon({
 }: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
 
     useEffect(() => {
         const handleRandomClick = (event: MouseEvent) => {
@@ -44,7 +44,7 @@ export default function Ribbon({
 
     return (
         <div className="ribbon">
-            <h1>SSD Madplan</h1>
+            {!mobileView && <h1>SSD Madplan</h1>}
             <UniversalWeekPicker
                 chosenWeekNumber={chosenWeekNumber}
                 setChosenWeekNumber={setChosenWeekNumber}
