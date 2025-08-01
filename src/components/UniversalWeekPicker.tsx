@@ -7,7 +7,7 @@ export type universalWeekpickerType = {
     chosenWeekNumber: number;
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
     size?: "small" | "mobile" | undefined;
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function UniversalWeekPicker({

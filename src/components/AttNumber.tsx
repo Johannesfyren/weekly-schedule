@@ -1,4 +1,8 @@
-export default function Attnumber({ numberOfAttendees, icon }) {
+export type Attnumbertype = {
+    numberOfAttendees: number;
+    icon: string;
+};
+export default function Attnumber({ numberOfAttendees, icon }: Attnumbertype) {
     return (
         <div
             style={{

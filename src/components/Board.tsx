@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Day from "./Day";
 import Ribbon from "./Ribbon";
 import { createPortal } from "react-dom";

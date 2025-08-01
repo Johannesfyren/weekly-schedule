@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+// import { motion } from "motion/react";
 import fetchImage from "../utils/fetchImage";
 type attendType = {
     name: string;
     imgUrl?: string;
     canOpenProfile?: boolean;
     setSelectedAtt?: (name: string) => void;
-    refetchAttendees: boolean;
+    refetchAttendees?: boolean;
 };
 
 export default function Attendance({

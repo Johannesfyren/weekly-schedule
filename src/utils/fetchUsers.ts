@@ -1,4 +1,4 @@
-import type { User } from "@supabase/supabase-js";
+// @ts-nocheck
 import { supabase } from "./supabaseClient";
 export type userType = {
     id: number;

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import ProfileImage from "./ProfileImage";

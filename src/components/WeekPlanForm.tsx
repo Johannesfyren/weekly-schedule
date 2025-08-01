@@ -17,6 +17,7 @@ export default function WeekPlanForm({
     formData,
 }: formTypeInherited) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!formData) return;
         setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
     };
 

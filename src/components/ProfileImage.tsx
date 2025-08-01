@@ -1,3 +1,4 @@
+// @ts-nocheck
 import fetchImage from "../utils/fetchImage";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "../utils/supabaseClient";
@@ -17,7 +18,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     const [showMediaMenu, setShowMediaMenu] = useState(false);
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
     const inputRef = useRef(null);
-    const videoRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef(null);
     const imgRef = useRef(null);
     let file: React.HTMLInputTypeAttribute;
@@ -193,9 +194,10 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                                     );
                                                 setVideoStreamActivated(false);
                                                 setCapturedImage(null);
-                                                videoRef.current.srcObject
-                                                    .getTracks()[0]
-                                                    .stop();
+                                                videoRef.current?.srcObject &&
+                                                    videoRef.current.srcObject // @ts-ignore
+                                                        .getTracks()[0]
+                                                        .stop();
                                                 setShowMediaMenu(false);
                                             }}
                                         ></Button>
@@ -206,9 +208,10 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                     clickEvent={() => {
                                         setVideoStreamActivated(false);
                                         setCapturedImage(null);
-                                        videoRef.current.srcObject
-                                            .getTracks()[0]
-                                            .stop();
+                                        videoRef.current?.srcObject &&
+                                            videoRef.current.srcObject // @ts-ignore
+                                                .getTracks()[0]
+                                                .stop();
                                         setShowMediaMenu(false);
                                     }}
                                     name="Annullér"

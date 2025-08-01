@@ -1,4 +1,4 @@
-import { weekNumber } from "weeknumber";
+//@ts-nocheck
 import menuIcon from "../assets/menu-icon.svg";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";

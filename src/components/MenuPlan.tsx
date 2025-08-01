@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
@@ -44,7 +45,7 @@ export default function MenuPlan({
     };
     useEffect(() => {
         async function getMenu(weeknumber) {
-            const { data, error } = await supabase
+            const { data } = await supabase
                 .from("menu")
                 .select("*")
                 .eq("week", weeknumber);

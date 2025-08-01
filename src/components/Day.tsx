@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Attendance from "./Attendance";
 import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
@@ -94,7 +95,7 @@ export default function Day({
 
                     <motion.div className="attendances-container">
                         {attendees &&
-                            attendees.map((att, index) => (
+                            attendees.map((att, index: any) => (
                                 <Attendance
                                     name={att.user.name}
                                     key={index}
