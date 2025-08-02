@@ -61,9 +61,13 @@ export default function DailyMenuCard({
                     whiteSpace: "pre-line",
                 }}
             >
-                {menuData && menuData[dayDBName].length > 1
-                    ? menuData[dayDBName]
-                    : "Ingen menu registeret"}
+                {menuData && menuData[dayDBName].length > 1 ? (
+                    menuData[dayDBName]
+                ) : (
+                    <span style={{ color: "#aeacacff", fontStyle: "italic" }}>
+                        Ingen menu oprettet
+                    </span>
+                )}
             </p>
         </div>
     );

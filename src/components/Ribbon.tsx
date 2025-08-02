@@ -4,6 +4,7 @@ import AttendancePicker from "./AttendancePicker";
 import { createPortal } from "react-dom";
 import MenuPlan from "./MenuPlan";
 import UniversalWeekPicker from "./UniversalWeekPicker";
+import LogoIcon from "../assets/Logo.png";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
@@ -44,7 +45,16 @@ export default function Ribbon({
 
     return (
         <div className="ribbon">
-            {!mobileView && <h1>SSD Madplan</h1>}
+            {!mobileView && (
+                <img
+                    src={LogoIcon}
+                    style={{
+                        backgroundColor: "#ffffffc6",
+                        padding: "3px",
+                        borderRadius: "5px",
+                    }}
+                ></img>
+            )}
             <UniversalWeekPicker
                 chosenWeekNumber={chosenWeekNumber}
                 setChosenWeekNumber={setChosenWeekNumber}

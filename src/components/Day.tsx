@@ -94,6 +94,7 @@ export default function Day({
                     />
 
                     <motion.div className="attendances-container">
+                        {console.log(attendees)}
                         {attendees &&
                             attendees.map((att, index: any) => (
                                 <Attendance
