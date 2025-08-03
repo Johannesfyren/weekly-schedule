@@ -11,5 +11,6 @@ export default async function fetchUsers(
 ): Promise<userType[] | null> {
     const { data, error } = await supabase.from("user").select(id);
     if (error) return null;
+    console.log(data);
     return data;
 }

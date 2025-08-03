@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { supabase } from "../utils/supabaseClient";
+
 export type Attnumbertype = {
     numberOfAttendees: Array<{
         mon: number;
@@ -23,6 +26,15 @@ export default function Attnumber({
     attIsClicked,
     setAttIsClicked,
 }: Attnumbertype) {
+    const [usercount, setUsercount] = useState<number>();
+    useEffect(() => {
+        const countActiveUsers = async () => {
+            const { data, error } = await supabase.from("user").select("*");
+            setUsercount(data.length);
+            console.log(data);
+        };
+        countActiveUsers();
+    }, []);
     return (
         <div
             style={{
@@ -54,7 +66,6 @@ export default function Attnumber({
                         fontSize: "1.1rem",
                     }}
                 >
-                    {numberOfAttendees && console.log(numberOfAttendees)}
                     {numberOfAttendees &&
                         numberOfAttendees.filter((att) => att[dayDBName] === 1)
                             .length}
@@ -99,13 +110,14 @@ export default function Attnumber({
                             }}
                         >
                             {numberOfAttendees &&
-                                10 -
-                                    numberOfAttendees.filter(
+                                usercount &&
+                                Number(usercount) -
+                                    (numberOfAttendees.filter(
                                         (att) => att[dayDBName] === 1
                                     ).length +
-                                    numberOfAttendees.filter(
-                                        (att) => att[dayDBName] === 2
-                                    ).length}
+                                        numberOfAttendees.filter(
+                                            (att) => att[dayDBName] === 2
+                                        ).length)}
                         </p>
                     </div>
                 </>

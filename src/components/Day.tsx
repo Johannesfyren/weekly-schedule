@@ -97,7 +97,6 @@ export default function Day({
                     />
 
                     <motion.div className="attendances-container">
-                        {console.log(attendees)}
                         {attendees &&
                             attendees
                                 .filter((att) => att[dayDBName] === 1) //the 1 represents "yes" to eating
