@@ -31,6 +31,7 @@ export default function Day({
     const [attendees, setAttendees] = useState();
     const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
     const [isLoading, setIsLoading] = useState(true);
+    const [attIsClicked, setAttIsClicked] = useState(false);
     const date = new Date();
 
     async function fetchAttendances(): Promise<userType | undefined> {
@@ -39,7 +40,7 @@ export default function Day({
             .select(
                 `"mon","tue","wed","thu","fri",user("id", "name", "img_ref")`
             )
-            .eq(dayDBName, 1)
+
             .eq("week", chosenWeekNumber)
             .eq("year", date.getFullYear())
             .order(`user("name")`, { ascending: true });
@@ -52,7 +53,6 @@ export default function Day({
     useEffect(() => {
         fetchAttendances();
         const timeOut = setInterval(() => {
-            console.log("fetching");
             fetchAttendances();
         }, 900000); //15 min
         setRefetchAttendees(false);
@@ -75,10 +75,13 @@ export default function Day({
                     width: "100%",
                 }}
             >
-                <h2>{dayName}</h2>
+                <h2 style={{ alignSelf: "flex-start" }}>{dayName}</h2>
                 <Attnumber
                     icon={attIcon}
-                    numberOfAttendees={attendees && attendees.length}
+                    numberOfAttendees={attendees && attendees}
+                    dayDBName={dayDBName}
+                    attIsClicked={attIsClicked}
+                    setAttIsClicked={setAttIsClicked}
                 />
             </div>
 
@@ -96,14 +99,16 @@ export default function Day({
                     <motion.div className="attendances-container">
                         {console.log(attendees)}
                         {attendees &&
-                            attendees.map((att, index: any) => (
-                                <Attendance
-                                    name={att.user.name}
-                                    key={index}
-                                    imgUrl={att.user.img_ref}
-                                    refetchAttendees={refetchAttendees}
-                                />
-                            ))}
+                            attendees
+                                .filter((att) => att[dayDBName] === 1) //the 1 represents "yes" to eating
+                                .map((att, index: any) => (
+                                    <Attendance
+                                        name={att.user.name}
+                                        key={index}
+                                        imgUrl={att.user.img_ref}
+                                        refetchAttendees={refetchAttendees}
+                                    />
+                                ))}
                     </motion.div>
                 </>
             )}
