@@ -4,7 +4,6 @@ import { weekNumber } from "weeknumber";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { motion, stagger } from "motion/react";
-import attIcon from "../assets/people-icon.svg";
 import DailyMenuCard from "./DailyMenuCard";
 import LoadingIndicator from "./LoadingIndicator";
 
@@ -77,7 +76,6 @@ export default function Day({
             >
                 <h2 style={{ alignSelf: "flex-start" }}>{dayName}</h2>
                 <Attnumber
-                    icon={attIcon}
                     numberOfAttendees={attendees && attendees}
                     dayDBName={dayDBName}
                     attIsClicked={attIsClicked}

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import attIcon from "../assets/people-icon.svg";
+import attYesIcon from "../assets/att-yes.svg";
+import attNoIcon from "../assets/att-no.svg";
+import attMaybeIcon from "../assets/att-maybe.svg";
 
 export type Attnumbertype = {
     numberOfAttendees: Array<{
@@ -14,7 +18,6 @@ export type Attnumbertype = {
             img_ref: string | null;
         };
     }>;
-    icon: string;
     dayDBName: string;
     attIsClicked: boolean;
     setAttIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -58,7 +61,11 @@ export default function Attnumber({
                         : setAttIsClicked(true)
                 }
             >
-                <img style={{ width: "20px" }} src={icon} alt="" />
+                <img
+                    style={{ width: "24px" }}
+                    src={attIsClicked ? attYesIcon : attIcon}
+                    alt=""
+                />
                 <p
                     style={{
                         color: "#300276",
@@ -80,7 +87,7 @@ export default function Attnumber({
                             gap: "5px",
                         }}
                     >
-                        <img style={{ width: "20px" }} src={icon} alt="" />
+                        <img style={{ width: "24px" }} src={attNoIcon} alt="" />
                         <p
                             style={{
                                 color: "#300276",
@@ -101,7 +108,11 @@ export default function Attnumber({
                             gap: "5px",
                         }}
                     >
-                        <img style={{ width: "20px" }} src={icon} alt="" />
+                        <img
+                            style={{ width: "24px" }}
+                            src={attMaybeIcon}
+                            alt=""
+                        />
                         <p
                             style={{
                                 color: "#300276",
