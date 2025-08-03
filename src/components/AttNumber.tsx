@@ -4,6 +4,7 @@ import attIcon from "../assets/people-icon.svg";
 import attYesIcon from "../assets/att-yes.svg";
 import attNoIcon from "../assets/att-no.svg";
 import attMaybeIcon from "../assets/att-maybe.svg";
+import { motion } from "motion/react";
 
 export type Attnumbertype = {
     numberOfAttendees: Array<{
@@ -24,22 +25,35 @@ export type Attnumbertype = {
 };
 export default function Attnumber({
     numberOfAttendees,
-    icon,
     dayDBName,
     attIsClicked,
     setAttIsClicked,
 }: Attnumbertype) {
     const [usercount, setUsercount] = useState<number>();
     useEffect(() => {
+        //Fetch user
         const countActiveUsers = async () => {
             const { data, error } = await supabase.from("user").select("*");
             setUsercount(data.length);
-            console.log(data);
         };
         countActiveUsers();
     }, []);
+
+    useEffect(() => {
+        //Self collapse if not done manually
+        let setint;
+        if (attIsClicked == true) {
+            setint = setTimeout(() => {
+                setAttIsClicked(false);
+            }, 20000);
+        }
+        return () => clearTimeout(setint);
+    }, [attIsClicked]);
+
     return (
-        <div
+        <motion.div
+            layout
+            transition={{ duration: 0.15 }}
             style={{
                 display: "flex",
                 flexDirection: "column",
@@ -47,6 +61,7 @@ export default function Attnumber({
                 backgroundColor: "white",
                 padding: "2px 5px",
                 borderRadius: "5px",
+                cursor: "pointer",
             }}
         >
             <div
@@ -86,6 +101,11 @@ export default function Attnumber({
                             flexDirection: "row",
                             gap: "5px",
                         }}
+                        onClick={() =>
+                            attIsClicked
+                                ? setAttIsClicked(false)
+                                : setAttIsClicked(true)
+                        }
                     >
                         <img style={{ width: "24px" }} src={attNoIcon} alt="" />
                         <p
@@ -107,6 +127,11 @@ export default function Attnumber({
                             flexDirection: "row",
                             gap: "5px",
                         }}
+                        onClick={() =>
+                            attIsClicked
+                                ? setAttIsClicked(false)
+                                : setAttIsClicked(true)
+                        }
                     >
                         <img
                             style={{ width: "24px" }}
@@ -133,6 +158,6 @@ export default function Attnumber({
                     </div>
                 </>
             )}
-        </div>
+        </motion.div>
     );
 }

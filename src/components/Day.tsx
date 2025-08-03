@@ -94,7 +94,7 @@ export default function Day({
                         refetchAttendees={refetchAttendees}
                     />
 
-                    <motion.div className="attendances-container">
+                    <div className="attendances-container">
                         {attendees &&
                             attendees
                                 .filter((att) => att[dayDBName] === 1) //the 1 represents "yes" to eating
@@ -106,7 +106,7 @@ export default function Day({
                                         refetchAttendees={refetchAttendees}
                                     />
                                 ))}
-                    </motion.div>
+                    </div>
                 </>
             )}
         </div>

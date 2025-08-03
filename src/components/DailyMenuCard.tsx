@@ -30,9 +30,8 @@ export default function DailyMenuCard({
             if (data) setMenuData(data[0]);
             if (error) console.log(error);
         }
-        console.log("fetching menu initially");
+
         const timeOut = setInterval(() => {
-            console.log("fetching menu");
             getMenu();
         }, 900000); //15 min
 
