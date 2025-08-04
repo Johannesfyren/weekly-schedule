@@ -174,6 +174,11 @@ root {
         color: white;
     }
 
+    div {
+        /*Used to transition slowly back*/
+        margin-left: 0px;
+        transition: 0.2s;
+    }
     & :hover {
         background-color: #1f2a48;
         border-radius: 10px;
@@ -197,10 +202,10 @@ root {
     h2 {
         font-size: 1.5rem;
     }
-    & :nth-child(3) {
-        margin-left: auto;
+    /* & :nth-child(3) {
+        /* margin-left: 30px; 
         margin-right: 10px;
-    }
+    } */
 }
 
 .week-form {
@@ -278,6 +283,8 @@ root {
 .video-frame {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
     position: fixed;
     transform: translate(-50%, -50%);
     top: 50%;
@@ -287,7 +294,7 @@ root {
     z-index: 1;
     background-color: rgb(189, 189, 189);
     align-items: center;
-    width: 100%;
+    width: 90%;
     height: auto;
 
     canvas {
@@ -441,6 +448,12 @@ input[type="radio"] {
     border-radius: 100%;
     animation: spin 1s linear infinite;
 }
+.util_flex-end {
+    /* margin-left: auto;
+    margin-top: auto; */
+    justify-self: flex-end;
+    align-self: flex-end;
+}
 
 @keyframes spin {
     to {
@@ -457,5 +470,31 @@ input[type="radio"] {
         background: var(--board-background);
         gap: 10px;
         padding: 10px 10px;
+    }
+    .video-frame {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        padding: 20px;
+
+        z-index: 1;
+        background-color: rgb(189, 189, 189);
+        align-items: center;
+        width: 100%;
+        height: auto;
+        overflow-y: scroll;
+
+        canvas {
+            display: none;
+        }
+    }
+    .output {
+        display: flex;
+        flex-direction: row;
+        justify-items: start;
+        /* margin-right: 50px; */
     }
 }

@@ -38,7 +38,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
         if (video) {
             navigator.mediaDevices
                 .getUserMedia({
-                    video: { width: 500, height: 500 },
+                    video: { width: 200, height: 200 },
                     audio: false,
                 })
                 .then((stream) => {
@@ -157,7 +157,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                             </div>
                         </div>
                         {videoStreamActivated && (
-                            <div className="video-frame">
+                            <div className="profile-container video-frame">
                                 <div
                                     style={{
                                         display: "flex",
@@ -180,6 +180,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                         ref={imgRef}
                                         src={capturedImage}
                                         alt="Billede taget fremkommer her."
+                                        style={{ justifySelf: "self-start" }}
                                     />
                                     {capturedImage && (
                                         <Button
@@ -203,9 +204,9 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                         ></Button>
                                     )}
                                 </div>
-                                <Button
+                                <button
                                     type="Secondary"
-                                    clickEvent={() => {
+                                    onClick={() => {
                                         setVideoStreamActivated(false);
                                         setCapturedImage(null);
                                         videoRef.current?.srcObject &&
@@ -214,8 +215,10 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                                 .stop();
                                         setShowMediaMenu(false);
                                     }}
-                                    name="Annullér"
-                                ></Button>
+                                    className="util_flex-end btn-secondary"
+                                >
+                                    Annullér
+                                </button>
                             </div>
                         )}
                     </div>
