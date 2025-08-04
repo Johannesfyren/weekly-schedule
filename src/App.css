@@ -112,7 +112,7 @@ root {
     position: absolute;
     bottom: -1px;
     right: -1px;
-    background-color: rgb(4, 99, 4);
+    background-color: #300276;
     width: 25px;
     height: 25px;
     border-radius: 100%;
@@ -160,20 +160,27 @@ root {
     gap: 10px;
     padding: 20px 10px 20px 10px;
     display: flex;
-    background-color: #ffffff;
+    background-color: #3002766b;
+    backdrop-filter: blur(10px);
 
     border-radius: 10px;
     box-shadow: 0 0 2px 0;
     flex-direction: column;
     min-width: 300px;
     max-height: 600px;
+
     overflow-y: scroll;
     p {
-        color: black;
+        color: white;
     }
+
     & :hover {
-        background-color: rgb(159, 210, 255);
+        background-color: #1f2a48;
         border-radius: 10px;
+        div {
+            margin-left: 8px;
+            transition: 0.2s;
+        }
     }
 }
 

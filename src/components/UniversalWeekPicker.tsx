@@ -30,7 +30,7 @@ export default function UniversalWeekPicker({
                 style={{
                     display: "flex",
                     flexDirection: "row",
-                    gap: "20px",
+                    gap: size == "mobile" ? "15px" : "20px",
                     justifyContent: "center",
                     alignItems: "center",
                 }}
@@ -89,7 +89,7 @@ export default function UniversalWeekPicker({
                         size == "small"
                             ? "1.0rem"
                             : size == "mobile"
-                            ? "0.8rem"
+                            ? "0.6rem"
                             : "1.1rem",
                     color: "#DFDFDF",
                 }}
