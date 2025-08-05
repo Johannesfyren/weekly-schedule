@@ -15,6 +15,16 @@ root {
     position: relative;
 }
 
+.hide-scrollbar {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 .ribbon {
     display: flex;
     flex-direction: row;
@@ -149,7 +159,7 @@ root {
         rgba(50, 76, 156, 1) 51%
     );
     width: 80%;
-    height: 60%;
+    height: auto;
     border-radius: 10px;
     border: 1px solid white;
     box-shadow: 0 0 10px 0;

@@ -19,7 +19,7 @@ export default function Ribbon({
     setChosenWeekNumber,
     setRefreshAttendees,
 }: ribbonType) {
-    const [showAttPicker, setShowAttPicker] = useState(false);
+    const [showAttPicker, setShowAttPicker] = useState<boolean>(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -84,6 +84,7 @@ export default function Ribbon({
                 <AttendancePicker
                     attPickerRef={attPickerRef}
                     setSelectedAtt={setSelectedAtt}
+                    setShowAttPicker={setShowAttPicker}
                 />
             )}
 

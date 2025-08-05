@@ -62,7 +62,9 @@ export default function Day({
     return (
         <div
             className={
-                currentDay ? "day-container current-day" : "day-container"
+                currentDay
+                    ? "day-container current-day hide-scrollbar"
+                    : "day-container hide-scrollbar"
             }
         >
             <div

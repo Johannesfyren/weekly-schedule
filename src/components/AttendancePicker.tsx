@@ -13,10 +13,12 @@ export type userType = {
 export type attPickerRefType = {
     attPickerRef: React.Ref<HTMLDivElement>;
     setSelectedAtt?: (name: string) => void;
+    setShowAttPicker: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function AttendancePicker({
     attPickerRef,
     setSelectedAtt,
+    setShowAttPicker,
 }: attPickerRefType) {
     const [userData, setUserData] = useState<userType[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -35,7 +37,7 @@ export default function AttendancePicker({
     }, []);
 
     return (
-        <div className="att-picker-container" ref={attPickerRef}>
+        <div className="att-picker-container hide-scrollbar" ref={attPickerRef}>
             {isLoading && <LoadingIndicator />}
             {!isLoading &&
                 userData &&
@@ -48,6 +50,7 @@ export default function AttendancePicker({
                             canOpenProfile={true}
                             setSelectedAtt={setSelectedAtt}
                             imgUrl={user.img_ref}
+                            setShowAttPicker={setShowAttPicker}
                         />
                     );
                 })}

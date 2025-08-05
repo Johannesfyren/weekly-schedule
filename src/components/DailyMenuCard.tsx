@@ -52,6 +52,7 @@ export default function DailyMenuCard({
                 scrollbarGutter: "none",
                 padding: "10px",
             }}
+            className="hide-scrollbar"
         >
             <img style={{ width: "20px" }} src={menuIcon} alt="" />
             <p
