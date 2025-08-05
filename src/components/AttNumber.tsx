@@ -99,28 +99,13 @@ export default function Attnumber({
 
             {attIsClicked && !attIsExpanded && (
                 <>
-                    <div
-                        className="att-icon-number"
-                        onClick={() =>
-                            attIsClicked
-                                ? setAttIsExpanded(false)
-                                : setAttIsExpanded(true)
-                        }
-                    >
-                        <img style={{ width: "24px" }} src={attNoIcon} alt="" />
-                        <p
-                            style={{
-                                color: "#300276",
-                                fontWeight: "700",
-                                fontSize: "1.1rem",
-                            }}
-                        >
-                            {allAttendees &&
-                                allAttendees.filter(
-                                    (att) => att[dayDBName] === 2
-                                ).length}
-                        </p>
-                    </div>
+                    <AttIconAndNumber
+                        allAttendees={allAttendees}
+                        attIsClicked={attIsClicked}
+                        dayDBName={dayDBName}
+                        icon={attNoIcon}
+                        attendanceDBValue={2}
+                    />
                     <div
                         className="att-icon-number"
                         onClick={() =>
