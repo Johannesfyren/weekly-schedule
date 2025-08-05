@@ -78,7 +78,7 @@ export default function Day({
             >
                 <h2 style={{ alignSelf: "flex-start" }}>{dayName}</h2>
                 <Attnumber
-                    numberOfAttendees={attendees && attendees}
+                    allAttendees={attendees && attendees}
                     dayDBName={dayDBName}
                     attIsClicked={attIsClicked}
                     setAttIsClicked={setAttIsClicked}

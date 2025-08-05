@@ -1,6 +1,7 @@
 //@ts-nocheck
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import AttIconAndNumber from "./AttIconAndNumber";
 import attIcon from "../assets/people-icon.svg";
 import attYesIcon from "../assets/att-yes.svg";
 import attNoIcon from "../assets/att-no.svg";
@@ -10,7 +11,7 @@ import expandIcon from "../assets/expand.svg";
 import { motion } from "motion/react";
 
 export type Attnumbertype = {
-    numberOfAttendees: Array<{
+    allAttendees: Array<{
         mon: number;
         tue: number;
         wed: number;
@@ -27,18 +28,18 @@ export type Attnumbertype = {
     setAttIsClicked: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function Attnumber({
-    numberOfAttendees,
+    allAttendees,
     dayDBName,
     attIsClicked,
     setAttIsClicked,
 }: Attnumbertype) {
-    const [usercount, setUsercount] = useState<number>();
+    const [completeUserList, setCompleteUserList] = useState<number>();
     const [attIsExpanded, setAttIsExpanded] = useState(false);
     useEffect(() => {
         //Fetch number of active users in the db
         const countActiveUsers = async () => {
             const { data, error } = await supabase.from("user").select("*");
-            setUsercount(data.length);
+            setCompleteUserList(data);
         };
         countActiveUsers();
     }, []);
@@ -58,10 +59,14 @@ export default function Attnumber({
         <motion.div
             layout
             transition={{ duration: 0.15 }}
-            className="att-number-container"
+            className={
+                attIsExpanded
+                    ? "att-number-container-exp"
+                    : "att-number-container"
+            }
             onMouseEnter={() => setAttIsClicked(true)}
             onMouseLeave={() => {
-                // setAttIsExpanded(false);
+                setAttIsExpanded(false);
                 setAttIsClicked(false);
             }}
             onClick={() => {
@@ -83,8 +88,8 @@ export default function Attnumber({
                                 fontSize: "1.1rem",
                             }}
                         >
-                            {numberOfAttendees &&
-                                numberOfAttendees.filter(
+                            {allAttendees &&
+                                allAttendees.filter(
                                     (att) => att[dayDBName] === 1
                                 ).length}
                         </p>
@@ -110,8 +115,8 @@ export default function Attnumber({
                                 fontSize: "1.1rem",
                             }}
                         >
-                            {numberOfAttendees &&
-                                numberOfAttendees.filter(
+                            {allAttendees &&
+                                allAttendees.filter(
                                     (att) => att[dayDBName] === 2
                                 ).length}
                         </p>
@@ -136,13 +141,13 @@ export default function Attnumber({
                                 fontSize: "1.1rem",
                             }}
                         >
-                            {numberOfAttendees &&
-                                usercount &&
-                                Number(usercount) -
-                                    (numberOfAttendees.filter(
+                            {allAttendees &&
+                                completeUserList &&
+                                Number(completeUserList.length) -
+                                    (allAttendees.filter(
                                         (att) => att[dayDBName] === 1
                                     ).length +
-                                        numberOfAttendees.filter(
+                                        allAttendees.filter(
                                             (att) => att[dayDBName] === 2
                                         ).length)}
                         </p>
@@ -154,14 +159,102 @@ export default function Attnumber({
             {attIsExpanded && (
                 <div className="att-icon-expanded-container">
                     <div className="att-icon-number-expanded">
-                        <p>adsdasqweqweqweasdasdasdqed</p>
-                        <p>adsdasd</p>
-                        <p>adsdasd</p>
-                        <p>adsdasd</p>
-                        <var>v</var>
+                        {console.log(allAttendees)}
+
+                        <AttIconAndNumber
+                            allAttendees={allAttendees}
+                            attIsClicked={attIsClicked}
+                            dayDBName={dayDBName}
+                            icon={attYesIcon}
+                            attendanceDBValue={1}
+                        />
+                        {allAttendees
+                            .filter((att) => att[dayDBName] === 1)
+                            .map((att, index) => {
+                                return <div key={index}>{att.user.name}</div>;
+                            })}
+                    </div>
+                    <div className="att-icon-number-expanded">
+                        {console.log(allAttendees)}
+
+                        <AttIconAndNumber
+                            allAttendees={allAttendees}
+                            attIsClicked={attIsClicked}
+                            dayDBName={dayDBName}
+                            icon={attNoIcon}
+                            attendanceDBValue={2}
+                        />
+                        {allAttendees
+                            .filter((att) => att[dayDBName] === 2)
+                            .map((att, index) => {
+                                return <div key={index}>{att.user.name}</div>;
+                            })}
+                    </div>
+                    <div className="att-icon-number-expanded">
+                        <div
+                            className="att-icon-number"
+                            onClick={() =>
+                                attIsClicked
+                                    ? setAttIsExpanded(false)
+                                    : setAttIsExpanded(true)
+                            }
+                        >
+                            <img
+                                style={{ width: "24px" }}
+                                src={attMaybeIcon}
+                                alt=""
+                            />
+                            <p
+                                style={{
+                                    color: "#300276",
+                                    fontWeight: "700",
+                                    fontSize: "1.1rem",
+                                }}
+                            >
+                                {allAttendees &&
+                                    completeUserList &&
+                                    Number(completeUserList.length) -
+                                        (allAttendees.filter(
+                                            (att) => att[dayDBName] === 1
+                                        ).length +
+                                            allAttendees.filter(
+                                                (att) => att[dayDBName] === 2
+                                            ).length)}
+                            </p>
+                        </div>
+                        {completeUserList
+                            .filter(
+                                (user) =>
+                                    !allAttendees
+                                        .filter(
+                                            (att) =>
+                                                att[dayDBName] === 1 ||
+                                                att[dayDBName] === 2
+                                        )
+                                        .some((att) => att.user.id === user.id)
+                            )
+                            .map((user) => (
+                                <div key={user.id}>{user.name}</div>
+                            ))}
                     </div>
                 </div>
             )}
         </motion.div>
     );
+
+    function getFilteredUsers(
+        completeUserList: typeof completeUserList,
+        allAttendees: typeof allAttendees,
+        dayName: keyof (typeof allAttendees)[number]
+    ) {
+        return completeUserList.filter((user) => {
+            const attendee = allAttendees.find((a) => a.user.id === user.id);
+
+            // User not in attendees
+            if (!attendee) return true;
+
+            // User found, but value for given day is not 3
+            return attendee[dayName] !== 3;
+        });
+    }
 }
