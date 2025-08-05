@@ -30,7 +30,8 @@ export default function Board() {
                 chosenWeekNumber={chosenWeekNumber}
                 setRefreshAttendees={setRefetchAttendees}
             />
-
+            {console.log(chosenWeekNumber)}
+            {console.log(new Date().getDate())}
             <div className="board">
                 <Day
                     dayName={"Mandag"}

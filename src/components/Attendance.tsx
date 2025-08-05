@@ -35,6 +35,7 @@ export default function Attendance({
             className="attendant-container"
             onClick={() => {
                 canOpenProfile && setSelectedAtt && setSelectedAtt(name);
+                //@ts-ignore
                 setSelectedAtt && setShowAttPicker(false);
             }}
         >
