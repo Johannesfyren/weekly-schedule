@@ -1,9 +1,12 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import attIcon from "../assets/people-icon.svg";
 import attYesIcon from "../assets/att-yes.svg";
 import attNoIcon from "../assets/att-no.svg";
 import attMaybeIcon from "../assets/att-maybe.svg";
+import expandIcon from "../assets/expand.svg";
+
 import { motion } from "motion/react";
 
 export type Attnumbertype = {
@@ -57,12 +60,17 @@ export default function Attnumber({
             style={{
                 display: "flex",
                 flexDirection: "column",
+                position: "absolute",
+                right: "10px",
+                top: "10px",
                 gap: "5px",
                 backgroundColor: "white",
                 padding: "2px 5px",
                 borderRadius: "5px",
                 cursor: "pointer",
             }}
+            onMouseEnter={() => setAttIsClicked(true)}
+            onMouseLeave={() => setAttIsClicked(false)}
         >
             <div
                 style={{
@@ -70,11 +78,6 @@ export default function Attnumber({
                     flexDirection: "row",
                     gap: "5px",
                 }}
-                onClick={() =>
-                    attIsClicked
-                        ? setAttIsClicked(false)
-                        : setAttIsClicked(true)
-                }
             >
                 <img
                     style={{ width: "24px" }}
@@ -156,6 +159,8 @@ export default function Attnumber({
                                         ).length)}
                         </p>
                     </div>
+                    <hr />
+                    <img src={expandIcon} alt="" width={"20px"} />
                 </>
             )}
         </motion.div>
