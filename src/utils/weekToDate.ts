@@ -1,21 +1,24 @@
 export function weekToDateRangeString(week: number, year: number): string {
-    // Find the first day of the year
-    const firstDayOfYear = new Date(year, 0, 1);
-    // Find the first Monday of the year
-    const firstMondayOffset = (8 - firstDayOfYear.getDay()) % 7;
-    const firstMonday = new Date(year, 0, 1 + firstMondayOffset);
+    // ISO weeks start on Monday, week 1 contains Jan 4
+    const simple = new Date(year, 0, 4); // Jan 4
+    const dayOfWeek = simple.getDay() || 7; // make Sunday=7
+    const mondayOfWeek1 = new Date(simple);
+    mondayOfWeek1.setDate(simple.getDate() - (dayOfWeek - 1)); // back to Monday
 
-    // Calculate the Monday of the given week
-    const monday = new Date(firstMonday);
-    monday.setDate(firstMonday.getDate() + (week - 1) * 7);
+    // Calculate Monday of given week
+    const monday = new Date(mondayOfWeek1);
+    monday.setDate(mondayOfWeek1.getDate() + (week - 1) * 7);
 
-    // Friday is 4 days after Monday
+    // Friday is Monday + 4 days
     const friday = new Date(monday);
     friday.setDate(monday.getDate() + 4);
 
-    // Format helper
     const format = (date: Date) =>
-        date.toLocaleDateString("da-DK").replace(/\//g, "-"); // "dd-mm-yyyy"
+        date.toLocaleDateString("da-DK", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
 
     return `${format(monday)} - ${format(friday)}`;
 }
