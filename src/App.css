@@ -396,27 +396,35 @@ root {
     display: flex;
     flex-direction: column;
     position: absolute;
-
+    gap: 10px;
     right: 10px;
     top: 10px;
-    gap: 5px;
+
     background-color: white;
-    padding: 2px 5px;
+    /* padding: 2px 5px; */
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 0 5px #fff;
+    border: 1px solid white;
+    div {
+        padding: 0 3px 5px 3px;
+    }
 }
+
 .att-icon-number {
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
 .att-icon-expanded-container {
-    max-width: 100%;
-    min-width: 100%;
-    height: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     overflow-x: hidden;
+    /* padding-left: 5px; */
 }
 .att-icon-number-expanded {
+    margin-bottom: 5px;
     p {
         color: #1f2a48;
     }
