@@ -33,8 +33,9 @@ export default function Attnumber({
     setAttIsClicked,
 }: Attnumbertype) {
     const [usercount, setUsercount] = useState<number>();
+    const [attIsExpanded, setAttIsExpanded] = useState(false);
     useEffect(() => {
-        //Fetch user
+        //Fetch number of active users in the db
         const countActiveUsers = async () => {
             const { data, error } = await supabase.from("user").select("*");
             setUsercount(data.length);
@@ -44,70 +45,61 @@ export default function Attnumber({
 
     useEffect(() => {
         //Self collapse if not done manually
-        let setint;
+        let setInt;
         if (attIsClicked == true) {
-            setint = setTimeout(() => {
+            setInt = setTimeout(() => {
                 setAttIsClicked(false);
             }, 20000);
         }
-        return () => clearTimeout(setint);
+        return () => clearTimeout(setInt);
     }, [attIsClicked]);
 
     return (
         <motion.div
             layout
             transition={{ duration: 0.15 }}
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                position: "absolute",
-                right: "10px",
-                top: "10px",
-                gap: "5px",
-                backgroundColor: "white",
-                padding: "2px 5px",
-                borderRadius: "5px",
-                cursor: "pointer",
-            }}
+            className="att-number-container"
             onMouseEnter={() => setAttIsClicked(true)}
-            onMouseLeave={() => setAttIsClicked(false)}
+            onMouseLeave={() => {
+                // setAttIsExpanded(false);
+                setAttIsClicked(false);
+            }}
+            onClick={() => {
+                setAttIsExpanded(true);
+            }}
         >
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: "5px",
-                }}
-            >
-                <img
-                    style={{ width: "24px" }}
-                    src={attIsClicked ? attYesIcon : attIcon}
-                    alt=""
-                />
-                <p
-                    style={{
-                        color: "#300276",
-                        fontWeight: "700",
-                        fontSize: "1.1rem",
-                    }}
-                >
-                    {numberOfAttendees &&
-                        numberOfAttendees.filter((att) => att[dayDBName] === 1)
-                            .length}
-                </p>
+            <div className="att-icon-number">
+                {!attIsExpanded && (
+                    <>
+                        <img
+                            style={{ width: "24px" }}
+                            src={attIsClicked ? attYesIcon : attIcon}
+                            alt=""
+                        />
+                        <p
+                            style={{
+                                color: "#300276",
+                                fontWeight: "700",
+                                fontSize: "1.1rem",
+                            }}
+                        >
+                            {numberOfAttendees &&
+                                numberOfAttendees.filter(
+                                    (att) => att[dayDBName] === 1
+                                ).length}
+                        </p>
+                    </>
+                )}
             </div>
-            {attIsClicked && (
+
+            {attIsClicked && !attIsExpanded && (
                 <>
                     <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "5px",
-                        }}
+                        className="att-icon-number"
                         onClick={() =>
                             attIsClicked
-                                ? setAttIsClicked(false)
-                                : setAttIsClicked(true)
+                                ? setAttIsExpanded(false)
+                                : setAttIsExpanded(true)
                         }
                     >
                         <img style={{ width: "24px" }} src={attNoIcon} alt="" />
@@ -125,15 +117,11 @@ export default function Attnumber({
                         </p>
                     </div>
                     <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "5px",
-                        }}
+                        className="att-icon-number"
                         onClick={() =>
                             attIsClicked
-                                ? setAttIsClicked(false)
-                                : setAttIsClicked(true)
+                                ? setAttIsExpanded(false)
+                                : setAttIsExpanded(true)
                         }
                     >
                         <img
@@ -162,6 +150,17 @@ export default function Attnumber({
                     <hr />
                     <img src={expandIcon} alt="" width={"20px"} />
                 </>
+            )}
+            {attIsExpanded && (
+                <div className="att-icon-expanded-container">
+                    <div className="att-icon-number-expanded">
+                        <p>adsdasqweqweqweasdasdasdqed</p>
+                        <p>adsdasd</p>
+                        <p>adsdasd</p>
+                        <p>adsdasd</p>
+                        <var>v</var>
+                    </div>
+                </div>
             )}
         </motion.div>
     );
