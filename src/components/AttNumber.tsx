@@ -142,8 +142,13 @@ export default function Attnumber({
                                         ).length)}
                         </p>
                     </div>
-                    <hr />
-                    <img src={expandIcon} alt="" width={"20px"} />
+                    <div className="seperator"></div>
+                    <img
+                        src={expandIcon}
+                        alt=""
+                        width={"20px"}
+                        style={{ alignSelf: "center" }}
+                    />
                 </>
             )}
             {attIsExpanded && (
@@ -230,20 +235,4 @@ export default function Attnumber({
             )}
         </motion.div>
     );
-
-    function getFilteredUsers(
-        completeUserList: typeof completeUserList,
-        allAttendees: typeof allAttendees,
-        dayName: keyof (typeof allAttendees)[number]
-    ) {
-        return completeUserList.filter((user) => {
-            const attendee = allAttendees.find((a) => a.user.id === user.id);
-
-            // User not in attendees
-            if (!attendee) return true;
-
-            // User found, but value for given day is not 3
-            return attendee[dayName] !== 3;
-        });
-    }
 }
