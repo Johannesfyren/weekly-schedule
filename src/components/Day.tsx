@@ -95,7 +95,7 @@ export default function Day({
                         year={new Date().getFullYear()}
                         refetchAttendees={refetchAttendees}
                     />
-
+                    <div className="seperator"></div>
                     <div className="attendances-container">
                         {attendees &&
                             attendees

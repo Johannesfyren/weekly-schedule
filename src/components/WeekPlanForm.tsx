@@ -37,7 +37,7 @@ export default function WeekPlanForm({
                 <h2 style={{ fontWeight: "400" }}>Mandag</h2>
                 <h2 style={{ fontWeight: "400" }}>Tirsdag</h2>
                 <h2 style={{ fontWeight: "400" }}>Onsdag</h2>
-                <h2 style={{ fontWeight: "400" }}>torsdag</h2>
+                <h2 style={{ fontWeight: "400" }}>Torsdag</h2>
                 <h2 style={{ fontWeight: "400" }}>Fredag</h2>
             </div>
             <form className="week-form">

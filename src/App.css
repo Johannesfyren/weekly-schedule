@@ -531,6 +531,13 @@ input[type="radio"] {
     align-self: flex-end;
 }
 
+.seperator {
+    height: 1px;
+    width: 100%;
+
+    background-color: rgb(147, 147, 147);
+}
+
 /* MEDIA QUERIES */
 @media screen and (max-width: 850px) {
     .board {

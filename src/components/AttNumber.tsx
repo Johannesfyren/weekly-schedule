@@ -70,7 +70,12 @@ export default function Attnumber({
                 setAttIsClicked(false);
             }}
             onClick={() => {
-                setAttIsExpanded(true);
+                setAttIsClicked(true);
+                attIsClicked && setAttIsExpanded(true);
+                if (attIsExpanded) {
+                    setAttIsExpanded(false);
+                    setAttIsClicked(false);
+                }
             }}
         >
             <div className="att-icon-number">
@@ -142,7 +147,10 @@ export default function Attnumber({
                 </>
             )}
             {attIsExpanded && (
-                <div className="att-icon-expanded-container">
+                <div
+                    className="att-icon-expanded-container"
+                    onClick={() => setAttIsExpanded(false)}
+                >
                     <div className="att-icon-number-expanded">
                         <AttIconAndNumber
                             allAttendees={allAttendees}
