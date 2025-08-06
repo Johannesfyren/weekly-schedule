@@ -4,7 +4,7 @@ import AttendancePicker from "./AttendancePicker";
 import { createPortal } from "react-dom";
 import MenuPlan from "./MenuPlan";
 import UniversalWeekPicker from "./UniversalWeekPicker";
-import LogoIcon from "../assets/Logo.png";
+import LogoIcon from "../assets/Logo.svg";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
