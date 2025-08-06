@@ -500,10 +500,21 @@ input[type="radio"] {
     position: sticky;
     bottom: 5px;
     height: 40px;
-    padding: 10px;
+    padding: 8px;
     width: 200px;
     align-self: flex-end;
-    background-color: rgb(157, 21, 35, 0.9);
+    background-color: #3002766b;
+    color: white;
+    font-size: 1.1rem;
+}
+.btn-floaty-secondary {
+    position: sticky;
+    bottom: 5px;
+    height: 40px;
+    padding: 8px;
+    width: auto;
+    align-self: flex-end;
+    background-color: rgba(157, 21, 35, 0.014);
     color: white;
     font-size: 1.1rem;
 }

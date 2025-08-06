@@ -157,7 +157,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                             </div>
                         </div>
                         {videoStreamActivated && (
-                            <div className="profile-container video-frame">
+                            <div className="profile-container video-frame hide-scrollbar">
                                 <div
                                     style={{
                                         display: "flex",

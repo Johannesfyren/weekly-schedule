@@ -80,7 +80,7 @@ export default function MenuPlan({
                 {isLoading && <LoadingIndicator />}
 
                 {!isLoading && (
-                    <div className="menu-inputs-container">
+                    <div className="menu-inputs-container hide-scrollbar">
                         <div className="menu-input">
                             <label htmlFor="mon">Mandag</label>
                             <textarea
@@ -123,8 +123,35 @@ export default function MenuPlan({
                         </div>
                     </div>
                 )}
-
-                <button
+                <div
+                    style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignSelf: "flex-end",
+                    }}
+                >
+                    <button
+                        className="btn-floaty-secondary btn-secondary "
+                        onClick={() => {
+                            // submitMenu();
+                            // setRefreshAttendees(true);
+                            setMenuOpen(false);
+                        }}
+                    >
+                        Annuller
+                    </button>
+                    <button
+                        className="btn-primary btn-floaty"
+                        onClick={() => {
+                            submitMenu();
+                            setRefreshAttendees(true);
+                            setMenuOpen(false);
+                        }}
+                    >
+                        Gem madplan
+                    </button>
+                </div>
+                {/* <button
                     className="btn-primary btn-floaty"
                     onClick={() => {
                         submitMenu();
@@ -133,7 +160,7 @@ export default function MenuPlan({
                     }}
                 >
                     Gem madplan
-                </button>
+                </button> */}
             </div>
         </div>
     );
