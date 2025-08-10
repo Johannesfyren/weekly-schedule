@@ -159,6 +159,7 @@ root {
         rgba(50, 76, 156, 1) 51%
     );
     width: 80%;
+    max-width: 1000px;
     height: auto;
     border-radius: 10px;
     border: 1px solid white;
@@ -348,6 +349,7 @@ root {
         rgba(50, 76, 156, 1) 51%
     );
     width: 80%;
+    max-width: 800px;
     height: 60vh;
     border-radius: 10px;
     border: 1px solid white;
@@ -536,7 +538,7 @@ input[type="radio"] {
     bottom: 5px;
     height: 40px;
     padding: 8px;
-    width: 200px;
+
     align-self: flex-end;
     background-color: #3002766b;
     color: white;

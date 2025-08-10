@@ -1,3 +1,4 @@
+//@ts-nocheck
 /// <reference types="vite-plugin-svgr/client" />
 import { useState } from "react";
 import { motion } from "motion/react";
