@@ -24,7 +24,6 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     let file: React.HTMLInputTypeAttribute;
 
     useEffect(() => {
-        console.log("test", imgUrl);
         if (imgUrl) {
             async function getImg() {
                 setPublicUrl(await fetchImage(imgUrl!));

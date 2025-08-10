@@ -76,7 +76,7 @@ export default function Ribbon({
                     clickEvent={() => setMenuOpen(true)}
                     name="Opret madplan"
                     type="Secondary"
-                    iconName="filled-food-icon.svg"
+                    iconName="menu-icon-white.svg"
                 />
             </div>
 

@@ -1,3 +1,10 @@
+/// <reference types="vite-plugin-svgr/client" />
+import { useState } from "react";
+import { motion } from "motion/react";
+import { supabase } from "../utils/supabaseClient";
+import AttYes from "../assets/checkmark.svg?react";
+import AttNo from "../assets/cross.svg?react";
+import AttMaybe from "../assets/questionmark.svg?react";
 export type formType = {
     fk_user: number;
     mon: number;
@@ -12,159 +19,135 @@ export type formTypeInherited = {
     setFormData: (data: formType) => void;
     formData: formType | undefined;
 };
+
 export default function WeekPlanForm({
     setFormData,
     formData,
 }: formTypeInherited) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!formData) return;
-        setFormData({ ...formData, [e.target.name]: Number(e.target.value) });
-    };
+    const [chosenStatus, setChosenStatus] = useState();
 
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="week-plan-container">
+            <div className="container-header"></div>
             <div
+                className="container-header"
+                style={{ alignSelf: "center", justifySelf: "center" }}
+            >
+                Spiser
+            </div>
+            <div
+                className="container-header"
                 style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                    gap: "6px",
-                    marginTop: "35px",
-                    marginRight: "10px",
-                    fontWeight: "400px",
+                    alignSelf: "center",
+                    justifySelf: "center",
                 }}
             >
-                <h2 style={{ fontWeight: "400" }}>Mandag</h2>
-                <h2 style={{ fontWeight: "400" }}>Tirsdag</h2>
-                <h2 style={{ fontWeight: "400" }}>Onsdag</h2>
-                <h2 style={{ fontWeight: "400" }}>Torsdag</h2>
-                <h2 style={{ fontWeight: "400" }}>Fredag</h2>
+                Spiser ikke
             </div>
-            <form className="week-form">
-                <div>
-                    <fieldset name="labels" className="form-headers">
-                        <label>Spiser</label>
-                        <label>Spiser ikke</label>
-                        <label>Ved ikke</label>
-                    </fieldset>
-                    <fieldset name="fs_mandag">
-                        <input
-                            type="radio"
-                            value={1}
-                            checked={formData?.mon === 1}
-                            onChange={handleChange}
-                            name="mon"
-                        />
-                        <input
-                            type="radio"
-                            value={2}
-                            checked={formData?.mon === 2}
-                            onChange={handleChange}
-                            name="mon"
-                        />
-                        <input
-                            type="radio"
-                            value={3}
-                            checked={formData?.mon === 3}
-                            onChange={handleChange}
-                            name="mon"
-                        />
-                    </fieldset>
-
-                    <fieldset name="fs_tirsdag">
-                        <input
-                            type="radio"
-                            value={1}
-                            checked={formData?.tue === 1}
-                            onChange={handleChange}
-                            name="tue"
-                        />
-                        <input
-                            type="radio"
-                            value={2}
-                            checked={formData?.tue === 2}
-                            onChange={handleChange}
-                            name="tue"
-                        />
-                        <input
-                            type="radio"
-                            value={3}
-                            checked={formData?.tue === 3}
-                            onChange={handleChange}
-                            name="tue"
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <input
-                            type="radio"
-                            value={1}
-                            checked={formData?.wed === 1}
-                            onChange={handleChange}
-                            name="wed"
-                        />
-                        <input
-                            type="radio"
-                            value={2}
-                            checked={formData?.wed === 2}
-                            onChange={handleChange}
-                            name="wed"
-                        />
-                        <input
-                            type="radio"
-                            value={3}
-                            checked={formData?.wed === 3}
-                            onChange={handleChange}
-                            name="wed"
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <input
-                            type="radio"
-                            value={1}
-                            checked={formData?.thu === 1}
-                            onChange={handleChange}
-                            name="thu"
-                        />
-                        <input
-                            type="radio"
-                            value={2}
-                            checked={formData?.thu === 2}
-                            onChange={handleChange}
-                            name="thu"
-                        />
-                        <input
-                            type="radio"
-                            value={3}
-                            checked={formData?.thu === 3}
-                            onChange={handleChange}
-                            name="thu"
-                        />
-                    </fieldset>
-                    <fieldset>
-                        <input
-                            type="radio"
-                            value={1}
-                            checked={formData?.fri === 1}
-                            onChange={handleChange}
-                            name="fri"
-                        />
-                        <input
-                            type="radio"
-                            value={2}
-                            checked={formData?.fri === 2}
-                            onChange={handleChange}
-                            name="fri"
-                        />
-                        <input
-                            type="radio"
-                            value={3}
-                            checked={formData?.fri === 3}
-                            onChange={handleChange}
-                            name="fri"
-                        />
-                    </fieldset>
-                </div>
-            </form>
+            <div
+                className="container-header"
+                style={{ alignSelf: "center", justifySelf: "center" }}
+            >
+                Ingen svar
+            </div>
+            <GridDay
+                dayDBname={"mon"}
+                dayName={"Mandag"}
+                formData={formData}
+                setFormData={setFormData}
+            />
+            <GridDay
+                dayDBname={"tue"}
+                dayName={"Tirsdag"}
+                formData={formData}
+                setFormData={setFormData}
+            />
+            <GridDay
+                dayDBname={"wed"}
+                dayName={"Onsdag"}
+                formData={formData}
+                setFormData={setFormData}
+            />
+            <GridDay
+                dayDBname={"thu"}
+                dayName={"Torsdag"}
+                formData={formData}
+                setFormData={setFormData}
+            />
+            <GridDay
+                dayDBname={"fri"}
+                dayName={"fredag"}
+                formData={formData}
+                setFormData={setFormData}
+            />
         </div>
+    );
+}
+
+function GridDay({ dayDBname, dayName, setFormData, formData }) {
+    const handleChosenDay = (e: React.EventHandler) => {
+        if (!formData) return;
+        setFormData({
+            ...formData,
+            [e.currentTarget.dataset.dbname]: Number(
+                e.currentTarget.dataset.value
+            ),
+        });
+    };
+    return (
+        <>
+            <div className="container-header">{dayName}</div>
+            <div
+                data-dbname={dayDBname}
+                data-value={"1"}
+                onClick={handleChosenDay}
+                className="week-plan-cell"
+            >
+                {formData && formData[dayDBname] == 1 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <AttYes
+                            style={{ width: "30px", height: "30px" }}
+                            className="line"
+                        />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
+            </div>
+            <div
+                data-dbname={dayDBname}
+                data-value={"2"}
+                onClick={handleChosenDay}
+                className="week-plan-cell"
+            >
+                {formData && formData[dayDBname] == 2 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <AttNo
+                            style={{ width: "30px", height: "30px" }}
+                            className="line"
+                        />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
+            </div>
+            <div
+                data-dbname={dayDBname}
+                data-value={"3"}
+                onClick={handleChosenDay}
+                className="week-plan-cell yes"
+            >
+                {formData && formData[dayDBname] == 3 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <AttMaybe
+                            style={{ width: "30px", height: "30px" }}
+                            className="line"
+                        />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
+            </div>
+        </>
     );
 }

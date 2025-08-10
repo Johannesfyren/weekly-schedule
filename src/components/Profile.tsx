@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
-import WeekPlanForm from "./WeekPlanForm";
+
 import { weekNumber } from "weeknumber";
 import WeekPicker from "./WeekPicker";
 import UniversalWeekPicker from "./UniversalWeekPicker";
-import WeekPlanForm2 from "./WeekPlanForm2";
+import WeekPlanForm from "./WeekPlanForm";
 
 export type userType = {
     id: number;
@@ -108,14 +108,11 @@ export default function Profile({
                         setChosenWeekNumber={setChosenWeekNumber}
                         setIsLoading={() => console.log("yo")}
                     />
-                    <WeekPlanForm2
+                    <WeekPlanForm
                         setFormData={setFormData}
                         formData={formData}
                     />
-                    {/* <WeekPlanForm
-                        setFormData={setFormData}
-                        formData={formData}
-                    /> */}
+
                     <div
                         style={{
                             display: "flex",

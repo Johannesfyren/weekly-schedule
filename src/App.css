@@ -110,7 +110,7 @@ root {
     height: 100%;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    background-color: grey;
+    background-color: rgba(9, 2, 2, 0.168);
     font-size: 2rem;
     font-weight: 700;
     border: 1px solid white;
