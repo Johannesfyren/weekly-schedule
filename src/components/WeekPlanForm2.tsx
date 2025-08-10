@@ -1,5 +1,10 @@
+/// <reference types="vite-plugin-svgr/client" />
 import { useState } from "react";
+import { motion } from "motion/react";
 import { supabase } from "../utils/supabaseClient";
+import AttYes from "../assets/checkmark.svg?react";
+import AttNo from "../assets/cross.svg?react";
+import AttMaybe from "../assets/questionmark.svg?react";
 export type formType = {
     fk_user: number;
     mon: number;
@@ -98,7 +103,16 @@ function GridDay({ dayDBname, dayName, setFormData, formData }) {
                 onClick={handleChosenDay}
                 className="week-plan-cell"
             >
-                {formData && formData[dayDBname] == 1 ? "1" : "nono"}
+                {formData && formData[dayDBname] == 1 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <AttYes
+                            style={{ width: "30px", height: "30px" }}
+                            className="line"
+                        />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
             </div>
             <div
                 data-dbname={dayDBname}
@@ -106,7 +120,16 @@ function GridDay({ dayDBname, dayName, setFormData, formData }) {
                 onClick={handleChosenDay}
                 className="week-plan-cell"
             >
-                {formData && formData[dayDBname] == 2 ? "2" : "nono"}
+                {formData && formData[dayDBname] == 2 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <AttNo
+                            style={{ width: "30px", height: "30px" }}
+                            className="line"
+                        />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
             </div>
             <div
                 data-dbname={dayDBname}
@@ -114,7 +137,16 @@ function GridDay({ dayDBname, dayName, setFormData, formData }) {
                 onClick={handleChosenDay}
                 className="week-plan-cell yes"
             >
-                {formData && formData[dayDBname] == 3 ? "3" : "nono"}
+                {formData && formData[dayDBname] == 3 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <AttMaybe
+                            style={{ width: "30px", height: "30px" }}
+                            className="line"
+                        />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
             </div>
         </>
     );

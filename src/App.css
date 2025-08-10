@@ -437,6 +437,8 @@ root {
 
     width: 100%;
     background-color: rgba(6, 5, 5, 0.054);
+    border-radius: 8px;
+    overflow: hidden;
 }
 .container-header {
     display: flex;
@@ -456,18 +458,15 @@ root {
     justify-self: center;
     width: 100%;
     text-align: center;
-
+    border: 1px solid #1f2a4835;
     /* &.yes {
         background-color: red;
     } */
     &:hover {
-        background-color: #1f2a48;
+        background-color: #1f2a4848;
         cursor: pointer;
     }
 }
-/* .week-plan-cell:hover {
-    background-color: red;
-} */
 
 /* GENERAL EDITS */
 input[type="radio"] {
