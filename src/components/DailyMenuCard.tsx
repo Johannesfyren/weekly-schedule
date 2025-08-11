@@ -75,18 +75,6 @@ export default function DailyMenuCard({
                 paddingTop: "10px",
             }}
             className="hide-scrollbar"
-            onClick={(e) => {
-                // console.log(e.target.clientHeight);
-                // console.log(e.target.scrollHeight);
-                console.log(
-                    "scrollheight: ",
-                    menuRef.current?.scrollHeight,
-                    "clientheight: ",
-                    menuRef.current?.clientHeight,
-                    "scrolltop: ",
-                    menuRef.current?.scrollTop
-                );
-            }}
             onScroll={() => setScrollHeightMenu(menuRef.current.scrollTop)}
         >
             <img
@@ -139,13 +127,13 @@ export default function DailyMenuCard({
                             position: "sticky",
                             width: "100%",
                             background:
-                                "linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%,rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.32) 51%)",
+                                "linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.22) 51%)",
                             bottom: "0px",
                             height: "10px",
                         }}
                         onClick={() =>
                             menuRef.current?.scrollBy({
-                                top: 20,
+                                top: 40,
                                 behavior: "smooth",
                             })
                         }
