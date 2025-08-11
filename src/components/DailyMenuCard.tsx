@@ -112,8 +112,6 @@ export default function DailyMenuCard({
                         style={{
                             color: "#aeacacff",
                             fontStyle: "italic",
-                            paddingLeft: "10px",
-                            paddingRight: "10px",
                         }}
                     >
                         Ingen menu oprettet
@@ -143,7 +141,7 @@ export default function DailyMenuCard({
                             background:
                                 "linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%,rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.32) 51%)",
                             bottom: "0px",
-                            height: "15px",
+                            height: "10px",
                         }}
                         onClick={() =>
                             menuRef.current?.scrollBy({
@@ -166,7 +164,7 @@ export default function DailyMenuCard({
                     menuRef.current?.clientHeight + scrollHeightMenu + 5 && (
                     <div
                         style={{
-                            height: "20px",
+                            height: "10px",
                         }}
                     ></div>
                 )}
