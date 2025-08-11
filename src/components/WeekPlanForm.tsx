@@ -49,7 +49,7 @@ export default function WeekPlanForm({
                 className="container-header"
                 style={{ alignSelf: "center", justifySelf: "center" }}
             >
-                Ingen svar
+                Intet svar
             </div>
             <GridDay
                 dayDBname={"mon"}
@@ -77,7 +77,7 @@ export default function WeekPlanForm({
             />
             <GridDay
                 dayDBname={"fri"}
-                dayName={"fredag"}
+                dayName={"Fredag"}
                 formData={formData}
                 setFormData={setFormData}
             />

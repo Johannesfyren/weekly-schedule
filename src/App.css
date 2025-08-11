@@ -380,7 +380,7 @@ root {
     display: flex;
     flex-direction: column;
     position: absolute;
-
+    z-index: 1;
     right: 10px;
     top: 10px;
     gap: 5px;
@@ -398,9 +398,9 @@ root {
     gap: 10px;
     right: 10px;
     top: 10px;
-
+    z-index: 1;
     background-color: white;
-    /* padding: 2px 5px; */
+
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 0 5px #fff;
