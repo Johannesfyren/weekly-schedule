@@ -128,7 +128,7 @@ export default function Profile({
                         />
                         <Button
                             type="Primary"
-                            name="Gem og luk"
+                            name="Gem & luk"
                             clickEvent={(e) => {
                                 e.preventDefault();
                                 handleSubmit();
