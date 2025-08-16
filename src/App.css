@@ -37,7 +37,7 @@ root {
     background: var(--board-background);
 }
 .board {
-    width: 100vw;
+    width: 100%;
     min-height: 91vh;
     display: flex;
     flex-direction: row;
