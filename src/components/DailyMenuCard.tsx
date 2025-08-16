@@ -58,7 +58,6 @@ export default function DailyMenuCard({
         } else {
             setShowExcessMenuIndicator(true);
         }
-        console.log("yoyo");
     }, [scrollHeightMenu]);
     return (
         <div
@@ -106,14 +105,6 @@ export default function DailyMenuCard({
                     </span>
                 )}
             </p>
-            {console.log(
-                "scrollheight: ",
-                menuRef.current?.scrollHeight,
-                "clientheight: ",
-                menuRef.current?.clientHeight,
-                "scrolltop: ",
-                menuRef.current?.scrollTop
-            )}
 
             {menuRef &&
                 showExcessMenuIndicator &&

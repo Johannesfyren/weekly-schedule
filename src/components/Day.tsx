@@ -6,8 +6,9 @@ import { supabase } from "../utils/supabaseClient";
 import { motion, stagger } from "motion/react";
 import DailyMenuCard from "./DailyMenuCard";
 import LoadingIndicator from "./LoadingIndicator";
-
+import BirthdayAnnouncer from "./BirthdayAnnouncer";
 import Attnumber from "./AttNumber";
+
 type dayType = {
     dayName: string;
     currentDay: boolean;
@@ -16,6 +17,7 @@ type dayType = {
     setRefetchAttendees: React.Dispatch<React.SetStateAction<boolean>>;
     chosenWeekNumber: number;
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<boolean>>;
+    daysDate: Date;
 };
 
 export default function Day({
@@ -26,6 +28,7 @@ export default function Day({
     setRefetchAttendees,
     chosenWeekNumber,
     setChosenWeekNumber,
+    daysDate,
 }: dayType) {
     const [attendees, setAttendees] = useState();
     const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
@@ -37,7 +40,7 @@ export default function Day({
         const { data, error } = await supabase
             .from("attendances")
             .select(
-                `"mon","tue","wed","thu","fri",user("id", "name", "img_ref")`
+                `"mon","tue","wed","thu","fri",user("id", "name", "img_ref","birthday_date")`
             )
 
             .eq("week", chosenWeekNumber)
@@ -62,7 +65,7 @@ export default function Day({
     return (
         <div
             className={
-                currentDay
+                currentDay && weekNumber(daysDate) == weekNumber(date) //checks for week is also matching, so we dont highlight a day in irrelvant week
                     ? "day-container current-day hide-scrollbar"
                     : "day-container hide-scrollbar"
             }
@@ -89,6 +92,7 @@ export default function Day({
 
             {!isLoading && (
                 <>
+                    <BirthdayAnnouncer daysDate={daysDate} />
                     <DailyMenuCard
                         dayDBName={dayDBName}
                         weekNumber={chosenWeekNumber}

@@ -10,7 +10,9 @@ export function weekToDateRangeString(week: number, year: number): string {
     monday.setDate(mondayOfWeek1.getDate() + (week - 1) * 7);
 
     // Friday is Monday + 4 days
+
     const friday = new Date(monday);
+
     friday.setDate(monday.getDate() + 4);
 
     const format = (date: Date) =>
