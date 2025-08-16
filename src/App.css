@@ -33,7 +33,6 @@ root {
     align-items: center;
     padding: 0 10px 0 10px;
     height: 80px;
-    border-bottom: 1px;
     background: var(--board-background);
 }
 .board {
@@ -70,6 +69,9 @@ root {
     padding: 8px;
     h1 {
         color: black;
+    }
+    .att-number-container {
+        margin: -2px; /*To align att-number-container when there comes a border on current-day, that moves it*/
     }
 }
 .attendances-container {
