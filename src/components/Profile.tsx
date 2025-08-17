@@ -8,6 +8,7 @@ import { weekNumber } from "weeknumber";
 import WeekPicker from "./WeekPicker";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import WeekPlanForm from "./WeekPlanForm";
+import LoadingIndicator from "./LoadingIndicator";
 
 export type userType = {
     id: number;
@@ -38,6 +39,7 @@ export default function Profile({
         weekNumber(new Date())
     );
     const [formData, setFormData] = useState<formType>();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function fetchUsers(): Promise<userType | undefined> {
@@ -76,6 +78,7 @@ export default function Profile({
                         year: date.getFullYear(),
                     });
                 }
+                setIsLoading(false);
             }
         }
 
@@ -106,11 +109,13 @@ export default function Profile({
                     <UniversalWeekPicker
                         chosenWeekNumber={chosenWeekNumber}
                         setChosenWeekNumber={setChosenWeekNumber}
-                        setIsLoading={() => console.log("yo")}
+                        setIsLoading={setIsLoading}
                     />
+
                     <WeekPlanForm
                         setFormData={setFormData}
                         formData={formData}
+                        isLoading={isLoading}
                     />
 
                     <div

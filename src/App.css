@@ -164,7 +164,7 @@ root {
     );
     width: 80%;
     max-width: 1000px;
-    height: auto;
+    min-height: 627.5px;
     border-radius: 10px;
     border: 1px solid white;
     box-shadow: 0 0 10px 0;
@@ -443,7 +443,7 @@ root {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: auto 1fr 1fr 1fr;
-
+    height: 333px;
     width: 100%;
     background-color: rgba(6, 5, 5, 0.054);
     border-radius: 8px;
@@ -474,6 +474,24 @@ root {
     &:hover {
         background-color: #1f2a4848;
         cursor: pointer;
+    }
+}
+.week-plan-cell-loading {
+    padding: 10px;
+    justify-self: center;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #1f2a4835;
+    animation: skeleton-loading 1s linear infinite alternate;
+    color: transparent;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #1f2a4835; /* FROM Color 1 */
+    }
+    100% {
+        background-color: #586a9c35; /* TO Color 2 */
     }
 }
 

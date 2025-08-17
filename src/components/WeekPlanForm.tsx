@@ -24,6 +24,7 @@ export type formTypeInherited = {
 export default function WeekPlanForm({
     setFormData,
     formData,
+    isLoading,
 }: formTypeInherited) {
     const [chosenStatus, setChosenStatus] = useState();
 
@@ -51,41 +52,47 @@ export default function WeekPlanForm({
             >
                 Intet svar
             </div>
+
             <GridDay
                 dayDBname={"mon"}
                 dayName={"Mandag"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
             />
             <GridDay
                 dayDBname={"tue"}
                 dayName={"Tirsdag"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
             />
             <GridDay
                 dayDBname={"wed"}
                 dayName={"Onsdag"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
             />
             <GridDay
                 dayDBname={"thu"}
                 dayName={"Torsdag"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
             />
             <GridDay
                 dayDBname={"fri"}
                 dayName={"Fredag"}
                 formData={formData}
                 setFormData={setFormData}
+                isLoading={isLoading}
             />
         </div>
     );
 }
 
-function GridDay({ dayDBname, dayName, setFormData, formData }) {
+function GridDay({ dayDBname, dayName, setFormData, formData, isLoading }) {
     const handleChosenDay = (e: React.EventHandler) => {
         if (!formData) return;
         setFormData({
@@ -102,7 +109,9 @@ function GridDay({ dayDBname, dayName, setFormData, formData }) {
                 data-dbname={dayDBname}
                 data-value={"1"}
                 onClick={handleChosenDay}
-                className="week-plan-cell"
+                className={
+                    isLoading ? "week-plan-cell-loading " : "week-plan-cell"
+                }
             >
                 {formData && formData[dayDBname] == 1 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
@@ -119,7 +128,9 @@ function GridDay({ dayDBname, dayName, setFormData, formData }) {
                 data-dbname={dayDBname}
                 data-value={"2"}
                 onClick={handleChosenDay}
-                className="week-plan-cell"
+                className={
+                    isLoading ? "week-plan-cell-loading " : "week-plan-cell"
+                }
             >
                 {formData && formData[dayDBname] == 2 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
@@ -136,7 +147,9 @@ function GridDay({ dayDBname, dayName, setFormData, formData }) {
                 data-dbname={dayDBname}
                 data-value={"3"}
                 onClick={handleChosenDay}
-                className="week-plan-cell yes"
+                className={
+                    isLoading ? "week-plan-cell-loading " : "week-plan-cell"
+                }
             >
                 {formData && formData[dayDBname] == 3 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
