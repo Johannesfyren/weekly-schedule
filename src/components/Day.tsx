@@ -92,7 +92,7 @@ export default function Day({
 
             {!isLoading && (
                 <>
-                    <BirthdayAnnouncer daysDate={daysDate} />
+                    {/* <BirthdayAnnouncer daysDate={daysDate} /> */}
                     <DailyMenuCard
                         dayDBName={dayDBName}
                         weekNumber={chosenWeekNumber}

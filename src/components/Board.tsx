@@ -77,7 +77,7 @@ export default function Board() {
                 <Day
                     dayName={"Fredag"}
                     dayDBName={"fri"}
-                    currentDay={day - 1 == 5 ? true : false} //SKAL ÆNDRES så "- 1" fjernes!
+                    currentDay={day == 5 ? true : false}
                     refetchAttendees={refetchAttendees}
                     setRefetchAttendees={setRefetchAttendees}
                     chosenWeekNumber={chosenWeekNumber}
