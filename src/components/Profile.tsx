@@ -9,6 +9,8 @@ import WeekPicker from "./WeekPicker";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import WeekPlanForm from "./WeekPlanForm";
 import LoadingIndicator from "./LoadingIndicator";
+import Star from "./Star";
+import FavoritePerson from "./FavoritePerson";
 
 export type userType = {
     id: number;
@@ -96,13 +98,30 @@ export default function Profile({
     return (
         <div className="profile-container-bg">
             <div className="profile-container hide-scrollbar">
-                <div className="profile-details">
-                    <ProfileImage
-                        name={userDetails?.name}
-                        imgUrl={userDetails?.img_ref}
-                        id={userDetails?.id}
-                    />
-                    <h2>{userDetails?.name}</h2>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        backgroundColor: "rgba(6, 6, 148, 0.238)",
+                        alignItems: "center",
+                        padding: "0 10px 0 0",
+                    }}
+                >
+                    <div className="profile-details">
+                        <ProfileImage
+                            name={userDetails?.name}
+                            imgUrl={userDetails?.img_ref}
+                            id={userDetails?.id}
+                        />
+                        <h2>{userDetails?.name}</h2>
+                    </div>
+                    <div>
+                        <FavoritePerson
+                            id={userDetails?.id}
+                            uncheckedVisibility={true}
+                        />
+                    </div>
                 </div>
 
                 <div className="submit-details">

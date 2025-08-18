@@ -214,7 +214,7 @@ root {
     height: 80px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: rgba(6, 6, 148, 0.238);
+    /* background-color: rgba(6, 6, 148, 0.238); */
     padding: 5px;
     gap: 20px;
 
@@ -495,6 +495,10 @@ root {
     }
 }
 
+.star-icon:hover {
+    cursor: pointer;
+    height: 45px;
+}
 /* GENERAL EDITS */
 input[type="radio"] {
     transform: scale(1.4);
