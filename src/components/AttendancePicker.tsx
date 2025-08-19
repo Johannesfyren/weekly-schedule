@@ -28,6 +28,7 @@ export default function AttendancePicker({
             const { data, error } = await supabase
                 .from("user")
                 .select("*")
+                .eq("canteen_personel", "0")
                 .order("id", { ascending: true });
             if (error) console.log("error: ", error);
             setUserData(data);

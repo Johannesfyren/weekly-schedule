@@ -7,31 +7,22 @@ export default function BirthdayAnnouncer({ daysDate }) {
     async function fetchAttendances(): Promise<any> {
         const { data, error } = await supabase
             .from("user")
-            .select(` "name", "img_ref","birthday_date"`);
+            .select(` "name","birthday_date"`);
 
         if (error) return undefined;
-        // console.log(data);
+
         setAttendees(data && data);
 
-        let filtered = data.filter((att) =>
-            console.log(
-                `${new Date(att.birthday_date).getUTCMonth()},${new Date(
+        // Filter to see if anyone has birthday in the current week being rendered
+        let filtered = data.filter(
+            (att) =>
+                `${new Date(att.birthday_date).getMonth() + 1}-${new Date(
                     att.birthday_date
-                ).getUTCDate()}`,
-                `${daysDate.getUTCMonth()},${daysDate.getUTCDate()}`
-            )
+                ).getDate()}` ==
+                `${daysDate.getMonth() + 1}-${daysDate.getDate()}`
         );
-        //`${new Date(att.user["birthday_date"]).getMonth()},${new Date(att.user["birthday_date"]).getUTCDate()}`
-        //
-        // console.log("daysDate: ", data[0].birthday_date);
-        console.log(
-            "filtered: ",
-            `${daysDate.getUTCMonth()},${daysDate.getUTCDate()}`
-        );
-        // console.log("birthdayperson: ", birthdayPerson);
+
         setBirthdayPerson(filtered);
-        console.log(data[0].birthday_date);
-        console.log(daysDate);
     }
 
     useEffect(() => {
@@ -44,5 +35,5 @@ export default function BirthdayAnnouncer({ daysDate }) {
         return () => clearInterval(timeOut);
     }, [daysDate]);
 
-    return birthdayPerson && <h1>{console.log("bp: ", birthdayPerson)}</h1>;
+    return birthdayPerson?.length > 0 && <h1>{birthdayPerson[0].name}</h1>;
 }

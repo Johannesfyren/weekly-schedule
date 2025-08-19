@@ -39,7 +39,9 @@ export default function Attnumber({
         //Fetch number of active users in the db
         const countActiveUsers = async () => {
             const { data, error } = await supabase.from("user").select("*");
-            setCompleteUserList(data);
+            setCompleteUserList(
+                data?.filter((att) => att.canteen_personel == 0) //Filter out canteen personal
+            );
         };
         countActiveUsers();
     }, []);
