@@ -45,6 +45,7 @@ export default function AttendancePicker({
                 userData.map((user) => {
                     return (
                         <Attendance
+                            id={user.id}
                             name={user.name}
                             key={user.id}
                             canOpenProfile={true}

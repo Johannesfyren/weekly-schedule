@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-// import { motion } from "motion/react";
+import FavoritePerson from "./FavoritePerson";
 import fetchImage from "../utils/fetchImage";
 type attendType = {
+    id: number;
     name: string;
     imgUrl?: string;
     canOpenProfile?: boolean;
@@ -11,6 +12,7 @@ type attendType = {
 };
 
 export default function Attendance({
+    id,
     name,
     imgUrl = undefined,
     canOpenProfile = false,
@@ -50,7 +52,15 @@ export default function Attendance({
                       )}
             </div>
 
-            <p>{name}</p>
+            <p>{name} </p>
+            <div
+                style={{
+                    marginLeft: "auto",
+                    marginRight: "10px",
+                }}
+            >
+                <FavoritePerson id={id} small={true} clickable={false} />
+            </div>
         </div>
     );
 }
