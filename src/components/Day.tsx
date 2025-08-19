@@ -92,7 +92,6 @@ export default function Day({
 
             {!isLoading && (
                 <>
-                    {/* <BirthdayAnnouncer daysDate={daysDate} /> */}
                     <DailyMenuCard
                         dayDBName={dayDBName}
                         weekNumber={chosenWeekNumber}
@@ -100,6 +99,7 @@ export default function Day({
                         refetchAttendees={refetchAttendees}
                     />
                     <div className="seperator"></div>
+                    <BirthdayAnnouncer daysDate={daysDate} />
                     <div className="attendances-container">
                         {attendees &&
                             attendees

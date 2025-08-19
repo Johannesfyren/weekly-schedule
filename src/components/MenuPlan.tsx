@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import LoadingIndicator from "./LoadingIndicator";
-
+import BirthdayAnnouncer from "./BirthdayAnnouncer";
+import { weekToDates } from "../utils/getWeekDatesFromWeek";
 export type menuType = {
     menuOpen: boolean;
     setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +20,13 @@ export type formType = {
     week: number;
     year: number;
 };
+type WeekDates = {
+    mon: number;
+    tue: number;
+    wed: number;
+    thu: number;
+    fri: number;
+};
 
 export default function MenuPlan({
     menuOpen,
@@ -29,6 +37,10 @@ export default function MenuPlan({
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
         weekNumber(new Date())
     );
+    const [currentWeekDates, setCurrentWeekDates] = useState<WeekDates>(
+        weekToDates(chosenWeekNumber, new Date().getFullYear())
+    );
+
     const [formData, setFormData] = useState<formType>();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -67,6 +79,9 @@ export default function MenuPlan({
             setIsLoading(false); //set loading spinner when changing the weeknumber
         }
         getMenu(chosenWeekNumber);
+        setCurrentWeekDates(
+            weekToDates(chosenWeekNumber, new Date().getFullYear())
+        );
     }, [chosenWeekNumber]);
 
     return (
@@ -77,6 +92,20 @@ export default function MenuPlan({
                     setChosenWeekNumber={setChosenWeekNumber}
                     setIsLoading={setIsLoading}
                 />
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                    }}
+                >
+                    <BirthdayAnnouncer daysDate={currentWeekDates.mon} />
+                    <BirthdayAnnouncer daysDate={currentWeekDates.tue} />
+                    <BirthdayAnnouncer daysDate={currentWeekDates.wed} />
+                    <BirthdayAnnouncer daysDate={currentWeekDates.thu} />
+                    <BirthdayAnnouncer daysDate={currentWeekDates.fri} />
+                </div>
                 {isLoading && <LoadingIndicator />}
 
                 {!isLoading && (

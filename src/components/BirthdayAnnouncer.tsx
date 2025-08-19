@@ -1,6 +1,8 @@
 //@ts-nocheck
 import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import { supabase } from "../utils/supabaseClient";
+import birthdayIcon from "../assets/birthday-flag.svg";
 export default function BirthdayAnnouncer({ daysDate }) {
     const [attendees, setAttendees] = useState();
     const [birthdayPerson, setBirthdayPerson] = useState();
@@ -35,5 +37,23 @@ export default function BirthdayAnnouncer({ daysDate }) {
         return () => clearInterval(timeOut);
     }, [daysDate]);
 
-    return birthdayPerson?.length > 0 && <h1>{birthdayPerson[0].name}</h1>;
+    return (
+        birthdayPerson?.length > 0 && (
+            <motion.div
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "10px",
+                    backgroundColor: "#ffffff23",
+                    padding: "3px 10px 3px 10px",
+                    borderRadius: "10px",
+                }}
+            >
+                <img src={birthdayIcon} width={"20px"} />
+                <p>{birthdayPerson[0].name}</p>
+            </motion.div>
+        )
+    );
 }
