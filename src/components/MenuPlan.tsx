@@ -106,6 +106,7 @@ export default function MenuPlan({
                     <BirthdayAnnouncer daysDate={currentWeekDates.thu} />
                     <BirthdayAnnouncer daysDate={currentWeekDates.fri} />
                 </div>
+
                 {isLoading && <LoadingIndicator />}
 
                 {!isLoading && (

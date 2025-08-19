@@ -100,7 +100,11 @@ export default function Day({
                     />
                     <div className="seperator"></div>
                     <BirthdayAnnouncer daysDate={daysDate} />
-                    <div className="attendances-container">
+                    <motion.div
+                        className="attendances-container"
+                        initial={{ scale: 0.8 }}
+                        animate={{ scale: 1 }}
+                    >
                         {attendees &&
                             attendees
                                 .filter((att) => att[dayDBName] === 1) //the 1 represents "yes" to eating
@@ -112,7 +116,7 @@ export default function Day({
                                         refetchAttendees={refetchAttendees}
                                     />
                                 ))}
-                    </div>
+                    </motion.div>
                 </>
             )}
         </div>

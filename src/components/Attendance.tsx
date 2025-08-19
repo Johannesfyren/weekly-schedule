@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FavoritePerson from "./FavoritePerson";
 import fetchImage from "../utils/fetchImage";
+import { motion } from "motion/react";
 type attendType = {
     id: number;
     name: string;
@@ -44,7 +45,8 @@ export default function Attendance({
             <div className="avatar">
                 {!imgUrl
                     ? name.slice(0, 2).toUpperCase()
-                    : imgUrl && (
+                    : imgUrl &&
+                      publicUrl && (
                           <img
                               src={publicUrl}
                               className="profile-pictures"
