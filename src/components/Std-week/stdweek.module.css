@@ -77,7 +77,6 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    gap: 10px;
 }
 .checkbox-container {
     display: flex;

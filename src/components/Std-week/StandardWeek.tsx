@@ -6,18 +6,23 @@ import upIcon from "../../assets/dropdown-uparrow.svg";
 import StdWeekDD from "./StdWeekDD";
 import { supabase } from "../../utils/supabaseClient";
 
-export default function StandardWeek({ userDetails, setUserDetails }) {
+export default function StandardWeek({
+    userDetails,
+    setUserDetails,
+    standardWeek,
+    setStandardWeek,
+}) {
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
     const [isOn, setIsOn] = useState(userDetails.standard_week_activated);
     const [isOpen, setIsOpen] = useState(false);
-    const [standardWeek, setStandardWeek] = useState({
-        fk_user_id: userDetails.id,
-        mon: 2,
-        tue: 2,
-        wed: 2,
-        thu: 2,
-        fri: 2,
-    }); // 1 = eats, 2 = doesnt eat
+    // const [standardWeek, setStandardWeek] = useState({
+    //     fk_user_id: userDetails.id,
+    //     mon: 2,
+    //     tue: 2,
+    //     wed: 2,
+    //     thu: 2,
+    //     fri: 2,
+    // }); // 1 = eats, 2 = doesnt eat
 
     useEffect(() => {
         async function fetchUserWeeklyPreferences() {

@@ -43,6 +43,14 @@ export default function Profile({
     );
     const [formData, setFormData] = useState<formType>();
     const [isLoading, setIsLoading] = useState(true);
+    const [standardWeek, setStandardWeek] = useState({
+        fk_user_id: userDetails?.id,
+        mon: 2,
+        tue: 2,
+        wed: 2,
+        thu: 2,
+        fri: 2,
+    });
 
     useEffect(() => {
         async function fetchUsers(): Promise<userType | undefined> {
@@ -52,6 +60,7 @@ export default function Profile({
                 .eq("name", userName);
             if (error) return undefined;
             setUserDetails(data && data[0]);
+            setStandardWeek({ ...standardWeek, fk_user_id: data[0].id });
         }
 
         fetchUsers();
@@ -101,6 +110,11 @@ export default function Profile({
         if (error) {
             console.log(error);
         }
+        //Save standard weeks if any changes are made
+        const { data: dataStandardWeek, error: errorStandardWeek } =
+            await supabase.from("standard_weeks").upsert(standardWeek);
+
+        if (error) console.log(error);
     };
 
     return (
@@ -142,6 +156,8 @@ export default function Profile({
                         <StandardWeek
                             userDetails={userDetails}
                             setUserDetails={setUserDetails}
+                            standardWeek={standardWeek}
+                            setStandardWeek={setStandardWeek}
                         />
                     )}
 
