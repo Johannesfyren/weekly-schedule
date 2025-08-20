@@ -89,10 +89,17 @@ export default function Profile({
     }, [chosenWeekNumber, userDetails]);
 
     const handleSubmit = async () => {
+        //Update changes made to the weekly form
         const { error } = await supabase.from("attendances").upsert(formData);
         if (error) {
             console.log(error);
-        } else {
+        }
+        //Update changes made to the user
+        const { error: userError } = await supabase
+            .from("user")
+            .upsert(userDetails);
+        if (error) {
+            console.log(error);
         }
     };
 
@@ -131,7 +138,13 @@ export default function Profile({
                         setChosenWeekNumber={setChosenWeekNumber}
                         setIsLoading={setIsLoading}
                     />
-                    <StandardWeek />
+                    {userDetails && (
+                        <StandardWeek
+                            userDetails={userDetails}
+                            setUserDetails={setUserDetails}
+                        />
+                    )}
+
                     <WeekPlanForm
                         setFormData={setFormData}
                         formData={formData}
