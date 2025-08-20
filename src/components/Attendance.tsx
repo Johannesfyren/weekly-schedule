@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FavoritePerson from "./FavoritePerson";
 import fetchImage from "../utils/fetchImage";
-import { motion } from "motion/react";
+
 type attendType = {
     id: number;
     name: string;

@@ -11,6 +11,7 @@ import WeekPlanForm from "./WeekPlanForm";
 import LoadingIndicator from "./LoadingIndicator";
 import Star from "./Star";
 import FavoritePerson from "./FavoritePerson";
+import StandardWeek from "./Std-week/StandardWeek";
 
 export type userType = {
     id: number;
@@ -130,7 +131,7 @@ export default function Profile({
                         setChosenWeekNumber={setChosenWeekNumber}
                         setIsLoading={setIsLoading}
                     />
-
+                    <StandardWeek />
                     <WeekPlanForm
                         setFormData={setFormData}
                         formData={formData}
