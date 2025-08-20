@@ -7,23 +7,27 @@
     background-color: #314c9b;
     width: fit-content;
     align-self: flex-end;
-    padding: 5px;
+    padding: 3px;
     border: 1px solid rgb(188, 188, 188);
     border-radius: 10px;
+    font-weight: 700;
+    overflow-y: hidden;
 }
 .container-active {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    background-color: #549366;
+    gap: 5px;
+    background-color: #416871;
     width: fit-content;
     align-self: flex-end;
-    padding: 5px;
+    padding: 3px;
     border: 1px solid white;
     border-radius: 10px;
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulse 3s ease-in-out infinite;
+    font-weight: 700;
+    overflow-y: hidden;
 }
 @keyframes pulse {
     0% {
@@ -41,8 +45,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
-    background-color: inherit;
+    gap: 10px;
+    /* background-color: inherit; */
     width: fit-content;
     align-self: flex-end;
     padding: 5px;
@@ -87,7 +91,7 @@
     background-color: transparent;
     border: none;
     height: fit-content;
-
+    cursor: pointer;
     img {
         height: 20px;
     }
@@ -97,11 +101,10 @@
     flex-direction: column;
     gap: 10px;
     align-self: flex-start;
-    padding: 10px;
+    padding: 5px;
     background: inherit;
     width: 100%;
-}
-.menu-closed {
+    border-top: 1px solid rgb(188, 188, 188);
 }
 
 .weekDay-container {
@@ -113,9 +116,12 @@
 .checkbox-container {
     display: flex;
     place-content: center;
-
+    cursor: pointer;
     width: 20px;
     height: 20px;
     border: 1px solid white;
     border-radius: 5px;
+}
+.cursor {
+    cursor: pointer;
 }

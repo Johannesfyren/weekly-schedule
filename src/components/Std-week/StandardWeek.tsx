@@ -4,6 +4,7 @@ import Switch from "./Switch";
 import downIcon from "../../assets/dropdown-downarrow.svg";
 import upIcon from "../../assets/dropdown-uparrow.svg";
 import StdWeekDD from "./StdWeekDD";
+import { motion } from "motion/react";
 import { supabase } from "../../utils/supabaseClient";
 
 export default function StandardWeek({
@@ -30,7 +31,10 @@ export default function StandardWeek({
     }, [userDetails]);
 
     return (
-        <div
+        <motion.div
+            initial={false}
+            animate={{ height: isOpen ? 210 : 50 }}
+            transition={{ duration: 0.2 }}
             className={
                 isOn ? styles["container-active"] : styles["container-inactive"]
             }
@@ -59,6 +63,6 @@ export default function StandardWeek({
                 standardWeek={standardWeek}
                 setStandardWeek={setStandardWeek}
             />
-        </div>
+        </motion.div>
     );
 }
