@@ -1,15 +1,29 @@
 .container {
+    position: absolute;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 5px;
-    background-color: transparent;
+    background-color: #314c9b;
     width: fit-content;
     align-self: flex-end;
     padding: 5px;
     border: 1px solid white;
     border-radius: 10px;
 }
+.upper-part-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    background-color: inherit;
+    width: fit-content;
+    align-self: flex-end;
+    padding: 5px;
+
+    border-radius: 10px;
+}
+
 .switch-container {
     display: flex;
     width: 50px;
@@ -32,9 +46,27 @@
     background-color: white;
     border-radius: 50%;
 }
+.spacer {
+    width: 1px;
+    height: 30px;
+    padding-top: -10px;
+    background-color: white;
+}
 .dropdown-btn {
+    display: flex;
+    place-content: center;
+    background-color: transparent;
+    border: none;
+    height: fit-content;
+    padding: 0 3px 0 3px;
+    img {
+        height: 20px;
+    }
 }
 .menu-open {
+    padding: 10px;
+    background: inherit;
+    width: 200px;
 }
 .menu-closed {
 }
