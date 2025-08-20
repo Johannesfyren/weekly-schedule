@@ -12,25 +12,6 @@ export default function DDWeekDay({
     const [isAttending, setIsAttending] = useState(
         standardWeek[dayDBName] == 1
     );
-
-    // useEffect(() => {
-    //     const saveStandardWeek = async () => {
-    //         const { data, error } = await supabase
-    //             .from("standard_weeks")
-    //             .upsert(standardWeek);
-
-    //         if (error) console.log(error);
-    //     };
-    //     saveStandardWeek();
-    // }, [standardWeek]);
-    // const handleSubmit = async()=>{
-    //     const { data, error } = await supabase
-    //                 .from("standard_weeks")
-    //                 .upsert(standardWeek);
-
-    //             if (error) console.log(error);
-    //         };
-    // }
     return (
         <div className={styles["weekDay-container"]}>
             <p>{day}</p>
@@ -44,7 +25,6 @@ export default function DDWeekDay({
                     });
                 }}
             >
-                {console.log(standardWeek)}
                 <img src={isAttending ? attYes : attNo} alt="" width={"15px"} />
             </div>
         </div>

@@ -1,4 +1,4 @@
-.container {
+.container-inactive {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -8,9 +8,35 @@
     width: fit-content;
     align-self: flex-end;
     padding: 5px;
-    border: 1px solid white;
+    border: 1px solid rgb(188, 188, 188);
     border-radius: 10px;
 }
+.container-active {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #549366;
+    width: fit-content;
+    align-self: flex-end;
+    padding: 5px;
+    border: 1px solid white;
+    border-radius: 10px;
+    animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 #549366;
+    }
+    70% {
+        box-shadow: 0 0 20px 10px rgba(0, 200, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 200, 255, 0);
+    }
+}
+
 .upper-part-container {
     display: flex;
     flex-direction: row;
@@ -35,10 +61,12 @@
     background-color: transparent;
 }
 .active {
-    border: 1px solid grey;
+    border: 1px solid rgb(188, 188, 188);
+    background-color: #3b8650;
 }
 .inactive {
-    border: 1px solid green;
+    border: 1px solid rgb(188, 188, 188);
+    background-color: rgba(255, 255, 255, 0.201);
 }
 .handle {
     width: 23px;
@@ -51,6 +79,7 @@
     height: 30px;
     padding-top: -10px;
     background-color: white;
+    margin: 0 5px 0 5px;
 }
 .dropdown-btn {
     display: flex;
@@ -58,12 +87,15 @@
     background-color: transparent;
     border: none;
     height: fit-content;
-    padding: 0 3px 0 3px;
+
     img {
         height: 20px;
     }
 }
 .menu-open {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     align-self: flex-start;
     padding: 10px;
     background: inherit;
