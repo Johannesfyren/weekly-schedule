@@ -64,8 +64,27 @@
     }
 }
 .menu-open {
+    align-self: flex-start;
     padding: 10px;
     background: inherit;
+    width: 100%;
 }
 .menu-closed {
+}
+
+.weekDay-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+.checkbox-container {
+    display: flex;
+    place-content: center;
+
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
 }
