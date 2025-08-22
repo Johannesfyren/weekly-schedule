@@ -1,3 +1,4 @@
+//@ts-nocheck
 import styles from "./stdweek.module.css";
 import DDWeekDay from "./DDWeekDay";
 

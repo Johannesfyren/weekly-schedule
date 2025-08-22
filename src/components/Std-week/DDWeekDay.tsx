@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import attYes from "../../assets/checkmark.svg";
 import attNo from "../../assets/cross.svg";

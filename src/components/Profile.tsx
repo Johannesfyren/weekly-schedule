@@ -37,6 +37,7 @@ export default function Profile({
     setRefetchAttendees,
 }) {
     const date = new Date();
+    const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
     const [userDetails, setUserDetails] = useState<userType>();
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
         weekNumber(new Date())
@@ -118,7 +119,10 @@ export default function Profile({
     };
 
     return (
-        <div className="profile-container-bg">
+        <div
+            className="profile-container-bg"
+            style={mobileView ? { position: "fixed", top: "0" } : {}}
+        >
             <div className="profile-container hide-scrollbar">
                 <div
                     style={{

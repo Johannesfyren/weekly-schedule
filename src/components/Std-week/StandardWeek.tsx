@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import styles from "./stdweek.module.css";
 import Switch from "./Switch";

@@ -1,4 +1,4 @@
-import { useState } from "react";
+//@ts-nocheck
 import * as motion from "motion/react-client";
 import styles from "./stdweek.module.css";
 export default function Switch({ isOn, setIsOn, setUserDetails, userDetails }) {

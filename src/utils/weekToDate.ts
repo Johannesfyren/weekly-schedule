@@ -18,8 +18,7 @@ export function weekToDateRangeString(week: number, year: number): string {
     const format = (date: Date) =>
         date.toLocaleDateString("da-DK", {
             day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
+            month: "short",
         });
 
     return `${format(monday)} - ${format(friday)}`;

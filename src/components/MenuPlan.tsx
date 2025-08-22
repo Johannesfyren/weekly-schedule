@@ -47,6 +47,7 @@ export default function MenuPlan({
     const handleFormChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: String(e.target.value) });
     };
+    const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
 
     const submitMenu = async () => {
         const { data, error } = await supabase
@@ -85,7 +86,10 @@ export default function MenuPlan({
     }, [chosenWeekNumber]);
 
     return (
-        <div className="menu-plan-container-bg">
+        <div
+            className="menu-plan-container-bg"
+            style={mobileView ? { position: "fixed", top: "0" } : {}}
+        >
             <div className="menu-plan-container">
                 <UniversalWeekPicker
                     chosenWeekNumber={chosenWeekNumber}

@@ -44,12 +44,24 @@ export default function Ribbon({
     });
 
     return (
-        <div className="ribbon">
+        <div
+            className="ribbon"
+            style={
+                mobileView
+                    ? {
+                          position: "sticky",
+                          top: "0",
+                          background: "#25368C",
+                          height: "60px",
+                          zIndex: "2",
+                      }
+                    : { position: "relative" }
+            }
+        >
             {!mobileView && (
                 <img
                     src={LogoIcon}
                     style={{
-                        backgroundColor: "#ffffffc6",
                         padding: "3px",
                         borderRadius: "5px",
                     }}
