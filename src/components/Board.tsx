@@ -3,7 +3,7 @@ import Day from "./Day";
 import Ribbon from "./Ribbon";
 import { createPortal } from "react-dom";
 import Profile from "./Profile";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { weekNumber } from "weeknumber";
 import { weekToDates } from "../utils/getWeekDatesFromWeek";
 
@@ -14,7 +14,9 @@ export default function Board() {
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
         weekNumber(new Date())
     );
+
     const daysDate = weekToDates(chosenWeekNumber, new Date().getFullYear());
+    const currentDayRef = useRef(null);
 
     useEffect(() => {
         // Tjekker hvilken dag det er hver time
@@ -24,6 +26,23 @@ export default function Board() {
 
         return () => clearInterval(timeOut);
     }, [refetchAttendees, chosenWeekNumber]);
+
+    useEffect(() => {
+        const timeOut = setTimeout(() => {
+            {
+                if (currentDayRef.current) {
+                    currentDayRef.current.scrollIntoView({
+                        block: "nearest",
+                        inline: "nearest",
+                        behavior: "smooth",
+                    });
+                }
+            }
+        }, 1500);
+
+        return () => clearTimeout(timeOut);
+    }, []);
+
     return (
         <>
             <Ribbon
@@ -32,7 +51,7 @@ export default function Board() {
                 chosenWeekNumber={chosenWeekNumber}
                 setRefreshAttendees={setRefetchAttendees}
             />
-
+            {console.log(currentDayRef?.current)}
             <div className="board">
                 <Day
                     dayName={"Mandag"}
@@ -43,6 +62,7 @@ export default function Board() {
                     chosenWeekNumber={chosenWeekNumber}
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.mon}
+                    elementRef={day == 1 ? currentDayRef : undefined}
                 ></Day>
                 <Day
                     dayName={"Tirsdag"}
@@ -53,6 +73,7 @@ export default function Board() {
                     chosenWeekNumber={chosenWeekNumber}
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.tue}
+                    elementRef={day == 2 ? currentDayRef : undefined}
                 ></Day>
                 <Day
                     dayName={"Onsdag"}
@@ -63,6 +84,7 @@ export default function Board() {
                     chosenWeekNumber={chosenWeekNumber}
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.wed}
+                    elementRef={day == 3 ? currentDayRef : undefined}
                 ></Day>
                 <Day
                     dayName={"Torsdag"}
@@ -73,6 +95,7 @@ export default function Board() {
                     chosenWeekNumber={chosenWeekNumber}
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.thu}
+                    elementRef={day == 4 ? currentDayRef : undefined}
                 ></Day>
                 <Day
                     dayName={"Fredag"}
@@ -83,6 +106,7 @@ export default function Board() {
                     chosenWeekNumber={chosenWeekNumber}
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.fri}
+                    elementRef={day == 5 ? currentDayRef : undefined}
                 ></Day>
             </div>
             {selectedAtt &&

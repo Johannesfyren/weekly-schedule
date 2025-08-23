@@ -1,7 +1,7 @@
 //@ts-nocheck
 import Attendance from "./Attendance";
 import { weekNumber } from "weeknumber";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { motion, stagger } from "motion/react";
 import DailyMenuCard from "./DailyMenuCard";
@@ -18,6 +18,7 @@ type dayType = {
     chosenWeekNumber: number;
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<boolean>>;
     daysDate: Date;
+    elementRef?: React.Ref;
 };
 
 export default function Day({
@@ -29,11 +30,13 @@ export default function Day({
     chosenWeekNumber,
     setChosenWeekNumber,
     daysDate,
+    elementRef,
 }: dayType) {
     const [attendees, setAttendees] = useState();
     const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
     const [isLoading, setIsLoading] = useState(true);
     const [attIsClicked, setAttIsClicked] = useState(false);
+
     const date = new Date();
 
     async function fetchAttendances(): Promise<userType | undefined> {
@@ -69,6 +72,7 @@ export default function Day({
                     ? "day-container current-day hide-scrollbar"
                     : "day-container hide-scrollbar"
             }
+            ref={elementRef}
         >
             <div
                 style={{
