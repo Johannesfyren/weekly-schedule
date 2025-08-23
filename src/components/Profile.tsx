@@ -32,9 +32,11 @@ export type formType = {
 };
 
 export default function Profile({
-    userName,
+    userID,
     setSelectedAtt,
     setRefetchAttendees,
+    favoritePerson,
+    setFavoritePerson,
 }) {
     const date = new Date();
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
@@ -54,17 +56,17 @@ export default function Profile({
     });
 
     useEffect(() => {
-        async function fetchUsers(): Promise<userType | undefined> {
+        const fetchUsersById = async (): Promise<userType | undefined> => {
             const { data, error } = await supabase
                 .from("user")
                 .select("*")
-                .eq("name", userName);
+                .eq("id", userID);
             if (error) return undefined;
             setUserDetails(data && data[0]);
             setStandardWeek({ ...standardWeek, fk_user_id: data[0].id });
-        }
+        };
 
-        fetchUsers();
+        fetchUsersById();
     }, []);
 
     useEffect(() => {
@@ -146,6 +148,8 @@ export default function Profile({
                         <FavoritePerson
                             id={userDetails?.id}
                             uncheckedVisibility={true}
+                            setFavoritePerson={setFavoritePerson}
+                            favoritePerson={favoritePerson}
                         />
                     </div>
                 </div>
@@ -181,7 +185,10 @@ export default function Profile({
                     >
                         <Button
                             type="Secondary"
-                            clickEvent={() => setSelectedAtt("")}
+                            clickEvent={() => {
+                                userID = 0;
+                                setSelectedAtt("");
+                            }}
                             name="Annullér"
                         />
                         <Button
@@ -192,6 +199,7 @@ export default function Profile({
                                 handleSubmit();
                                 setRefetchAttendees(true);
                                 setSelectedAtt("");
+                                userID = 0;
                             }}
                         ></Button>
                     </div>

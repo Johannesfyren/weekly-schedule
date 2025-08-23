@@ -11,6 +11,7 @@ export type ribbonType = {
     chosenWeekNumber: number;
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
     setRefreshAttendees: React.Dispatch<React.SetStateAction<boolean>>;
+    favoritePerson: number;
 };
 
 export default function Ribbon({
@@ -18,6 +19,7 @@ export default function Ribbon({
     chosenWeekNumber,
     setChosenWeekNumber,
     setRefreshAttendees,
+    favoritePerson,
 }: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState<boolean>(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -74,11 +76,15 @@ export default function Ribbon({
             />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                 <Button
-                    clickEvent={() =>
-                        showAttPicker
-                            ? setShowAttPicker(false)
-                            : setShowAttPicker(true)
-                    }
+                    clickEvent={() => {
+                        if (favoritePerson) {
+                            setSelectedAtt(Number(favoritePerson));
+                        } else {
+                            showAttPicker
+                                ? setShowAttPicker(false)
+                                : setShowAttPicker(true);
+                        }
+                    }}
                     name="Check ind/ud"
                     type="Secondary"
                     iconName="filled-checkin-icon.svg"

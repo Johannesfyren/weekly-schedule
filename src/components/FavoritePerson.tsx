@@ -16,10 +16,12 @@ export default function FavoritePerson({
     uncheckedVisibility = false,
     small = false,
     clickable = true,
+    favoritePerson,
+    setFavoritePerson,
 }: favPersonType) {
-    const [favoritePerson, setFavoritePerson] = useState(
-        localStorage.getItem("favoritePersonID")
-    );
+    // const [favoritePerson, setFavoritePerson] = useState(
+    //     localStorage.getItem("favoritePersonID")
+    // );
 
     function handleFavoritePerson(personID: number) {
         const currentID = localStorage.getItem("favoritePersonID");

@@ -16,6 +16,9 @@ export default function Board() {
     );
 
     const daysDate = weekToDates(chosenWeekNumber, new Date().getFullYear());
+    const [favoritePerson, setFavoritePerson] = useState(
+        localStorage.getItem("favoritePersonID")
+    );
     const currentDayRef = useRef(null);
 
     useEffect(() => {
@@ -28,6 +31,7 @@ export default function Board() {
     }, [refetchAttendees, chosenWeekNumber]);
 
     useEffect(() => {
+        // Autoscrolling efter 1,2 sekund, hvor alle elementer burde være loaded
         const timeOut = setTimeout(() => {
             {
                 if (currentDayRef.current) {
@@ -38,7 +42,7 @@ export default function Board() {
                     });
                 }
             }
-        }, 1500);
+        }, 1200);
 
         return () => clearTimeout(timeOut);
     }, []);
@@ -50,8 +54,9 @@ export default function Board() {
                 setChosenWeekNumber={setChosenWeekNumber}
                 chosenWeekNumber={chosenWeekNumber}
                 setRefreshAttendees={setRefetchAttendees}
+                favoritePerson={favoritePerson}
             />
-            {console.log(currentDayRef?.current)}
+
             <div className="board">
                 <Day
                     dayName={"Mandag"}
@@ -112,9 +117,11 @@ export default function Board() {
             {selectedAtt &&
                 createPortal(
                     <Profile
-                        userName={selectedAtt}
+                        userID={selectedAtt}
                         setSelectedAtt={setSelectedAtt}
                         setRefetchAttendees={setRefetchAttendees}
+                        favoritePerson={favoritePerson}
+                        setFavoritePerson={setFavoritePerson}
                     />,
                     document.body!
                 )}

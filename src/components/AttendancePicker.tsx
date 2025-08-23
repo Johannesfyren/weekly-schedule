@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { supabase } from "../utils/supabaseClient";
 import Attendance from "./Attendance";
 import { useEffect, useState } from "react";
@@ -24,6 +25,8 @@ export default function AttendancePicker({
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        const checkFavoriteUserExistance =
+            localStorage.getItem("favoritePersonID");
         async function fetchUsers() {
             const { data, error } = await supabase
                 .from("user")
@@ -40,6 +43,7 @@ export default function AttendancePicker({
     return (
         <div className="att-picker-container hide-scrollbar" ref={attPickerRef}>
             {isLoading && <LoadingIndicator />}
+
             {!isLoading &&
                 userData &&
                 userData.length > 0 &&

@@ -7,7 +7,7 @@ type attendType = {
     name: string;
     imgUrl?: string;
     canOpenProfile?: boolean;
-    setSelectedAtt?: (name: string) => void;
+    setSelectedAtt?: (name: number) => void;
     refetchAttendees?: boolean;
     setShowAttPicker?: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -37,7 +37,7 @@ export default function Attendance({
         <div
             className="attendant-container"
             onClick={() => {
-                canOpenProfile && setSelectedAtt && setSelectedAtt(name);
+                canOpenProfile && setSelectedAtt && setSelectedAtt(id);
                 //@ts-ignore
                 setSelectedAtt && setShowAttPicker(false);
             }}
