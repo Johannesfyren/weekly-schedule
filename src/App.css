@@ -173,6 +173,7 @@ button img {
     box-shadow: 0 0 10px 0;
     overflow-y: scroll;
     z-index: 2;
+    overflow: visible; /*Makes tooltips be able to escape the contaienr*/
 }
 .att-picker-container {
     position: absolute;

@@ -15,11 +15,13 @@ export type attPickerRefType = {
     attPickerRef: React.Ref<HTMLDivElement>;
     setSelectedAtt?: (name: string) => void;
     setShowAttPicker: React.Dispatch<React.SetStateAction<boolean>>;
+    customPlacement?: string;
 };
 export default function AttendancePicker({
     attPickerRef,
     setSelectedAtt,
     setShowAttPicker,
+    customPlacement,
 }: attPickerRefType) {
     const [userData, setUserData] = useState<userType[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -41,7 +43,11 @@ export default function AttendancePicker({
     }, []);
 
     return (
-        <div className="att-picker-container hide-scrollbar" ref={attPickerRef}>
+        <div
+            className="att-picker-container hide-scrollbar"
+            ref={attPickerRef}
+            style={customPlacement && customPlacement}
+        >
             {isLoading && <LoadingIndicator />}
 
             {!isLoading &&

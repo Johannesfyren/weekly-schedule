@@ -160,7 +160,7 @@ export default function Profile({
     return (
         <div
             className="profile-container-bg "
-            style={mobileView ? { position: "fixed", top: "0" } : {}}
+            // style={mobileView ? { position: "fixed", top: "0" } : {}} // hard to click on ios
         >
             <div className="profile-container hide-scrollbar">
                 <div
@@ -210,6 +210,10 @@ export default function Profile({
                                     attPickerRef={attPickerRef}
                                     setSelectedAtt={setSelectedAtt}
                                     setShowAttPicker={setShowAttPicker}
+                                    customPlacement={{
+                                        top: "160px",
+                                        right: "14%",
+                                    }}
                                 />
                             )}
                         </div>

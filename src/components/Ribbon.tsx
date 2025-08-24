@@ -78,6 +78,7 @@ export default function Ribbon({
                 <Button
                     clickEvent={() => {
                         if (favoritePerson) {
+                            //@ts-ignore
                             setSelectedAtt(Number(favoritePerson));
                         } else {
                             showAttPicker

@@ -3,6 +3,7 @@ import StarIcon from "../assets/favorite-star.svg?react";
 import StarIconFilled from "../assets/star-icon-filled.svg?react";
 import { motion, scale } from "motion/react";
 import { useState } from "react";
+import ToolTip from "./ToolTip";
 
 export type favPersonType = {
     id: number;
@@ -44,8 +45,12 @@ export default function FavoritePerson({
                 flexDirection: "row",
                 alignItems: "center",
                 gap: "10px",
+                position: "relative",
             }}
         >
+            {/*Tooltip not shown on every attendant, only when the star is possible to be set */}
+            {uncheckedVisibility && <ToolTip text={"hello"} />}
+
             <motion.div
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
