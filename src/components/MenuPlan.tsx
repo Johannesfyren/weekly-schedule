@@ -56,6 +56,17 @@ export default function MenuPlan({
             .eq("week", chosenWeekNumber);
         if (error) console.log(error);
     };
+    //Lock scroll
+    useEffect(() => {
+        // Lock scroll
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            // Restore scroll
+            document.body.style.overflow = "";
+        };
+    }, []);
+    //Get the menu from DB
     useEffect(() => {
         async function getMenu(weeknumber) {
             const { data } = await supabase

@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "../utils/supabaseClient";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
@@ -12,6 +12,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import Star from "./Star";
 import FavoritePerson from "./FavoritePerson";
 import StandardWeek from "./Std-week/StandardWeek";
+import AttendancePicker from "./AttendancePicker";
 
 export type userType = {
     id: number;
@@ -32,12 +33,13 @@ export type formType = {
 };
 
 export default function Profile({
-    userID,
+    selectedAtt,
     setSelectedAtt,
     setRefetchAttendees,
     favoritePerson,
     setFavoritePerson,
 }) {
+    console.log(selectedAtt);
     const date = new Date();
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
     const [userDetails, setUserDetails] = useState<userType>();
@@ -54,13 +56,47 @@ export default function Profile({
         thu: 2,
         fri: 2,
     });
+    const [showAttPicker, setShowAttPicker] = useState(false);
+    const attPickerRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
+    //Check click anywhere, and if it is inside the opened attPicker
+    useEffect(() => {
+        const handleRandomClick = (event: MouseEvent) => {
+            if (
+                showAttPicker &&
+                !attPickerRef.current?.contains(event.target as Node) &&
+                buttonRef.current != event.target
+            ) {
+                //Vi tjekker at der trykkes udenfor pop-up OG knappen (check ind/ud)
+                setShowAttPicker(false);
+            }
+        };
+        document.addEventListener("click", handleRandomClick);
+
+        return () => {
+            document.removeEventListener("click", handleRandomClick);
+        };
+    });
+
+    //Lock scrolling when modal is open
+    useEffect(() => {
+        // Lock scroll
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            // Restore scroll
+            document.body.style.overflow = "";
+        };
+    }, []);
+
+    // Fetch the user the Profile has been opened with
     useEffect(() => {
         const fetchUsersById = async (): Promise<userType | undefined> => {
             const { data, error } = await supabase
                 .from("user")
                 .select("*")
-                .eq("id", userID);
+                .eq("id", selectedAtt);
             if (error) return undefined;
             setUserDetails(data && data[0]);
             setStandardWeek({ ...standardWeek, fk_user_id: data[0].id });
@@ -68,7 +104,7 @@ export default function Profile({
 
         fetchUsersById();
     }, []);
-
+    // Fetch the weekly checkin from the user
     useEffect(() => {
         async function fetchWeekPlan(): Promise<formType | undefined> {
             if (userDetails) {
@@ -98,8 +134,9 @@ export default function Profile({
         }
 
         fetchWeekPlan();
-    }, [chosenWeekNumber, userDetails]);
+    }, [chosenWeekNumber, userDetails, selectedAtt]);
 
+    //Update Form, user and standard week
     const handleSubmit = async () => {
         //Update changes made to the weekly form
         const { error } = await supabase.from("attendances").upsert(formData);
@@ -122,7 +159,7 @@ export default function Profile({
 
     return (
         <div
-            className="profile-container-bg"
+            className="profile-container-bg "
             style={mobileView ? { position: "fixed", top: "0" } : {}}
         >
             <div className="profile-container hide-scrollbar">
@@ -142,9 +179,41 @@ export default function Profile({
                             imgUrl={userDetails?.img_ref}
                             id={userDetails?.id}
                         />
-                        <h2>{userDetails?.name}</h2>
+                        <h2
+                            style={{ fontSize: mobileView ? "1rem" : "1.5rem" }}
+                        >
+                            {userDetails?.name}
+                        </h2>
                     </div>
-                    <div>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "10px",
+                        }}
+                    >
+                        <div>
+                            <Button
+                                clickEvent={() => {
+                                    showAttPicker
+                                        ? setShowAttPicker(false)
+                                        : setShowAttPicker(true);
+                                }}
+                                name={mobileView ? "" : "Skift bruger"}
+                                type="Secondary"
+                                iconName="switch-user.svg"
+                                btnRef={buttonRef}
+                            />
+                            {showAttPicker && (
+                                <AttendancePicker
+                                    attPickerRef={attPickerRef}
+                                    setSelectedAtt={setSelectedAtt}
+                                    setShowAttPicker={setShowAttPicker}
+                                />
+                            )}
+                        </div>
+
                         <FavoritePerson
                             id={userDetails?.id}
                             uncheckedVisibility={true}
@@ -186,7 +255,6 @@ export default function Profile({
                         <Button
                             type="Secondary"
                             clickEvent={() => {
-                                userID = 0;
                                 setSelectedAtt("");
                             }}
                             name="Annullér"
@@ -199,7 +267,6 @@ export default function Profile({
                                 handleSubmit();
                                 setRefetchAttendees(true);
                                 setSelectedAtt("");
-                                userID = 0;
                             }}
                         ></Button>
                     </div>

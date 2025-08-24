@@ -11,11 +11,14 @@
     font-family: "Lato", sans-serif;
     color: white;
 }
+
 root {
     position: relative;
     touch-action: pan-x pan-y;
 }
-
+button img {
+    pointer-events: none;
+}
 .hide-scrollbar {
     overflow: auto;
     scrollbar-width: none;

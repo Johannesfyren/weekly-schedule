@@ -117,7 +117,8 @@ export default function Board() {
             {selectedAtt &&
                 createPortal(
                     <Profile
-                        userID={selectedAtt}
+                        key={selectedAtt}
+                        selectedAtt={selectedAtt}
                         setSelectedAtt={setSelectedAtt}
                         setRefetchAttendees={setRefetchAttendees}
                         favoritePerson={favoritePerson}

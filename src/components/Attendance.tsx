@@ -39,6 +39,7 @@ export default function Attendance({
             onClick={() => {
                 canOpenProfile && setSelectedAtt && setSelectedAtt(id);
                 //@ts-ignore
+
                 setSelectedAtt && setShowAttPicker(false);
             }}
         >
