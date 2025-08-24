@@ -4,7 +4,7 @@ export type TT = {
     text: string;
     placement: "top" | "bottom";
 };
-export default function ToolTip({ text, placement }: TT) {
+export default function ToolTip({ text }: TT) {
     const [showToolTip, setShowToolTip] = useState(false);
     return (
         <div
@@ -29,7 +29,7 @@ export default function ToolTip({ text, placement }: TT) {
                     style={{
                         display: "flex",
                         position: "absolute",
-                        width: "150px",
+                        width: "200px",
                         whiteSpace: "normal",
                         overflowWrap: "break-word",
                         height: "auto",
@@ -41,8 +41,7 @@ export default function ToolTip({ text, placement }: TT) {
                         padding: "10px",
                     }}
                 >
-                    {/* {text} */}
-                    Her er et tooltip som du skal bruge
+                    {text}
                 </div>
             )}
         </div>

@@ -7,6 +7,7 @@ import upIcon from "../../assets/dropdown-uparrow.svg";
 import StdWeekDD from "./StdWeekDD";
 import { motion } from "motion/react";
 import { supabase } from "../../utils/supabaseClient";
+import ToolTip from "../ToolTip";
 
 export default function StandardWeek({
     userDetails,
@@ -41,8 +42,13 @@ export default function StandardWeek({
             }
             style={mobileView ? { position: "relative" } : undefined}
         >
+            <ToolTip
+                text={
+                    "Når standarduge er aktiveret, udfylder systemet automatisk dine spise-/ikke-spise-valg i næstekomne uge, baseret på indstillingerne i skuffemenuen. Funktionen overskriver ikke allerede angivne uger – hvis du f.eks. selv har udfyldt næste uge, bevares dine valg."
+                }
+            />
             <div className={styles["upper-part-container"]}>
-                <p>Standard uge</p>
+                <p>Standarduge</p>
                 <Switch
                     isOn={isOn}
                     setIsOn={setIsOn}

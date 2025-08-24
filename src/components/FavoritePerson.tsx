@@ -49,7 +49,13 @@ export default function FavoritePerson({
             }}
         >
             {/*Tooltip not shown on every attendant, only when the star is possible to be set */}
-            {uncheckedVisibility && <ToolTip text={"hello"} />}
+            {uncheckedVisibility && (
+                <ToolTip
+                    text={
+                        "Sæt denne bruger som standardbruger. Ved efterfølgende klik på “Tjek ind/ud” åbnes standardbrugeren automatisk. Valget gemmes kun lokalt på denne enhed."
+                    }
+                />
+            )}
 
             <motion.div
                 initial={{ scale: 0.8 }}

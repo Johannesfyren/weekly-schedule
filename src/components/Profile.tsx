@@ -190,7 +190,8 @@ export default function Profile({
                         style={{
                             display: "flex",
                             flexDirection: "row",
-                            gap: "10px",
+                            gap: "20px",
+                            padding: "10px",
                         }}
                     >
                         <div>
