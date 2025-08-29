@@ -39,7 +39,6 @@ export default function Profile({
     favoritePerson,
     setFavoritePerson,
 }) {
-    console.log(selectedAtt);
     const date = new Date();
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
     const [userDetails, setUserDetails] = useState<userType>();
@@ -47,6 +46,7 @@ export default function Profile({
         weekNumber(new Date())
     );
     const [formData, setFormData] = useState<formType>();
+    const [collectiveFormData, setCollectiveFormData] = useState([{}]);
     const [isLoading, setIsLoading] = useState(true);
     const [standardWeek, setStandardWeek] = useState({
         fk_user_id: userDetails?.id,
@@ -115,6 +115,45 @@ export default function Profile({
                     .eq("week", chosenWeekNumber);
                 if (error) return undefined;
 
+                //TEST BEGIN
+                if (data && data.length > 0) {
+                    const dbWeek = data[0];
+
+                    // check if week already exists in state
+                    setCollectiveFormData((prev) => {
+                        const exists = prev.some(
+                            (item) => item.week === dbWeek.week
+                        );
+                        if (exists) {
+                            // don't replace, just return current state
+                            return prev;
+                        } else {
+                            // append the new week object
+                            return [...prev, dbWeek];
+                        }
+                    });
+                } else {
+                    const newWeek: formType = {
+                        fk_user: userDetails.id,
+                        mon: 3,
+                        tue: 3,
+                        wed: 3,
+                        thu: 3,
+                        fri: 3,
+                        week: chosenWeekNumber,
+                        year: date.getFullYear(),
+                    };
+
+                    // same check before adding
+                    setCollectiveFormData((prev) => {
+                        const exists = prev.some(
+                            (item) => item.week === newWeek.week
+                        );
+                        return exists ? prev : [...prev, newWeek];
+                    });
+                }
+
+                //TEST END
                 if (data.length > 0) {
                     setFormData(data && data[0]);
                 } else {
@@ -132,7 +171,7 @@ export default function Profile({
                 setIsLoading(false);
             }
         }
-
+        console.log(collectiveFormData);
         fetchWeekPlan();
     }, [chosenWeekNumber, userDetails, selectedAtt]);
 
@@ -206,6 +245,7 @@ export default function Profile({
                                 iconName="switch-user.svg"
                                 btnRef={buttonRef}
                             />
+
                             {showAttPicker && (
                                 <AttendancePicker
                                     attPickerRef={attPickerRef}
@@ -221,7 +261,7 @@ export default function Profile({
 
                         <FavoritePerson
                             id={userDetails?.id}
-                            uncheckedVisibility={true}
+                            visibleWhenUnchecked={true}
                             setFavoritePerson={setFavoritePerson}
                             favoritePerson={favoritePerson}
                         />
@@ -247,6 +287,9 @@ export default function Profile({
                         setFormData={setFormData}
                         formData={formData}
                         isLoading={isLoading}
+                        setCollectiveFormData={setCollectiveFormData}
+                        collectiveFormData={collectiveFormData}
+                        chosenWeekNumber={chosenWeekNumber}
                     />
 
                     <div

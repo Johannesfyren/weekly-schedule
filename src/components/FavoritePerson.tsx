@@ -7,14 +7,14 @@ import ToolTip from "./ToolTip";
 
 export type favPersonType = {
     id: number;
-    uncheckedVisibility?: boolean;
+    visibleWhenUnchecked?: boolean;
     small?: boolean;
     clickable?: boolean;
 };
 
 export default function FavoritePerson({
     id,
-    uncheckedVisibility = false,
+    visibleWhenUnchecked = false,
     small = false,
     clickable = true,
     favoritePerson,
@@ -49,7 +49,7 @@ export default function FavoritePerson({
             }}
         >
             {/*Tooltip not shown on every attendant, only when the star is possible to be set */}
-            {uncheckedVisibility && (
+            {visibleWhenUnchecked && (
                 <ToolTip
                     text={
                         "Sæt denne bruger som standardbruger. Ved efterfølgende klik på “Tjek ind/ud” åbnes standardbrugeren automatisk. Valget gemmes kun lokalt på denne enhed."
@@ -77,7 +77,7 @@ export default function FavoritePerson({
                         }
                     />
                 ) : (
-                    uncheckedVisibility && (
+                    visibleWhenUnchecked && (
                         <StarIcon
                             style={{ width: "30px", height: "30px" }}
                             className="star-icon"

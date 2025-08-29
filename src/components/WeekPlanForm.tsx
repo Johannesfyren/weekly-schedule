@@ -23,6 +23,9 @@ export type formTypeInherited = {
 
 export default function WeekPlanForm({
     setFormData,
+    setCollectiveFormData,
+    collectiveFormData,
+    chosenWeekNumber,
     formData,
     isLoading,
 }: formTypeInherited) {
@@ -59,6 +62,9 @@ export default function WeekPlanForm({
                 formData={formData}
                 setFormData={setFormData}
                 isLoading={isLoading}
+                setCollectiveFormData={setCollectiveFormData}
+                chosenWeekNumber={chosenWeekNumber}
+                collectiveFormData={collectiveFormData}
             />
             <GridDay
                 dayDBname={"tue"}
@@ -66,6 +72,9 @@ export default function WeekPlanForm({
                 formData={formData}
                 setFormData={setFormData}
                 isLoading={isLoading}
+                setCollectiveFormData={setCollectiveFormData}
+                chosenWeekNumber={chosenWeekNumber}
+                collectiveFormData={collectiveFormData}
             />
             <GridDay
                 dayDBname={"wed"}
@@ -73,6 +82,9 @@ export default function WeekPlanForm({
                 formData={formData}
                 setFormData={setFormData}
                 isLoading={isLoading}
+                setCollectiveFormData={setCollectiveFormData}
+                chosenWeekNumber={chosenWeekNumber}
+                collectiveFormData={collectiveFormData}
             />
             <GridDay
                 dayDBname={"thu"}
@@ -80,6 +92,9 @@ export default function WeekPlanForm({
                 formData={formData}
                 setFormData={setFormData}
                 isLoading={isLoading}
+                setCollectiveFormData={setCollectiveFormData}
+                chosenWeekNumber={chosenWeekNumber}
+                collectiveFormData={collectiveFormData}
             />
             <GridDay
                 dayDBname={"fri"}
@@ -87,12 +102,29 @@ export default function WeekPlanForm({
                 formData={formData}
                 setFormData={setFormData}
                 isLoading={isLoading}
+                setCollectiveFormData={setCollectiveFormData}
+                chosenWeekNumber={chosenWeekNumber}
+                collectiveFormData={collectiveFormData}
             />
         </div>
     );
 }
 
-function GridDay({ dayDBname, dayName, setFormData, formData, isLoading }) {
+function GridDay({
+    dayDBname,
+    dayName,
+    setFormData,
+    formData,
+    isLoading,
+    setCollectiveFormData,
+    chosenWeekNumber,
+    collectiveFormData,
+}) {
+    //Find object matching the current week
+    const currentWeekData = collectiveFormData.find(
+        (week) => week.week === chosenWeekNumber
+    );
+
     const handleChosenDay = (e: React.EventHandler) => {
         if (!formData) return;
         setFormData({
@@ -101,6 +133,19 @@ function GridDay({ dayDBname, dayName, setFormData, formData, isLoading }) {
                 e.currentTarget.dataset.value
             ),
         });
+
+        //TEST
+        const dbName = e.currentTarget.dataset.dbname!;
+        const value = Number(e.currentTarget.dataset.value);
+
+        // update the correct week inside collectiveFormData
+        setCollectiveFormData((prev) =>
+            prev.map((week) =>
+                week.week === chosenWeekNumber
+                    ? { ...week, [dbName]: value }
+                    : week
+            )
+        );
     };
     return (
         <>
@@ -113,7 +158,7 @@ function GridDay({ dayDBname, dayName, setFormData, formData, isLoading }) {
                     isLoading ? "week-plan-cell-loading " : "week-plan-cell"
                 }
             >
-                {formData && formData[dayDBname] == 1 ? (
+                {currentWeekData && currentWeekData[dayDBname] == 1 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
                         <AttYes
                             style={{ width: "30px", height: "30px" }}
@@ -132,7 +177,7 @@ function GridDay({ dayDBname, dayName, setFormData, formData, isLoading }) {
                     isLoading ? "week-plan-cell-loading " : "week-plan-cell"
                 }
             >
-                {formData && formData[dayDBname] == 2 ? (
+                {currentWeekData && currentWeekData[dayDBname] == 2 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
                         <AttNo
                             style={{ width: "30px", height: "30px" }}
@@ -151,7 +196,7 @@ function GridDay({ dayDBname, dayName, setFormData, formData, isLoading }) {
                     isLoading ? "week-plan-cell-loading " : "week-plan-cell"
                 }
             >
-                {formData && formData[dayDBname] == 3 ? (
+                {currentWeekData && currentWeekData[dayDBname] == 3 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
                         <AttMaybe
                             style={{ width: "30px", height: "30px" }}
