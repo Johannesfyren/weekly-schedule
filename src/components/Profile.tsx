@@ -171,7 +171,6 @@ export default function Profile({
             .map(({ id, ...rest }) => rest);
 
         if (cleanedWeeks.length === 0) {
-            console.log("No valid weeks to submit.");
             return;
         }
 
@@ -186,7 +185,7 @@ export default function Profile({
         if (error) {
             console.error("❌ Upsert failed:", error);
         } else {
-            console.log("✅ Upsert success:", data);
+            // TODO: Alert component showing which weeks are comitted
         }
 
         //Update changes made to the user
@@ -206,9 +205,20 @@ export default function Profile({
     return (
         <div
             className="profile-container-bg "
-            // style={mobileView ? { position: "fixed", top: "0" } : {}} // hard to click on ios
+            style={mobileView ? { position: "fixed", top: "0" } : {}} // hard to click on ios
         >
-            <div className="profile-container hide-scrollbar">
+            <div
+                className="profile-container hide-scrollbar"
+                style={
+                    mobileView
+                        ? {
+                              marginTop: "30%",
+                              marginBottom: "30%",
+                              height: "500px",
+                          }
+                        : {}
+                }
+            >
                 <div
                     style={{
                         display: "flex",

@@ -155,8 +155,9 @@ button img {
     left: 0;
     z-index: 1;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgba(0, 0, 0, 0.527);
+    overflow-y: auto;
 }
 
 .profile-container {
@@ -167,13 +168,16 @@ button img {
     );
     width: 80%;
     max-width: 1000px;
-    min-height: 627.5px;
+    height: 627.5px;
     border-radius: 10px;
     border: 1px solid white;
     box-shadow: 0 0 10px 0;
     overflow-y: scroll;
     z-index: 2;
+    /* margin-top: 30%;
+    margin-bottom: 30%; */
     overflow: visible; /*Makes tooltips be able to escape the contaienr*/
+    overflow-y: scroll;
 }
 .att-picker-container {
     position: absolute;
