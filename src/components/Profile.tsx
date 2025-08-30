@@ -45,7 +45,7 @@ export default function Profile({
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
         weekNumber(new Date())
     );
-    const [formData, setFormData] = useState<formType>();
+
     const [collectiveFormData, setCollectiveFormData] = useState([{}]);
     const [isLoading, setIsLoading] = useState(true);
     const [standardWeek, setStandardWeek] = useState({
@@ -154,30 +154,16 @@ export default function Profile({
                     });
                 }
 
-                //TEST END
-                if (data.length > 0) {
-                    setFormData(data && data[0]);
-                } else {
-                    setFormData({
-                        fk_user: userDetails.id,
-                        mon: 3,
-                        tue: 3,
-                        wed: 3,
-                        thu: 3,
-                        fri: 3,
-                        week: chosenWeekNumber,
-                        year: date.getFullYear(),
-                    });
-                }
                 setIsLoading(false);
             }
         }
-        console.log("collectiveFormData,", collectiveFormData);
+
         fetchWeekPlan();
     }, [chosenWeekNumber, userDetails, selectedAtt]);
 
     //Update Form, user and standard week
     const handleSubmit = async () => {
+        //update form
         const cleanedWeeks = collectiveFormData
             // remove empty objects
             .filter((week) => week && Object.keys(week).length > 0)
@@ -189,26 +175,19 @@ export default function Profile({
             return;
         }
 
-        // 2️⃣ Upsert into Supabase
+        //  Upsert into Supabase
         const { data, error } = await supabase
             .from("attendances")
             .upsert(cleanedWeeks, {
                 onConflict: ["fk_user", "year", "week"], // match your unique constraint
             });
 
-        // 3️⃣ Handle result
+        //  Handle result
         if (error) {
             console.error("❌ Upsert failed:", error);
         } else {
             console.log("✅ Upsert success:", data);
         }
-        /*
-        //Update changes made to the weekly form
-        const { error } = await supabase.from("attendances").upsert(formData);
-        if (error) {
-            console.log(error);
-        }
-*/
 
         //Update changes made to the user
         const { error: userError } = await supabase
@@ -312,8 +291,6 @@ export default function Profile({
                     )}
 
                     <WeekPlanForm
-                        setFormData={setFormData}
-                        formData={formData}
                         isLoading={isLoading}
                         setCollectiveFormData={setCollectiveFormData}
                         collectiveFormData={collectiveFormData}

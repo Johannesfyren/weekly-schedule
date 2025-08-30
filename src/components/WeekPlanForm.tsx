@@ -17,16 +17,15 @@ export type formType = {
     year: number;
 };
 export type formTypeInherited = {
-    setFormData: (data: formType) => void;
-    formData: formType | undefined;
+    setCollectiveFormData: (data: formType) => void;
+    collectiveFormData: formType | undefined;
 };
 
 export default function WeekPlanForm({
-    setFormData,
     setCollectiveFormData,
     collectiveFormData,
     chosenWeekNumber,
-    formData,
+
     isLoading,
 }: formTypeInherited) {
     const [chosenStatus, setChosenStatus] = useState();
@@ -59,8 +58,6 @@ export default function WeekPlanForm({
             <GridDay
                 dayDBname={"mon"}
                 dayName={"Mandag"}
-                formData={formData}
-                setFormData={setFormData}
                 isLoading={isLoading}
                 setCollectiveFormData={setCollectiveFormData}
                 chosenWeekNumber={chosenWeekNumber}
@@ -69,8 +66,6 @@ export default function WeekPlanForm({
             <GridDay
                 dayDBname={"tue"}
                 dayName={"Tirsdag"}
-                formData={formData}
-                setFormData={setFormData}
                 isLoading={isLoading}
                 setCollectiveFormData={setCollectiveFormData}
                 chosenWeekNumber={chosenWeekNumber}
@@ -79,8 +74,6 @@ export default function WeekPlanForm({
             <GridDay
                 dayDBname={"wed"}
                 dayName={"Onsdag"}
-                formData={formData}
-                setFormData={setFormData}
                 isLoading={isLoading}
                 setCollectiveFormData={setCollectiveFormData}
                 chosenWeekNumber={chosenWeekNumber}
@@ -89,8 +82,6 @@ export default function WeekPlanForm({
             <GridDay
                 dayDBname={"thu"}
                 dayName={"Torsdag"}
-                formData={formData}
-                setFormData={setFormData}
                 isLoading={isLoading}
                 setCollectiveFormData={setCollectiveFormData}
                 chosenWeekNumber={chosenWeekNumber}
@@ -99,8 +90,6 @@ export default function WeekPlanForm({
             <GridDay
                 dayDBname={"fri"}
                 dayName={"Fredag"}
-                formData={formData}
-                setFormData={setFormData}
                 isLoading={isLoading}
                 setCollectiveFormData={setCollectiveFormData}
                 chosenWeekNumber={chosenWeekNumber}
@@ -113,8 +102,6 @@ export default function WeekPlanForm({
 function GridDay({
     dayDBname,
     dayName,
-    setFormData,
-    formData,
     isLoading,
     setCollectiveFormData,
     chosenWeekNumber,
@@ -126,15 +113,8 @@ function GridDay({
     );
 
     const handleChosenDay = (e: React.EventHandler) => {
-        if (!formData) return;
-        setFormData({
-            ...formData,
-            [e.currentTarget.dataset.dbname]: Number(
-                e.currentTarget.dataset.value
-            ),
-        });
+        if (!currentWeekData) return;
 
-        //TEST
         const dbName = e.currentTarget.dataset.dbname!;
         const value = Number(e.currentTarget.dataset.value);
 
