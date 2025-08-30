@@ -115,7 +115,7 @@ export default function Profile({
                     .eq("week", chosenWeekNumber);
                 if (error) return undefined;
 
-                //TEST BEGIN
+                //Fetch and set formData
                 if (data && data.length > 0) {
                     const dbWeek = data[0];
 
@@ -135,6 +135,7 @@ export default function Profile({
                 } else {
                     const newWeek: formType = {
                         fk_user: userDetails.id,
+                        created_at: new Date(),
                         mon: 3,
                         tue: 3,
                         wed: 3,
@@ -180,17 +181,6 @@ export default function Profile({
         const cleanedWeeks = collectiveFormData
             // remove empty objects
             .filter((week) => week && Object.keys(week).length > 0)
-            // remove if all weekdays are 3 (default)
-            .filter(
-                (week) =>
-                    !(
-                        week.mon === 3 &&
-                        week.tue === 3 &&
-                        week.wed === 3 &&
-                        week.thu === 3 &&
-                        week.fri === 3
-                    )
-            )
             // strip out id (let DB handle identity)
             .map(({ id, ...rest }) => rest);
 
