@@ -171,17 +171,55 @@ export default function Profile({
                 setIsLoading(false);
             }
         }
-        console.log(collectiveFormData);
+        console.log("collectiveFormData,", collectiveFormData);
         fetchWeekPlan();
     }, [chosenWeekNumber, userDetails, selectedAtt]);
 
     //Update Form, user and standard week
     const handleSubmit = async () => {
+        const cleanedWeeks = collectiveFormData
+            // remove empty objects
+            .filter((week) => week && Object.keys(week).length > 0)
+            // remove if all weekdays are 3 (default)
+            .filter(
+                (week) =>
+                    !(
+                        week.mon === 3 &&
+                        week.tue === 3 &&
+                        week.wed === 3 &&
+                        week.thu === 3 &&
+                        week.fri === 3
+                    )
+            )
+            // strip out id (let DB handle identity)
+            .map(({ id, ...rest }) => rest);
+
+        if (cleanedWeeks.length === 0) {
+            console.log("No valid weeks to submit.");
+            return;
+        }
+
+        // 2️⃣ Upsert into Supabase
+        const { data, error } = await supabase
+            .from("attendances")
+            .upsert(cleanedWeeks, {
+                onConflict: ["fk_user", "year", "week"], // match your unique constraint
+            });
+
+        // 3️⃣ Handle result
+        if (error) {
+            console.error("❌ Upsert failed:", error);
+        } else {
+            console.log("✅ Upsert success:", data);
+        }
+        /*
         //Update changes made to the weekly form
         const { error } = await supabase.from("attendances").upsert(formData);
         if (error) {
             console.log(error);
         }
+*/
+
         //Update changes made to the user
         const { error: userError } = await supabase
             .from("user")
