@@ -38,14 +38,12 @@ export default function Profile({
     setRefetchAttendees,
     favoritePerson,
     setFavoritePerson,
+    weekFromBoard,
 }) {
     const date = new Date();
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
     const [userDetails, setUserDetails] = useState<userType>();
-    const [chosenWeekNumber, setChosenWeekNumber] = useState(
-        weekNumber(new Date())
-    );
-
+    const [chosenWeekNumber, setChosenWeekNumber] = useState(weekFromBoard); //Takes the week from the board
     const [collectiveFormData, setCollectiveFormData] = useState([{}]);
     const [isLoading, setIsLoading] = useState(true);
     const [standardWeek, setStandardWeek] = useState({
@@ -187,11 +185,7 @@ export default function Profile({
             toast.error("Noget gik galt da du gemte. Prøv igen");
         } else {
             // TODO: Alert component showing which weeks are comitted
-            toast.success(
-                `Uge ${cleanedWeeks.map(
-                    (week) => " " + week.week
-                )} er blevet opdateret`
-            );
+            toast.success(`Opdateringer gemt`);
         }
 
         //Update changes made to the user

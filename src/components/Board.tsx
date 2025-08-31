@@ -123,6 +123,7 @@ export default function Board() {
                         setRefetchAttendees={setRefetchAttendees}
                         favoritePerson={favoritePerson}
                         setFavoritePerson={setFavoritePerson}
+                        weekFromBoard={chosenWeekNumber}
                     />,
                     document.body!
                 )}

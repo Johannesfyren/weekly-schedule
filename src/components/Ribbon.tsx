@@ -113,6 +113,7 @@ export default function Ribbon({
                         menuOpen={menuOpen}
                         setMenuOpen={setMenuOpen}
                         setRefreshAttendees={setRefreshAttendees}
+                        weekFromBoard={chosenWeekNumber}
                     />,
                     document.body!
                 )}

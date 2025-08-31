@@ -6,6 +6,7 @@ import UniversalWeekPicker from "./UniversalWeekPicker";
 import LoadingIndicator from "./LoadingIndicator";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
 import { weekToDates } from "../utils/getWeekDatesFromWeek";
+import { toast } from "react-toastify";
 export type menuType = {
     menuOpen: boolean;
     setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,11 +33,10 @@ export default function MenuPlan({
     menuOpen,
     setMenuOpen,
     setRefreshAttendees,
+    weekFromBoard,
 }) {
     // const [madeChanges, setMadeChanges] = useState(false); // TODO: tilfæj, at man lige skal godkende man lukke uden at gemme
-    const [chosenWeekNumber, setChosenWeekNumber] = useState(
-        weekNumber(new Date())
-    );
+    const [chosenWeekNumber, setChosenWeekNumber] = useState(weekFromBoard);
     const [currentWeekDates, setCurrentWeekDates] = useState<WeekDates>(
         weekToDates(chosenWeekNumber, new Date().getFullYear())
     );
@@ -54,7 +54,14 @@ export default function MenuPlan({
             .from("menu")
             .upsert(formData)
             .eq("week", chosenWeekNumber);
-        if (error) console.log(error);
+        if (error) {
+            toast.error(
+                `Madplan for uge ${chosenWeekNumber} blev ikke gemt. Prøv igen`
+            );
+            console.log(error);
+            return;
+        }
+        toast.success(`Madplan for uge ${chosenWeekNumber} blev gemt`);
     };
     //Lock scroll
     useEffect(() => {
