@@ -182,7 +182,9 @@ export default function Profile({
         //  Handle result
         if (error) {
             console.error("❌ Upsert failed:", error);
-            toast.error("Noget gik galt da du gemte. Prøv igen");
+            toast.error(
+                `Noget gik galt da du gemte. Prøv igen. Fejlbesked: ${error.message}`
+            );
         } else {
             // TODO: Alert component showing which weeks are comitted
             toast.success(`Opdateringer gemt`);

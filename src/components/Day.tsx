@@ -115,7 +115,7 @@ export default function Day({
                                 .map((att, index: any) => (
                                     <Attendance
                                         name={att.user.name}
-                                        key={index}
+                                        key={att.user.id}
                                         imgUrl={att.user.img_ref}
                                         refetchAttendees={refetchAttendees}
                                     />

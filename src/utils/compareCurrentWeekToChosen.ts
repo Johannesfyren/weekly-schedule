@@ -1,3 +1,4 @@
+//@ts-ignore
 import { weekNumber } from "weeknumber";
 export default function compareWeeks(chosenWeekNumber: number) {
     const currentWeekNumber: number = weekNumber(new Date());
