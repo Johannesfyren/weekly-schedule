@@ -2,6 +2,7 @@ import type React from "react";
 import leftArrow from "../assets/leftarrow.svg";
 import rightArrow from "../assets/rightarrow.svg";
 import { weekToDateRangeString } from "../utils/weekToDate";
+import compareWeeks from "../utils/compareCurrentWeekToChosen";
 
 export type universalWeekpickerType = {
     chosenWeekNumber: number;
@@ -17,6 +18,7 @@ export default function UniversalWeekPicker({
     size,
 }: universalWeekpickerType) {
     if (window.innerWidth < 850) size = "mobile"; //If the screen is mobile sized, we adjust som font sizing acordingly
+    const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
 
     return (
         <div
@@ -82,23 +84,48 @@ export default function UniversalWeekPicker({
                     }}
                 />
             </div>
-            <h2
+            <div
                 style={{
-                    fontWeight: "400",
-                    fontSize:
-                        size == "small"
-                            ? "1.0rem"
-                            : size == "mobile"
-                            ? "0.6rem"
-                            : "1.1rem",
-                    color: "#DFDFDF",
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "10px",
+                    alignItems: "flex-end",
                 }}
             >
-                {weekToDateRangeString(
-                    chosenWeekNumber,
-                    new Date().getFullYear()
-                )}
-            </h2>
+                <h2
+                    style={{
+                        fontWeight: "400",
+                        fontSize:
+                            size == "small"
+                                ? "1.0rem"
+                                : size == "mobile"
+                                ? "0.6rem"
+                                : "1.1rem",
+                        color: "#DFDFDF",
+                    }}
+                >
+                    {weekToDateRangeString(
+                        chosenWeekNumber,
+                        new Date().getFullYear()
+                    )}
+                </h2>
+                <h2
+                    style={
+                        mobileView
+                            ? { display: "none" }
+                            : {
+                                  display: "inline-block",
+                                  fontWeight: "400",
+                                  fontStyle: "italic",
+                                  fontSize:
+                                      size == "small" ? "0.9rem" : "0.9rem",
+                                  color: "#DFDFDF",
+                              }
+                    }
+                >
+                    ( {compareWeeks(chosenWeekNumber)} )
+                </h2>
+            </div>
         </div>
     );
 }
