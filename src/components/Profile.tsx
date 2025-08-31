@@ -1,9 +1,9 @@
 //@ts-nocheck
 import { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
 import { supabase } from "../utils/supabaseClient";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
-
 import { weekNumber } from "weeknumber";
 import WeekPicker from "./WeekPicker";
 import UniversalWeekPicker from "./UniversalWeekPicker";
@@ -184,8 +184,14 @@ export default function Profile({
         //  Handle result
         if (error) {
             console.error("❌ Upsert failed:", error);
+            toast.error("Noget gik galt da du gemte. Prøv igen");
         } else {
             // TODO: Alert component showing which weeks are comitted
+            toast.success(
+                `Uge ${cleanedWeeks.map(
+                    (week) => " " + week.week
+                )} er blevet opdateret`
+            );
         }
 
         //Update changes made to the user
