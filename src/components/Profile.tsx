@@ -5,7 +5,7 @@ import { supabase } from "../utils/supabaseClient";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
 import { weekNumber } from "weeknumber";
-import WeekPicker from "./WeekPicker";
+
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import WeekPlanForm from "./WeekPlanForm";
 import LoadingIndicator from "./LoadingIndicator";
