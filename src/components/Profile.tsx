@@ -227,6 +227,7 @@ export default function Profile({
                         backgroundColor: "rgba(6, 6, 148, 0.238)",
                         alignItems: "center",
                         padding: "0 10px 0 0",
+                        overflow: "visible",
                     }}
                 >
                     <div className="profile-details">
