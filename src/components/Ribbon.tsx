@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import MenuPlan from "./MenuPlan";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import LogoIcon from "../assets/Logo.svg";
+import EventOverview from "./Events/EventOverview";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
@@ -23,6 +24,7 @@ export default function Ribbon({
 }: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState<boolean>(false);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [eventContainerOpen, setEventContainerOpen] = useState(false);
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
@@ -76,6 +78,12 @@ export default function Ribbon({
             />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                 <Button
+                    clickEvent={() => setEventContainerOpen(true)}
+                    name="Event"
+                    type="Secondary"
+                    iconName="menu-icon-white.svg"
+                />
+                <Button
                     clickEvent={() => {
                         if (favoritePerson) {
                             //@ts-ignore
@@ -114,6 +122,15 @@ export default function Ribbon({
                         setMenuOpen={setMenuOpen}
                         setRefreshAttendees={setRefreshAttendees}
                         weekFromBoard={chosenWeekNumber}
+                    />,
+                    document.body!
+                )}
+
+            {eventContainerOpen &&
+                createPortal(
+                    <EventOverview
+                        eventContainerOpen={eventContainerOpen}
+                        setEventContainerOpen={setEventContainerOpen}
                     />,
                     document.body!
                 )}

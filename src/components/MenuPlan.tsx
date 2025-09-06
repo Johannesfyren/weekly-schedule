@@ -5,6 +5,7 @@ import { supabase } from "../utils/supabaseClient";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import LoadingIndicator from "./LoadingIndicator";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
+import Event from "./Events/Event";
 import { weekToDates } from "../utils/getWeekDatesFromWeek";
 import { toast } from "react-toastify";
 export type menuType = {
@@ -43,6 +44,7 @@ export default function MenuPlan({
 
     const [formData, setFormData] = useState<formType>();
     const [isLoading, setIsLoading] = useState(true);
+    const weekDays = ["mon", "tue", "wed", "thu", "fri"];
 
     const handleFormChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: String(e.target.value) });
@@ -122,11 +124,20 @@ export default function MenuPlan({
                         flexWrap: "wrap",
                     }}
                 >
-                    <BirthdayAnnouncer daysDate={currentWeekDates.mon} />
-                    <BirthdayAnnouncer daysDate={currentWeekDates.tue} />
-                    <BirthdayAnnouncer daysDate={currentWeekDates.wed} />
-                    <BirthdayAnnouncer daysDate={currentWeekDates.thu} />
-                    <BirthdayAnnouncer daysDate={currentWeekDates.fri} />
+                    {weekDays.map((day, index) => {
+                        return (
+                            <>
+                                {console.log(day)}
+                                <BirthdayAnnouncer
+                                    daysDate={currentWeekDates[day]}
+                                />
+                                <Event
+                                    daysDate={currentWeekDates[day]}
+                                    collapsed={true}
+                                />
+                            </>
+                        );
+                    })}
                 </div>
 
                 {isLoading && <LoadingIndicator />}

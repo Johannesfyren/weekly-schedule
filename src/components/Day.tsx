@@ -8,6 +8,7 @@ import DailyMenuCard from "./DailyMenuCard";
 import LoadingIndicator from "./LoadingIndicator";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
 import Attnumber from "./AttNumber";
+import Event from "./Events/Event";
 
 type dayType = {
     dayName: string;
@@ -104,6 +105,11 @@ export default function Day({
                     />
                     <div className="seperator"></div>
                     <BirthdayAnnouncer daysDate={daysDate} />
+                    <Event
+                        daysDate={daysDate}
+                        collapsed={true}
+                        event={undefined}
+                    />
                     <motion.div
                         className="attendances-container"
                         initial={{ scale: 0.8 }}

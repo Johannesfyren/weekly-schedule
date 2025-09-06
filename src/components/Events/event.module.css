@@ -1,0 +1,63 @@
+.event-container-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.527);
+    overflow-y: auto;
+}
+
+.event-container {
+    background: linear-gradient(
+        137deg,
+        rgba(0, 114, 201, 1) 0%,
+        rgba(50, 76, 156, 1) 51%
+    );
+    width: 80%;
+    max-width: 1000px;
+    height: 627.5px;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 0 0 10px 0;
+
+    overflow-y: scroll;
+    z-index: 2;
+    gap: 20px;
+    overflow: visible; /*Makes tooltips be able to escape the contaienr*/
+    overflow-y: scroll;
+}
+.main-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+.event-item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 30%;
+    min-width: 200px;
+    height: 200px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.287);
+}
+.event-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+.flexxer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
