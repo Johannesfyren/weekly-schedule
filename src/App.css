@@ -364,7 +364,7 @@ button img {
     );
     width: 80%;
     max-width: 1000px;
-    height: 60vh;
+    height: 80vh;
     border-radius: 10px;
     border: 1px solid white;
     box-shadow: 0 0 10px 0;
@@ -622,6 +622,10 @@ input[type="radio"] {
     width: 100%;
 
     background-color: rgb(147, 147, 147);
+}
+
+.mg-left-auto {
+    margin-left: auto;
 }
 
 /* MEDIA QUERIES */

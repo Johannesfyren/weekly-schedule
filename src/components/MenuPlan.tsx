@@ -5,6 +5,7 @@ import { supabase } from "../utils/supabaseClient";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import LoadingIndicator from "./LoadingIndicator";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
+import { Fragment } from "react";
 import Event from "./Events/Event";
 import { weekToDates } from "../utils/getWeekDatesFromWeek";
 import { toast } from "react-toastify";
@@ -126,8 +127,7 @@ export default function MenuPlan({
                 >
                     {weekDays.map((day, index) => {
                         return (
-                            <>
-                                {console.log(day)}
+                            <Fragment key={day}>
                                 <BirthdayAnnouncer
                                     daysDate={currentWeekDates[day]}
                                 />
@@ -135,7 +135,7 @@ export default function MenuPlan({
                                     daysDate={currentWeekDates[day]}
                                     collapsed={true}
                                 />
-                            </>
+                            </Fragment>
                         );
                     })}
                 </div>
@@ -214,16 +214,6 @@ export default function MenuPlan({
                         Gem madplan
                     </button>
                 </div>
-                {/* <button
-                    className="btn-primary btn-floaty"
-                    onClick={() => {
-                        submitMenu();
-                        setRefreshAttendees(true);
-                        setMenuOpen(false);
-                    }}
-                >
-                    Gem madplan
-                </button> */}
             </div>
         </div>
     );

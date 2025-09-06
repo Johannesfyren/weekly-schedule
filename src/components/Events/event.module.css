@@ -61,3 +61,39 @@
     flex-wrap: wrap;
     gap: 20px;
 }
+.add-event-container {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(
+        137deg,
+        rgba(0, 114, 201, 1) 0%,
+        rgba(50, 76, 156, 1) 51%
+    );
+
+    width: 500px;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 0 0 10px 0;
+
+    overflow-y: scroll;
+    z-index: 2;
+    gap: 20px;
+    overflow: visible; /*Makes tooltips be able to escape the contaienr*/
+    overflow-y: scroll;
+    input,
+    textarea {
+        color: rgb(44, 44, 44);
+        border-radius: 5px;
+        border-style: none;
+        height: 30px;
+    }
+    textarea {
+        height: 50px;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}

@@ -5,11 +5,17 @@ import descriptionIcon from "../../assets/event-icon.svg";
 import styles from "./event.module.css";
 import { supabase } from "../../utils/supabaseClient";
 import Event from "./Event";
+import Button from "../Button";
+import LoadingIndicator from "../LoadingIndicator";
+import AddEvent from "./AddEvent";
+
 export default function EventOverview({
     eventContainerOpen,
     setEventContainerOpen,
 }) {
     const [events, setEvents] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [showAddEvent, setShowAddEvent] = useState(false);
     const todaysDate = new Date();
     useEffect(() => {
         const getEvents = async () => {
@@ -19,10 +25,11 @@ export default function EventOverview({
                 .order("date", { ascending: true });
             if (error) return undefined;
             setEvents(data);
-            console.log(data);
+            setIsLoading(false);
         };
+
         getEvents();
-    }, []);
+    }, [showAddEvent]);
 
     return (
         eventContainerOpen && (
@@ -42,35 +49,78 @@ export default function EventOverview({
                     >
                         <img src={eventIcon} width={"60px"} alt="" />
                         <h1>Begivenheder</h1>
-                    </div>
-                    <div className={styles["main-area"]}>
-                        <h2>Kommende begivenheder</h2>
-                        <div className={styles["flexxer"]}>
-                            {events &&
-                                events
-                                    .filter(
-                                        (event) =>
-                                            new Date(event.date) > todaysDate
-                                    )
-                                    .map((event) => {
-                                        return <Event event={event} />;
-                                    })}
-                        </div>
-                        <h2 style={{ marginTop: "10px" }}>
-                            Gamle begivenheder
-                        </h2>
-                        <div className={styles["flexxer"]}>
-                            {events &&
-                                events
-                                    .filter(
-                                        (event) =>
-                                            new Date(event.date) < todaysDate
-                                    )
-                                    .map((event) => {
-                                        return <Event event={event} />;
-                                    })}
+                        <div style={{ marginLeft: "auto" }}>
+                            <Button
+                                name="Luk"
+                                type="Secondary"
+                                customClass="mg-left-auto"
+                                clickEvent={() => setEventContainerOpen(false)}
+                            />
                         </div>
                     </div>
+                    {!isLoading ? (
+                        <>
+                            <div className={styles["main-area"]}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        gap: "10px",
+                                    }}
+                                >
+                                    <h2>Kommende begivenheder</h2>
+                                    <Button
+                                        name="Tilføj begivenhed"
+                                        type="Primary"
+                                        clickEvent={() => setShowAddEvent(true)}
+                                    />
+                                </div>
+
+                                <div className={styles["flexxer"]}>
+                                    {events &&
+                                        events
+                                            .filter(
+                                                (event) =>
+                                                    new Date(event.date) >=
+                                                    todaysDate
+                                            )
+                                            .map((event) => {
+                                                return (
+                                                    <Event
+                                                        event={event}
+                                                        key={event.id}
+                                                    />
+                                                );
+                                            })}
+                                </div>
+                                <h2 style={{ marginTop: "10px" }}>
+                                    Gamle begivenheder
+                                </h2>
+                                <div className={styles["flexxer"]}>
+                                    {events &&
+                                        events
+                                            .filter(
+                                                (event) =>
+                                                    new Date(event.date) <
+                                                    todaysDate
+                                            )
+                                            .map((event) => {
+                                                return (
+                                                    <Event
+                                                        event={event}
+                                                        key={event.event_name}
+                                                    />
+                                                );
+                                            })}
+                                </div>
+                            </div>
+                            {showAddEvent && (
+                                <AddEvent setShowAddEvent={setShowAddEvent} />
+                            )}
+                        </>
+                    ) : (
+                        <LoadingIndicator />
+                    )}
                 </div>
             </div>
         )

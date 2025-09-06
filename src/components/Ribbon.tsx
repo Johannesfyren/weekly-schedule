@@ -77,12 +77,15 @@ export default function Ribbon({
                 size="small"
             />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-                <Button
-                    clickEvent={() => setEventContainerOpen(true)}
-                    name="Event"
-                    type="Secondary"
-                    iconName="menu-icon-white.svg"
-                />
+                {!mobileView && (
+                    <Button
+                        clickEvent={() => setEventContainerOpen(true)}
+                        name="Begivenheder"
+                        type="Secondary"
+                        iconName="event-icon-with-bg.svg"
+                    />
+                )}
+
                 <Button
                     clickEvent={() => {
                         if (favoritePerson) {
