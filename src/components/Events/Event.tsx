@@ -1,8 +1,12 @@
+//@ts-nocheck
 import styles from "./event.module.css";
 import eventIcon from "../../assets/event-icon-with-bg.svg";
+import editIcon from "../../assets/edit-icon.svg";
 import { motion } from "motion/react";
 import { supabase } from "../../utils/supabaseClient";
 import { useEffect, useState } from "react";
+import AddEvent from "./AddEvent";
+
 export default function Event({
     collapsed = false,
     event = undefined,
@@ -10,6 +14,7 @@ export default function Event({
 }) {
     //If the event "lives alone", we need to fetch events for a given day.
     const [todaysEvent, setTodaysEvent] = useState();
+    const [showAddEvent, setShowAddEvent] = useState(false);
     const todaysDateFormatted =
         daysDate &&
         daysDate.getFullYear() +
@@ -25,11 +30,15 @@ export default function Event({
                 .select("*")
                 .eq("date", todaysDateFormatted);
             if (error) return undefined;
-            // console.log(data);
+
             setTodaysEvent(data && data[0]);
         };
         if (event == undefined) fetchTodaysEvent();
-    }, [daysDate]);
+    }, [daysDate, showAddEvent]);
+
+    const editEvent = () => {
+        setShowAddEvent(true);
+    };
 
     if (!collapsed)
         return (
@@ -39,6 +48,18 @@ export default function Event({
                     style={{ fontSize: "1.3rem" }}
                 >
                     <h3>{event.event_name}</h3>
+                    <img
+                        src={editIcon}
+                        alt=""
+                        width={"20px"}
+                        style={{
+                            position: "absolute",
+                            top: "0px",
+                            right: "0px",
+                            cursor: "pointer",
+                        }}
+                        onClick={editEvent}
+                    />
                 </div>
                 <div className={styles["event-item"]}>
                     <p>
@@ -64,6 +85,15 @@ export default function Event({
                     <p style={{ color: "#d2d2d2ff", fontStyle: "italic" }}>
                         Ingen beskrivelse
                     </p>
+                )}
+                {showAddEvent && (
+                    <AddEvent
+                        inh_eventDate={event.date}
+                        inh_eventName={event.event_name}
+                        inh_eventDesc={event.description}
+                        inh_id={event.id}
+                        setShowAddEvent={setShowAddEvent}
+                    />
                 )}
             </div>
         );

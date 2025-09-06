@@ -1,7 +1,6 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import eventIcon from "../../assets/event-icon.svg";
-import dateIcon from "../../assets/event-icon.svg";
-import descriptionIcon from "../../assets/event-icon.svg";
 import styles from "./event.module.css";
 import { supabase } from "../../utils/supabaseClient";
 import Event from "./Event";

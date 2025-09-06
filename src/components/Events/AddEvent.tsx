@@ -1,21 +1,48 @@
+//@ts-nocheck
 import { createPortal } from "react-dom";
 import styles from "./event.module.css";
 import Button from "../Button";
-import { useState } from "react";
+import React, { useState, type SetStateAction } from "react";
 import { supabase } from "../../utils/supabaseClient";
 import { toast } from "react-toastify";
 
-export default function AddEvent({ setShowAddEvent }) {
-    const [eventName, setEventName] = useState();
-    const [eventDate, setEventDate] = useState();
-    const [eventDescription, setEventDescription] = useState();
+export type eventType = {
+    setShowAddEvent: React.Dispatch<SetStateAction<boolean>>;
+    inh_eventName?: string;
+    inh_eventDate?: Date;
+    inh_eventDesc?: string;
+    inh_id?: number;
+};
+
+export default function AddEvent({
+    setShowAddEvent,
+    inh_eventName,
+    inh_eventDate,
+    inh_eventDesc,
+    inh_id,
+}: eventType) {
+    const [eventName, setEventName] = useState(inh_eventName && inh_eventName);
+    const [eventDate, setEventDate] = useState(inh_eventDate && inh_eventDate);
+    const [eventDescription, setEventDescription] = useState(
+        inh_eventDesc && inh_eventDesc
+    );
 
     const submitEvent = async () => {
-        const { data, error } = await supabase.from("events").upsert({
+        const payload: any = {
             event_name: eventName,
             date: eventDate,
             description: eventDescription,
-        });
+        };
+
+        // only include id if editing
+        if (inh_id) {
+            payload.id = inh_id;
+        }
+
+        const { data, error } = await supabase
+            .from("events")
+            .upsert(payload, { onConflict: ["id"] }); // 👈 important
+
         if (error)
             return toast.error("Begivenheden kunne ikke oprettes. Prøv igen");
         toast.success("Begivenheden blev gemt.");
@@ -23,6 +50,7 @@ export default function AddEvent({ setShowAddEvent }) {
     };
     return createPortal(
         <div>
+            {console.log(inh_id)}
             <div className={styles["event-container-bg"]}>
                 <div className={styles["add-event-container"]}>
                     <div
