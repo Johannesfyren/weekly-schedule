@@ -11,6 +11,7 @@ export default function Event({
     collapsed = false,
     event = undefined,
     daysDate = undefined,
+    showDay = false,
 }) {
     //If the event "lives alone", we need to fetch events for a given day.
     const [todaysEvent, setTodaysEvent] = useState();
@@ -118,9 +119,18 @@ export default function Event({
                             width: "100%",
                             marginBottom: "-10px",
                         }}
+                        key={event.event_name}
                     >
                         <img src={eventIcon} width={"20px"} />
                         <p>{event.event_name}</p>
+                        <p style={{ color: "#e3e3e3ff", fontStyle: "italic" }}>
+                            {showDay &&
+                                "(" +
+                                    daysDate.toLocaleDateString("da-DK", {
+                                        weekday: "long",
+                                    }) +
+                                    ")"}
+                        </p>
                     </motion.div>
                 );
             })

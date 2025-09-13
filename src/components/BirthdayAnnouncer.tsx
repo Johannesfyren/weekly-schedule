@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { supabase } from "../utils/supabaseClient";
 import birthdayIcon from "../assets/birthday-flag.svg";
-export default function BirthdayAnnouncer({ daysDate }) {
+export default function BirthdayAnnouncer({ daysDate, showDay = false }) {
     const [attendees, setAttendees] = useState();
     const [birthdayPerson, setBirthdayPerson] = useState();
     async function fetchAttendances(): Promise<any> {
@@ -53,8 +53,17 @@ export default function BirthdayAnnouncer({ daysDate }) {
                     marginBottom: "-10px",
                 }}
             >
+                {console.log(daysDate)}
                 <img src={birthdayIcon} width={"20px"} />
                 <p>{birthdayPerson[0].name}</p>
+                <p style={{ color: "#e3e3e3ff", fontStyle: "italic" }}>
+                    {showDay &&
+                        "(" +
+                            daysDate.toLocaleDateString("da-DK", {
+                                weekday: "long",
+                            }) +
+                            ")"}
+                </p>
             </motion.div>
         )
     );

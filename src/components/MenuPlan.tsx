@@ -130,10 +130,12 @@ export default function MenuPlan({
                             <Fragment key={day}>
                                 <BirthdayAnnouncer
                                     daysDate={currentWeekDates[day]}
+                                    showDay={true}
                                 />
                                 <Event
                                     daysDate={currentWeekDates[day]}
                                     collapsed={true}
+                                    showDay={true}
                                 />
                             </Fragment>
                         );
