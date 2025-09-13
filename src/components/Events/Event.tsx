@@ -22,7 +22,7 @@ export default function Event({
             (daysDate.getMonth() + 1) +
             "-" +
             daysDate.getDate();
-
+    // if we have to fetch ourself (because we use collapsed view, and not inherit the event data)
     useEffect(() => {
         const fetchTodaysEvent = async () => {
             const { data, error } = await supabase
@@ -31,7 +31,7 @@ export default function Event({
                 .eq("date", todaysDateFormatted);
             if (error) return undefined;
 
-            setTodaysEvent(data && data[0]);
+            setTodaysEvent(data && data);
         };
         if (event == undefined) fetchTodaysEvent();
     }, [daysDate, showAddEvent]);
@@ -42,7 +42,9 @@ export default function Event({
 
     if (!collapsed)
         return (
-            <div className={styles["event-item-container"]}>
+            <div
+                className={`${styles["event-item-container"]} ${styles["hide-scrollbar"]}`}
+            >
                 <div
                     className={styles["event-item"]}
                     style={{ fontSize: "1.3rem" }}
@@ -54,8 +56,8 @@ export default function Event({
                         width={"20px"}
                         style={{
                             position: "absolute",
-                            top: "0px",
-                            right: "0px",
+                            top: "-5px",
+                            right: "-5px",
                             cursor: "pointer",
                         }}
                         onClick={editEvent}
@@ -100,22 +102,28 @@ export default function Event({
 
     if (collapsed && todaysEvent) {
         return (
-            <motion.div
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: "10px",
-                    backgroundColor: "#ffffff23",
-                    padding: "3px 10px 3px 10px",
-                    borderRadius: "10px",
-                    width: "100%",
-                }}
-            >
-                <img src={eventIcon} width={"20px"} />
-                <p>{todaysEvent.event_name}</p>
-            </motion.div>
+            todaysEvent &&
+            todaysEvent.map((event) => {
+                return (
+                    <motion.div
+                        initial={{ scale: 0.8 }}
+                        animate={{ scale: 1 }}
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "10px",
+                            backgroundColor: "#ffffff23",
+                            padding: "3px 10px 3px 10px",
+                            borderRadius: "10px",
+                            width: "100%",
+                            marginBottom: "-10px",
+                        }}
+                    >
+                        <img src={eventIcon} width={"20px"} />
+                        <p>{event.event_name}</p>
+                    </motion.div>
+                );
+            })
         );
     }
 }

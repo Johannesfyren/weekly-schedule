@@ -50,6 +50,7 @@ export default function BirthdayAnnouncer({ daysDate }) {
                     padding: "3px 10px 3px 10px",
                     borderRadius: "10px",
                     width: "100%",
+                    marginBottom: "-10px",
                 }}
             >
                 <img src={birthdayIcon} width={"20px"} />

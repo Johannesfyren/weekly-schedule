@@ -87,6 +87,7 @@
         border-radius: 5px;
         border-style: none;
         height: 30px;
+        padding: 5px;
     }
     textarea {
         height: 50px;
@@ -97,4 +98,9 @@
         flex-direction: column;
         gap: 5px;
     }
+}
+.hide-scrollbar {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }

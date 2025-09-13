@@ -32,8 +32,13 @@ export default function EventOverview({
 
     return (
         eventContainerOpen && (
-            <div className={styles["event-container-bg"]}>
-                <div className={styles["event-container"]}>
+            <div
+                className={styles["event-container-bg"]}
+                onClick={(e) => console.log(e.target)}
+            >
+                <div
+                    className={`${styles["event-container"]} ${styles["hide-scrollbar"]}`}
+                >
                     <div
                         style={{
                             display: "flex",
@@ -59,7 +64,9 @@ export default function EventOverview({
                     </div>
                     {!isLoading ? (
                         <>
-                            <div className={styles["main-area"]}>
+                            <div
+                                className={`${styles["main-area"]} ${styles["hide-scrollbar"]}`}
+                            >
                                 <div
                                     style={{
                                         display: "flex",
