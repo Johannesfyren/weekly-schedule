@@ -9,6 +9,7 @@ import { weekToDates } from "../utils/getWeekDatesFromWeek";
 
 export default function Board() {
     const [day, setDay] = useState(new Date().getDay());
+    const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
     const [selectedAtt, setSelectedAtt] = useState<string>("");
     const [refetchAttendees, setRefetchAttendees] = useState<boolean>(false);
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
@@ -34,7 +35,7 @@ export default function Board() {
         // Autoscrolling efter 1,2 sekund, hvor alle elementer burde være loaded
         const timeOut = setTimeout(() => {
             {
-                if (currentDayRef.current) {
+                if (currentDayRef.current && mobileView) {
                     currentDayRef.current.scrollIntoView({
                         block: "nearest",
                         inline: "nearest",
