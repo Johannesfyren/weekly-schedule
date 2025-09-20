@@ -13,6 +13,7 @@ import Star from "./Star";
 import FavoritePerson from "./FavoritePerson";
 import StandardWeek from "./Std-week/StandardWeek";
 import AttendancePicker from "./AttendancePicker";
+import Tab from "./tab/Tab";
 
 export type userType = {
     id: number;
@@ -54,6 +55,8 @@ export default function Profile({
         thu: 2,
         fri: 2,
     });
+    const [tabSettingsOpen, setTabSettingsOpen] = useState(false);
+    const [tabWeekPlanningOpen, setTabWeekPlanningOpen] = useState(false);
     const [showAttPicker, setShowAttPicker] = useState(false);
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -287,6 +290,21 @@ export default function Profile({
                         />
                     </div>
                 </div>
+
+                <Tab
+                    tabs={[
+                        {
+                            tabName: "Ugeplan",
+                            setOpenMenu: setTabWeekPlanningOpen,
+                            openMenu: tabWeekPlanningOpen,
+                        },
+                        {
+                            tabName: "Indstillinger",
+                            setOpenMenu: setTabSettingsOpen,
+                            openMenu: tabSettingsOpen,
+                        },
+                    ]}
+                />
 
                 <div className="submit-details">
                     <UniversalWeekPicker
