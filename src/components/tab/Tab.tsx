@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "./tab.module.css";
 import TabItem from "./TabItem";
 
@@ -10,11 +11,27 @@ export interface tabType {
 }
 
 export default function Tab({ tabs }: tabType) {
+    const [currentlyActive, setCurrentlyActive] = useState(tabs[0].tabName);
+
+    //Only one tab can be open, set everything else to false
+    useEffect(() => {
+        tabs.map(
+            (tab) => tab.tabName != currentlyActive && tab.setOpenMenu(false)
+        );
+    }, [currentlyActive]);
+
     return (
         <div className={styles["tab-container"]}>
             {tabs.map((tab) => {
                 return (
-                    <TabItem clickEvent={tab.setOpenMenu} name={tab.tabName} />
+                    <TabItem
+                        clickEvent={() => {
+                            tab.setOpenMenu(true);
+                            setCurrentlyActive(tab.tabName);
+                        }}
+                        name={tab.tabName}
+                        currentlyActive={currentlyActive}
+                    />
                 );
             })}
         </div>

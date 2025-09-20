@@ -25,6 +25,7 @@ export default function Switch({ isOn, setIsOn, setUserDetails, userDetails }) {
                     visualDuration: 0.2,
                     bounce: 0.2,
                 }}
+                initial={false}
             />
         </button>
     );

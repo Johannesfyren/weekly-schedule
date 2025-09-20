@@ -1,7 +1,14 @@
 import styles from "./tab.module.css";
-export default function TabItem({ name, clickEvent }) {
+export default function TabItem({ name, clickEvent, currentlyActive }) {
     return (
-        <div className={styles["tab-item"]} onClick={clickEvent}>
+        <div
+            className={
+                currentlyActive == name
+                    ? styles["tab-item-active"]
+                    : styles["tab-item-inactive"]
+            }
+            onClick={clickEvent}
+        >
             {name}
         </div>
     );

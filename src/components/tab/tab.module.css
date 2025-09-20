@@ -8,7 +8,7 @@
     background: transparent;
 }
 
-.tab-item {
+.tab-item-active {
     padding: 5px;
     border-radius: 0 0 5px 5px;
     border: 1px solid #1b2b60;
@@ -18,13 +18,13 @@
     cursor: pointer;
     font-weight: 700;
 }
-.tab-item-active {
+.tab-item-inactive {
     padding: 5px;
     border-radius: 0 0 5px 5px;
     border: 1px solid #1b2b60;
-    background-color: #253874;
+    background-color: #31458a;
     border-top: none;
-    color: rgb(208, 208, 208);
+    color: rgb(188, 186, 186);
     cursor: pointer;
-    font-weight: 300;
+    font-weight: 700;
 }

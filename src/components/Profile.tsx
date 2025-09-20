@@ -56,7 +56,7 @@ export default function Profile({
         fri: 2,
     });
     const [tabSettingsOpen, setTabSettingsOpen] = useState(false);
-    const [tabWeekPlanningOpen, setTabWeekPlanningOpen] = useState(false);
+    const [tabWeekPlanningOpen, setTabWeekPlanningOpen] = useState(true);
     const [showAttPicker, setShowAttPicker] = useState(false);
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -305,56 +305,65 @@ export default function Profile({
                         },
                     ]}
                 />
-
-                <div className="submit-details">
-                    <UniversalWeekPicker
-                        chosenWeekNumber={chosenWeekNumber}
-                        setChosenWeekNumber={setChosenWeekNumber}
-                        setIsLoading={setIsLoading}
-                    />
-                    {userDetails && (
-                        <StandardWeek
-                            userDetails={userDetails}
-                            setUserDetails={setUserDetails}
-                            standardWeek={standardWeek}
-                            setStandardWeek={setStandardWeek}
+                {tabWeekPlanningOpen && (
+                    <div className="submit-details">
+                        <UniversalWeekPicker
+                            chosenWeekNumber={chosenWeekNumber}
+                            setChosenWeekNumber={setChosenWeekNumber}
+                            setIsLoading={setIsLoading}
                         />
-                    )}
+                        {/* {userDetails && (
+                            <StandardWeek
+                                userDetails={userDetails}
+                                setUserDetails={setUserDetails}
+                                standardWeek={standardWeek}
+                                setStandardWeek={setStandardWeek}
+                            />
+                        )} */}
 
-                    <WeekPlanForm
-                        isLoading={isLoading}
-                        setCollectiveFormData={setCollectiveFormData}
-                        collectiveFormData={collectiveFormData}
-                        chosenWeekNumber={chosenWeekNumber}
-                    />
-
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: "10px",
-                            alignSelf: "flex-end",
-                        }}
-                    >
-                        <Button
-                            type="Secondary"
-                            clickEvent={() => {
-                                setSelectedAtt("");
-                            }}
-                            name="Annullér"
+                        <WeekPlanForm
+                            isLoading={isLoading}
+                            setCollectiveFormData={setCollectiveFormData}
+                            collectiveFormData={collectiveFormData}
+                            chosenWeekNumber={chosenWeekNumber}
                         />
-                        <Button
-                            type="Primary"
-                            name="Gem & luk"
-                            clickEvent={(e) => {
-                                e.preventDefault();
-                                handleSubmit();
-                                setRefetchAttendees(true);
-                                setSelectedAtt("");
+
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                gap: "10px",
+                                alignSelf: "flex-end",
                             }}
-                        ></Button>
+                        >
+                            <Button
+                                type="Secondary"
+                                clickEvent={() => {
+                                    setSelectedAtt("");
+                                }}
+                                name="Annullér"
+                            />
+                            <Button
+                                type="Primary"
+                                name="Gem & luk"
+                                clickEvent={(e) => {
+                                    e.preventDefault();
+                                    handleSubmit();
+                                    setRefetchAttendees(true);
+                                    setSelectedAtt("");
+                                }}
+                            ></Button>
+                        </div>
                     </div>
-                </div>
+                )}
+                {tabSettingsOpen && userDetails && (
+                    <StandardWeek
+                        userDetails={userDetails}
+                        setUserDetails={setUserDetails}
+                        standardWeek={standardWeek}
+                        setStandardWeek={setStandardWeek}
+                    />
+                )}
             </div>
         </div>
     );
