@@ -161,6 +161,7 @@ button img {
 }
 
 .profile-container {
+    position: relative;
     background: linear-gradient(
         137deg,
         rgba(0, 114, 201, 1) 0%,

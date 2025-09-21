@@ -357,12 +357,44 @@ export default function Profile({
                     </div>
                 )}
                 {tabSettingsOpen && userDetails && (
-                    <StandardWeek
-                        userDetails={userDetails}
-                        setUserDetails={setUserDetails}
-                        standardWeek={standardWeek}
-                        setStandardWeek={setStandardWeek}
-                    />
+                    <div className="submit-details">
+                        <StandardWeek
+                            userDetails={userDetails}
+                            setUserDetails={setUserDetails}
+                            standardWeek={standardWeek}
+                            setStandardWeek={setStandardWeek}
+                        />
+                        <h2>Her kommer snart mere - såsom e-mail reminders!</h2>
+                        <div
+                            style={{
+                                position: "absolute",
+                                bottom: "20px",
+                                right: "20px",
+                                display: "flex",
+                                flexDirection: "row",
+                                gap: "10px",
+                                alignSelf: "flex-end",
+                            }}
+                        >
+                            <Button
+                                type="Secondary"
+                                clickEvent={() => {
+                                    setSelectedAtt("");
+                                }}
+                                name="Annullér"
+                            />
+                            <Button
+                                type="Primary"
+                                name="Gem & luk"
+                                clickEvent={(e) => {
+                                    e.preventDefault();
+                                    handleSubmit();
+                                    setRefetchAttendees(true);
+                                    setSelectedAtt("");
+                                }}
+                            ></Button>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>
