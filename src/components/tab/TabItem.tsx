@@ -1,5 +1,15 @@
 import styles from "./tab.module.css";
-export default function TabItem({ name, clickEvent, currentlyActive }) {
+
+export interface tabItemType {
+    name: string;
+    clickEvent: React.MouseEventHandler<HTMLDivElement>;
+    currentlyActive: string;
+}
+export default function TabItem({
+    name,
+    clickEvent,
+    currentlyActive,
+}: tabItemType) {
     return (
         <div
             className={

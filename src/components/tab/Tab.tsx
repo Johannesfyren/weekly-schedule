@@ -21,7 +21,9 @@ export default function Tab({ tabs }: tabType) {
     }, [currentlyActive]);
 
     return (
-        <div className={styles["tab-container"]}>
+        <div
+            className={`${styles["tab-container"]} ${styles["hide-scrollbar"]}`}
+        >
             {tabs.map((tab) => {
                 return (
                     <TabItem

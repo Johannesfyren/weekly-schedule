@@ -55,6 +55,9 @@ export default function Profile({
         thu: 2,
         fri: 2,
     });
+    const [email, setEmail] = useState(
+        (userDetails && userDetails["e-mail"]) || undefined
+    );
     const [tabSettingsOpen, setTabSettingsOpen] = useState(false);
     const [tabWeekPlanningOpen, setTabWeekPlanningOpen] = useState(true);
     const [showAttPicker, setShowAttPicker] = useState(false);
@@ -207,6 +210,23 @@ export default function Profile({
         if (error) console.log(error);
     };
 
+    const handleEmailChange = async () => {
+        //  Upsert into Supabase
+        const { data, error } = await supabase
+            .from("user")
+            .insert("email", email);
+
+        //  Handle result
+        if (error) {
+            toast.error(
+                `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`
+            );
+        } else {
+            // TODO: Alert component showing which weeks are comitted
+            toast.success(`E-mail gemt`);
+        }
+    };
+
     return (
         <div
             className="profile-container-bg "
@@ -312,14 +332,6 @@ export default function Profile({
                             setChosenWeekNumber={setChosenWeekNumber}
                             setIsLoading={setIsLoading}
                         />
-                        {/* {userDetails && (
-                            <StandardWeek
-                                userDetails={userDetails}
-                                setUserDetails={setUserDetails}
-                                standardWeek={standardWeek}
-                                setStandardWeek={setStandardWeek}
-                            />
-                        )} */}
 
                         <WeekPlanForm
                             isLoading={isLoading}
@@ -356,8 +368,27 @@ export default function Profile({
                         </div>
                     </div>
                 )}
+
+                {/* User Settings */}
+
                 {tabSettingsOpen && userDetails && (
                     <div className="submit-details">
+                        <form>
+                            <label htmlFor="emailInput">
+                                <input
+                                    type="email"
+                                    name="emailInput"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <Button
+                                    clickEvent={(e) => {
+                                        e.preventDefault();
+                                        handleEmailChange();
+                                    }}
+                                />
+                            </label>
+                            {console.log(email)}
+                        </form>
                         <StandardWeek
                             userDetails={userDetails}
                             setUserDetails={setUserDetails}
@@ -365,6 +396,7 @@ export default function Profile({
                             setStandardWeek={setStandardWeek}
                         />
                         <h2>Her kommer snart mere - såsom e-mail reminders!</h2>
+
                         <div
                             style={{
                                 position: "absolute",
