@@ -56,7 +56,10 @@ export default function Profile({
         fri: 2,
     });
     const [email, setEmail] = useState(
-        (userDetails && userDetails["e-mail"]) || undefined
+        (userDetails && userDetails["e-mail"]) || null
+    );
+    const [emailProvided, setEmailProvided] = useState(
+        userDetails && userDetails["e-mail"] ? true : false
     );
     const [tabSettingsOpen, setTabSettingsOpen] = useState(false);
     const [tabWeekPlanningOpen, setTabWeekPlanningOpen] = useState(true);
@@ -104,6 +107,8 @@ export default function Profile({
             if (error) return undefined;
             setUserDetails(data && data[0]);
             setStandardWeek({ ...standardWeek, fk_user_id: data[0].id });
+            setEmail(data && data[0]["e-mail"]);
+            setEmailProvided(data && data[0]["e-mail"] ? true : false);
         };
 
         fetchUsersById();
@@ -212,19 +217,38 @@ export default function Profile({
 
     const handleEmailChange = async () => {
         //  Upsert into Supabase
-        const { data, error } = await supabase
-            .from("user")
-            .insert("email", email);
+
+        if (emailProvided) {
+            const { data, error } = await supabase
+                .from("user")
+                .update({ "e-mail": null })
+                .eq("id", userDetails.id);
+            if (error) {
+                toast.error(
+                    `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`
+                );
+            } else {
+                // TODO: Alert component showing which weeks are comitted
+                toast.success(`Din e-mail er blevet slettet`);
+                setEmailProvided(false);
+            }
+        } else {
+            const { data, error } = await supabase
+                .from("user")
+                .update({ "e-mail": email })
+                .eq("id", userDetails.id);
+            if (error) {
+                toast.error(
+                    `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`
+                );
+            } else {
+                // TODO: Alert component showing which weeks are comitted
+                toast.success(`E-mail gemt`);
+                setEmailProvided(true);
+            }
+        }
 
         //  Handle result
-        if (error) {
-            toast.error(
-                `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`
-            );
-        } else {
-            // TODO: Alert component showing which weeks are comitted
-            toast.success(`E-mail gemt`);
-        }
     };
 
     return (
@@ -325,6 +349,9 @@ export default function Profile({
                         },
                     ]}
                 />
+
+                {/* Week Plan */}
+
                 {tabWeekPlanningOpen && (
                     <div className="submit-details">
                         <UniversalWeekPicker
@@ -373,22 +400,47 @@ export default function Profile({
 
                 {tabSettingsOpen && userDetails && (
                     <div className="submit-details">
-                        <form>
-                            <label htmlFor="emailInput">
-                                <input
-                                    type="email"
-                                    name="emailInput"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                        {console.log("email:", email)}
+                        {!emailProvided ? (
+                            <form>
+                                <label htmlFor="emailInput">
+                                    <input
+                                        type="email"
+                                        name="emailInput"
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                    />
+                                </label>
                                 <Button
+                                    name="Gem e-mail"
+                                    type="Secondary"
+                                    iconName="save-icon"
                                     clickEvent={(e) => {
                                         e.preventDefault();
                                         handleEmailChange();
                                     }}
                                 />
-                            </label>
-                            {console.log(email)}
-                        </form>
+                            </form>
+                        ) : (
+                            <div>
+                                <p>
+                                    Du har angivet din e-mail, men den vises
+                                    ikke her
+                                </p>
+                                <Button
+                                    name="Slet e-mail"
+                                    type="Secondary"
+                                    iconName="save-icon"
+                                    clickEvent={(e) => {
+                                        e.preventDefault();
+                                        setEmail(null);
+                                        handleEmailChange();
+                                    }}
+                                />
+                            </div>
+                        )}
+
                         <StandardWeek
                             userDetails={userDetails}
                             setUserDetails={setUserDetails}
