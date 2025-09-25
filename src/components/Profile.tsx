@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Fragment } from "react";
 import { toast } from "react-toastify";
 import { supabase } from "../utils/supabaseClient";
 import ProfileImage from "./ProfileImage";
@@ -14,6 +14,9 @@ import FavoritePerson from "./FavoritePerson";
 import StandardWeek from "./Std-week/StandardWeek";
 import AttendancePicker from "./AttendancePicker";
 import Tab from "./tab/Tab";
+import BirthdayAnnouncer from "./BirthdayAnnouncer";
+import Event from "./Events/Event";
+import { weekToDates } from "../utils/getWeekDatesFromWeek";
 
 export type userType = {
     id: number;
@@ -55,6 +58,9 @@ export default function Profile({
         thu: 2,
         fri: 2,
     });
+    const [currentWeekDates, setCurrentWeekDates] = useState<WeekDates>(
+        weekToDates(chosenWeekNumber, new Date().getFullYear())
+    );
     const [email, setEmail] = useState(
         (userDetails && userDetails["e-mail"]) || null
     );
@@ -66,6 +72,7 @@ export default function Profile({
     const [showAttPicker, setShowAttPicker] = useState(false);
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const weekDays = ["mon", "tue", "wed", "thu", "fri"];
 
     //Check click anywhere, and if it is inside the opened attPicker
     useEffect(() => {
@@ -169,7 +176,12 @@ export default function Profile({
 
         fetchWeekPlan();
     }, [chosenWeekNumber, userDetails, selectedAtt]);
-
+    //Whenever weekNumber changes, refresh currentWeenDates, to be able to get new events/birthdays
+    useEffect(() => {
+        setCurrentWeekDates(
+            weekToDates(chosenWeekNumber, new Date().getFullYear())
+        );
+    }, [chosenWeekNumber]);
     //Update Form, user and standard week
     const handleSubmit = async () => {
         //update form
@@ -359,6 +371,22 @@ export default function Profile({
                             setChosenWeekNumber={setChosenWeekNumber}
                             setIsLoading={setIsLoading}
                         />
+
+                        {weekDays.map((day, index) => {
+                            return (
+                                <Fragment key={day}>
+                                    <BirthdayAnnouncer
+                                        daysDate={currentWeekDates[day]}
+                                        showDay={true}
+                                    />
+                                    <Event
+                                        daysDate={currentWeekDates[day]}
+                                        collapsed={true}
+                                        showDay={true}
+                                    />
+                                </Fragment>
+                            );
+                        })}
 
                         <WeekPlanForm
                             isLoading={isLoading}
