@@ -53,6 +53,18 @@ export default function Attendance({
                               className="profile-pictures"
                           ></img>
                       )}
+                {/* CHRISTMAS EDITION (CHRISTMAS HAT) START*/}
+                <img
+                    src="src/assets/christmas-hat.png"
+                    width={"30px"}
+                    style={{
+                        position: "absolute",
+                        top: "-16px",
+                        left: "-10px",
+                        rotate: "-22deg",
+                    }}
+                ></img>
+                {/* CHRISTMAS EDITION (CHRISTMAS HAT) END */}
             </div>
 
             <p>{name} </p>

@@ -17,6 +17,7 @@ import Tab from "./tab/Tab";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
 import Event from "./Events/Event";
 import { weekToDates } from "../utils/getWeekDatesFromWeek";
+import ToolTip from "./ToolTip";
 
 export type userType = {
     id: number;
@@ -428,38 +429,110 @@ export default function Profile({
 
                 {tabSettingsOpen && userDetails && (
                     <div className="submit-details">
-                        {console.log("email:", email)}
+                        <h1>Denne side er stadig ligt under konstruktion..</h1>
                         {!emailProvided ? (
-                            <form>
-                                <label htmlFor="emailInput">
-                                    <input
-                                        type="email"
-                                        name="emailInput"
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
-                                    />
-                                </label>
-                                <Button
-                                    name="Gem e-mail"
-                                    type="Secondary"
-                                    iconName="save-icon"
-                                    clickEvent={(e) => {
-                                        e.preventDefault();
-                                        handleEmailChange();
+                            <>
+                                <form
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "8px",
                                     }}
-                                />
-                            </form>
+                                >
+                                    <label
+                                        htmlFor="emailInput"
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                        }}
+                                    >
+                                        Angiv e-mailadresse
+                                        <input
+                                            type="email"
+                                            name="emailInput"
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
+                                            required
+                                        />
+                                    </label>
+                                    <div style={{ alignSelf: "flex-end" }}>
+                                        <Button
+                                            name="Gem e-mail"
+                                            type="Secondary"
+                                            iconName="save-icon.svg"
+                                            clickEvent={(e) => {
+                                                e.preventDefault();
+                                                handleEmailChange();
+                                            }}
+                                        />
+                                    </div>
+                                </form>
+                                <label
+                                    htmlFor=""
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        gap: "10px",
+                                    }}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        style={{
+                                            width: "20px",
+                                        }}
+                                    />
+                                    Påmindelsesmail om manglende check-in i
+                                    ugeplanen
+                                </label>
+
+                                <label
+                                    htmlFor=""
+                                    style={{
+                                        display: "flex",
+                                        position: "relative",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        gap: "10px",
+                                    }}
+                                >
+                                    {emailProvided ? (
+                                        <input
+                                            type="checkbox"
+                                            style={{
+                                                width: "20px",
+                                            }}
+                                            disabled
+                                        />
+                                    ) : (
+                                        <input
+                                            type="checkbox"
+                                            style={{
+                                                width: "20px",
+                                            }}
+                                        />
+                                    )}
+                                    Påmindelsesmail om kommende uges
+                                    begivenheder og fødselsdage
+                                </label>
+                            </>
                         ) : (
-                            <div>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "8px",
+                                }}
+                            >
                                 <p>
-                                    Du har angivet din e-mail, men den vises
-                                    ikke her
+                                    ✓ Din e-mail er gemt, men den forbliver
+                                    vores hemmelighed.
                                 </p>
                                 <Button
-                                    name="Slet e-mail"
+                                    name="Fjern e-mail"
                                     type="Secondary"
-                                    iconName="save-icon"
+                                    iconName="cross.svg"
                                     clickEvent={(e) => {
                                         e.preventDefault();
                                         setEmail(null);
@@ -475,8 +548,8 @@ export default function Profile({
                             standardWeek={standardWeek}
                             setStandardWeek={setStandardWeek}
                         />
-                        <h2>Her kommer snart mere - såsom e-mail reminders!</h2>
 
+                        {/* Save/close buttongroup */}
                         <div
                             style={{
                                 position: "absolute",

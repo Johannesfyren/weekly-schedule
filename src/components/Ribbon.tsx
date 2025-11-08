@@ -137,6 +137,29 @@ export default function Ribbon({
                     />,
                     document.body!
                 )}
+
+            {/* CHRISTMAS EDITION (CHRISTMAS HAT) START*/}
+            <div
+                style={{
+                    position: "absolute",
+                    bottom: "0px",
+                    left: "0px",
+                    width: "100%",
+
+                    overflowX: "clip",
+                }}
+            >
+                <img
+                    src="src/assets/christmas-gurland.png"
+                    alt=""
+                    height={"20px"}
+                    style={{
+                        position: "absolute",
+                        bottom: "-15px",
+                    }}
+                />
+            </div>
+            {/* CHRISTMAS EDITION (CHRISTMAS HAT) END*/}
         </div>
     );
 }
