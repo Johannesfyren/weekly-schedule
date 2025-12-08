@@ -6,6 +6,7 @@ import MenuPlan from "./MenuPlan";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import LogoIcon from "../assets/Logo.svg";
 import EventOverview from "./Events/EventOverview";
+import christmasGurland from "../assets/christmas-gurland.png";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
@@ -143,14 +144,15 @@ export default function Ribbon({
                 style={{
                     position: "absolute",
                     bottom: "0px",
+                    // transform: "translate(50%,0)",
                     left: "0px",
                     width: "100%",
-
+                    zIndex: "10000",
                     overflowX: "clip",
                 }}
             >
                 <img
-                    src="src/assets/christmas-gurland.png"
+                    src={christmasGurland}
                     alt=""
                     height={"20px"}
                     style={{
