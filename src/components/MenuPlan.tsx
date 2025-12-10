@@ -147,45 +147,188 @@ export default function MenuPlan({
                 {!isLoading && (
                     <div className="menu-inputs-container hide-scrollbar">
                         <div className="menu-input">
-                            <label htmlFor="mon">Mandag</label>
+                            <h2>Mandag</h2>
+                            <label
+                                htmlFor="mon_link"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Link til opskrift 🔗
+                            </label>
+                            <input
+                                type="text"
+                                name="mon_link"
+                                onChange={handleFormChange}
+                                value={formData ? formData.mon_link : ""}
+                                style={{
+                                    fontSize: "0.9rem",
+                                }}
+                            />
+                            <label
+                                htmlFor="mon"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Menubeskrivelse
+                            </label>
                             <textarea
                                 name="mon"
                                 onChange={handleFormChange}
                                 value={formData ? formData.mon : ""}
                             />
                         </div>
+                        <hr />
+
                         <div className="menu-input">
-                            <label htmlFor="tue">Tirsdag</label>
+                            <h2>Tirsdag</h2>
+                            <label
+                                htmlFor="tue_link"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Link til opskrift 🔗
+                            </label>
+                            <input
+                                type="text"
+                                name="tue_link"
+                                onChange={handleFormChange}
+                                value={formData ? formData.tue_link : ""}
+                                style={{
+                                    fontSize: "0.9rem",
+                                }}
+                            />
+                            <label
+                                htmlFor="tue"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Menubeskrivelse
+                            </label>
                             <textarea
                                 name="tue"
                                 onChange={handleFormChange}
                                 value={formData ? formData.tue : ""}
                             />
                         </div>
+
+                        <hr />
+
                         <div className="menu-input">
-                            <label htmlFor="wed">Onsdag</label>
+                            <h2>Onsdag</h2>
+                            <label
+                                htmlFor="wed_link"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Link til opskrift 🔗
+                            </label>
+                            <input
+                                type="text"
+                                name="wed_link"
+                                onChange={handleFormChange}
+                                value={formData ? formData.wed_link : ""}
+                                style={{
+                                    fontSize: "0.9rem",
+                                }}
+                            />
+                            <label
+                                htmlFor="wed"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Menubeskrivelse
+                            </label>
                             <textarea
                                 name="wed"
                                 onChange={handleFormChange}
                                 value={formData ? formData.wed : ""}
                             />
                         </div>
+                        <hr />
                         <div className="menu-input">
-                            <label htmlFor="thu">Torsdag</label>
+                            <h2>Torsdag</h2>
+                            <label
+                                htmlFor="thu_link"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Link til opskrift 🔗
+                            </label>
+                            <input
+                                type="text"
+                                name="thu_link"
+                                onChange={handleFormChange}
+                                value={formData ? formData.thu_link : ""}
+                                style={{
+                                    fontSize: "0.9rem",
+                                }}
+                            />
+                            <label
+                                htmlFor="thu"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Menubeskrivelse
+                            </label>
                             <textarea
                                 name="thu"
                                 onChange={handleFormChange}
                                 value={formData ? formData.thu : ""}
                             />
                         </div>
+                        <hr />
                         <div className="menu-input">
-                            <label htmlFor="fri">Fredag</label>
+                            <h2>Fredag</h2>
+                            <label
+                                htmlFor="fri_link"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Link til opskrift 🔗
+                            </label>
+                            <input
+                                type="text"
+                                name="fri_link"
+                                onChange={handleFormChange}
+                                value={formData ? formData.fri_link : ""}
+                                style={{
+                                    fontSize: "0.9rem",
+                                }}
+                            />
+                            <label
+                                htmlFor="fri"
+                                style={{
+                                    fontSize: "1rem",
+                                    marginBottom: "-8px",
+                                }}
+                            >
+                                Menubeskrivelse
+                            </label>
                             <textarea
                                 name="fri"
                                 onChange={handleFormChange}
                                 value={formData ? formData.fri : ""}
                             />
                         </div>
+                        <hr />
                     </div>
                 )}
                 <div

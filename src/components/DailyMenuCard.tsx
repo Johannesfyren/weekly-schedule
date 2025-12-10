@@ -1,5 +1,6 @@
 //@ts-nocheck
 import menuIcon from "../assets/menu-icon.svg";
+import linkIcon from "../assets/link-icon.svg";
 import downArrowPng from "../assets/down-arrow.svg";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
@@ -28,7 +29,7 @@ export default function DailyMenuCard({
         async function getMenu() {
             const { data, error } = await supabase
                 .from("menu")
-                .select(dayDBName)
+                .select("*")
                 .eq("week", weekNumber)
                 .eq("year", year);
 
@@ -76,14 +77,37 @@ export default function DailyMenuCard({
             className="hide-scrollbar"
             onScroll={() => setScrollHeightMenu(menuRef.current.scrollTop)}
         >
-            <img
+            <div
                 style={{
-                    width: "20px",
-                    marginLeft: "10px",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                 }}
-                src={menuIcon}
-                alt=""
-            />
+            >
+                <img
+                    style={{
+                        width: "20px",
+                        marginLeft: "10px",
+                    }}
+                    src={menuIcon}
+                    alt=""
+                />
+                {/* Link icon rendered if a link is provided */}
+                {menuData && menuData[dayDBName + "_link"] && (
+                    <a href={menuData[dayDBName + "_link"]} target="_blank">
+                        <img
+                            src={linkIcon}
+                            alt=""
+                            style={{
+                                width: "20px",
+                                height: "auto",
+                                marginRight: "10px",
+                            }}
+                        />
+                    </a>
+                )}
+            </div>
+
             <p
                 style={{
                     color: "#e7e7e7ff",
