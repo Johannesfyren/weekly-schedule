@@ -4,6 +4,7 @@ import linkIcon from "../assets/link-icon.svg";
 import downArrowPng from "../assets/down-arrow.svg";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import PreviewMenuURL from "./PreviewMenuURL";
 
 export type menuInfoType = {
     dayDBName: string;
@@ -19,6 +20,7 @@ export default function DailyMenuCard({
     refetchAttendees,
 }: menuInfoType) {
     const [menuData, setMenuData] = useState();
+    const [showURLPreview, setShowURLPreview] = useState(false);
     const [scrollHeightMenu, setScrollHeightMenu] = useState();
     const [showExcessMenuIndicator, setShowExcessMenuIndicator] =
         useState(true);
@@ -103,11 +105,19 @@ export default function DailyMenuCard({
                                 height: "auto",
                                 marginRight: "10px",
                             }}
+                            onMouseOver={() => setShowURLPreview(true)}
+                            onMouseOut={() => setShowURLPreview(false)}
                         />
                     </a>
                 )}
             </div>
-
+            {showURLPreview && (
+                <PreviewMenuURL
+                    url={
+                        "https://nogetiovnen.dk/aebleflaesk-i-ovn-med-bacon-og-loeg-opskrift/"
+                    }
+                />
+            )}
             <p
                 style={{
                     color: "#e7e7e7ff",
