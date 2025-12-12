@@ -112,11 +112,7 @@ export default function DailyMenuCard({
                 )}
             </div>
             {showURLPreview && (
-                <PreviewMenuURL
-                    url={
-                        "https://nogetiovnen.dk/aebleflaesk-i-ovn-med-bacon-og-loeg-opskrift/"
-                    }
-                />
+                <PreviewMenuURL url={menuData[dayDBName + "_link"]} />
             )}
             <p
                 style={{

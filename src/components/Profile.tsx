@@ -270,7 +270,7 @@ export default function Profile({
             style={mobileView ? { position: "fixed", top: "0" } : {}} // hard to click on ios
         >
             <div
-                className="profile-container hide-scrollbar"
+                className="profile-container" //hide-scrollbar
                 style={
                     mobileView
                         ? {
