@@ -109,8 +109,9 @@ export default function PreviewMenuURL({ url }) {
                         </h1>
                         <p
                             style={{
-                                fontSize: "0.7rem",
+                                fontSize: "0.8rem",
                                 wordWrap: "break-word",
+                                color: "#f1f1f1",
                             }}
                         >
                             {content?.description}
