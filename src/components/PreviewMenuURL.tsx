@@ -18,13 +18,10 @@ export default function PreviewMenuURL({ url }) {
                 }
             );
             if (error) return null;
-            console.log(data);
+
             setContent(data);
             setIsLoading(false);
         };
-        {
-            console.log(content);
-        }
 
         fetchMetaData();
     }, []);

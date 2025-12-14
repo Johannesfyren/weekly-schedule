@@ -85,7 +85,7 @@ export default function Ribbon({
                         clickEvent={() => setRecipeContainerOpen(true)}
                         name="Opskrifter"
                         type="Secondary"
-                        iconName="event-icon-with-bg.svg"
+                        iconName="recipe-icon.svg"
                     />
                 )}
 
