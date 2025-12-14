@@ -26,28 +26,27 @@ export default function RecipeCollection({
             if (error) return undefined;
             setRecipees(data);
             setIsLoading(false);
-            console.log(data);
         };
 
         getURLEntries();
     }, []);
 
-    useEffect(() => {
-        const fetchMetaData = async () => {
-            const { data, error } = await supabase.functions.invoke(
-                "URL_Parser",
-                {
-                    body: { url: url },
-                }
-            );
-            if (error) return null;
-            console.log(data);
-            setRecipees(data);
-            setIsLoading(false);
-        };
+    // useEffect(() => {
+    //     const fetchMetaData = async () => {
+    //         const { data, error } = await supabase.functions.invoke(
+    //             "URL_Parser",
+    //             {
+    //                 body: { url: url },
+    //             }
+    //         );
+    //         if (error) return null;
+    //         console.log(data);
+    //         setRecipees(data);
+    //         setIsLoading(false);
+    //     };
 
-        fetchMetaData();
-    }, []);
+    //     fetchMetaData();
+    // }, []);
 
     return (
         recipeContainerOpen && (
@@ -91,36 +90,42 @@ export default function RecipeCollection({
                                             marginBottom: "20px",
                                             padding: "20px",
                                         }}
+                                        key={recipeObj.created_at}
                                     >
-                                        <h1>
+                                        <h2>
                                             {"Uge " +
                                                 recipeObj.week +
                                                 " - " +
                                                 recipeObj.year}
-                                        </h1>
+                                        </h2>
                                         {recipeObj.mon_link && (
                                             <RecipeItem
                                                 url={recipeObj.mon_link}
+                                                key={recipeObj.mon_link}
                                             />
                                         )}
                                         {recipeObj.tue_link && (
                                             <RecipeItem
                                                 url={recipeObj.tue_link}
+                                                key={recipeObj.tue_link}
                                             />
                                         )}
                                         {recipeObj.wed_link && (
                                             <RecipeItem
                                                 url={recipeObj.wed_link}
+                                                key={recipeObj.wed_link}
                                             />
                                         )}
                                         {recipeObj.thu_link && (
                                             <RecipeItem
                                                 url={recipeObj.thu_link}
+                                                key={recipeObj.thu_link}
                                             />
                                         )}
                                         {recipeObj.fri_link && (
                                             <RecipeItem
                                                 url={recipeObj.fri_link}
+                                                key={recipeObj.fri_link}
                                             />
                                         )}
                                     </div>

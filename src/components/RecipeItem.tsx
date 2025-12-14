@@ -16,13 +16,10 @@ export default function RecipeItem({ url }) {
                 }
             );
             if (error) return null;
-            console.log(data);
+
             setContent(data);
             setIsLoading(false);
         };
-        {
-            console.log(content);
-        }
 
         fetchMetaData();
     }, []);
@@ -34,9 +31,10 @@ export default function RecipeItem({ url }) {
                 flexDirection: "row",
                 width: "100%",
                 overflow: "auto",
-                height: "120px",
-                backgroundColor: "rgba(2, 49, 85, 1)",
-                padding: "4px",
+                height: "130px",
+                backgroundColor: "rgba(2, 49, 85, 0.8)",
+                padding: "6px",
+                borderRadius: "8px",
             }}
         >
             {isLoading ? (
@@ -64,7 +62,7 @@ export default function RecipeItem({ url }) {
                         src={content?.images ? content?.images[0] : fallbackImg}
                         alt=""
                         height={"100%"}
-                        width={"120px"}
+                        width={"130px"}
                         style={{
                             objectFit: "cover",
                         }}
