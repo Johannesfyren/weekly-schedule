@@ -7,6 +7,7 @@ import UniversalWeekPicker from "./UniversalWeekPicker";
 import LogoIcon from "../assets/Logo.svg";
 import EventOverview from "./Events/EventOverview";
 import christmasGurland from "../assets/christmas-gurland.png";
+import RecipeCollection from "./RecipeCollection";
 
 export type ribbonType = {
     setSelectedAtt?: (name: string) => void;
@@ -26,6 +27,7 @@ export default function Ribbon({
     const [showAttPicker, setShowAttPicker] = useState<boolean>(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [eventContainerOpen, setEventContainerOpen] = useState(false);
+    const [recipeContainerOpen, setRecipeContainerOpen] = useState(false);
     const attPickerRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
@@ -78,6 +80,15 @@ export default function Ribbon({
                 size="small"
             />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+                {!mobileView && (
+                    <Button
+                        clickEvent={() => setRecipeContainerOpen(true)}
+                        name="Opskrifter"
+                        type="Secondary"
+                        iconName="event-icon-with-bg.svg"
+                    />
+                )}
+
                 {!mobileView && (
                     <Button
                         clickEvent={() => setEventContainerOpen(true)}
@@ -135,6 +146,14 @@ export default function Ribbon({
                     <EventOverview
                         eventContainerOpen={eventContainerOpen}
                         setEventContainerOpen={setEventContainerOpen}
+                    />,
+                    document.body!
+                )}
+            {recipeContainerOpen &&
+                createPortal(
+                    <RecipeCollection
+                        recipeContainerOpen={recipeContainerOpen}
+                        setRecipeContainerOpen={setRecipeContainerOpen}
                     />,
                     document.body!
                 )}

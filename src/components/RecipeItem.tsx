@@ -1,13 +1,11 @@
 //@ts-nocheck
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
-import fallbackImg from "../assets/fallbackImg.svg";
 import LoadingIndicator from "./LoadingIndicator";
-
-export default function PreviewMenuURL({ url }) {
+import fallbackImg from "../assets/fallbackImg.svg";
+import linkIcon from "../assets/link-ext-icon.svg";
+export default function RecipeItem({ url }) {
     const [content, setContent] = useState(null);
-    const [mouseX, setMouseX] = useState<number>(-1000); // initial "render-flicker" happens off screen
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const fetchMetaData = async () => {
@@ -28,42 +26,17 @@ export default function PreviewMenuURL({ url }) {
 
         fetchMetaData();
     }, []);
-
-    useEffect(() => {
-        const handleMove = (e: MouseEvent) => {
-            //Hvis man hover helt til højre, så rykker vi pop-upboksen lidt
-            if (e.clientX > window.innerWidth * 0.8) {
-                setMouseX(e.clientX - 600);
-                //Hvis man hover helt til venstre, så flytter vi pop-upboksen lidt
-            } else if (e.clientX < window.innerWidth * 0.2) {
-                setMouseX(e.clientX - 350);
-            } else {
-                setMouseX(e.clientX - 400);
-            }
-        };
-
-        window.addEventListener("mousemove", handleMove);
-        return () => window.removeEventListener("mousemove", handleMove);
-    }, []);
-
-    return createPortal(
+    return (
         <div
             style={{
-                position: "absolute",
-                top: "150px",
-                left: `${mouseX}px`,
                 display: "flex",
                 gap: "10px",
                 flexDirection: "row",
-                zIndex: "1000",
-                width: "400px",
+                width: "100%",
                 overflow: "auto",
                 height: "120px",
                 backgroundColor: "rgba(2, 49, 85, 1)",
-                transform: "translate(50%,50%)",
                 padding: "4px",
-                borderRadius: "8px",
-                boxShadow: "0 0 10px 0",
             }}
         >
             {isLoading ? (
@@ -83,6 +56,7 @@ export default function PreviewMenuURL({ url }) {
                         display: "flex",
                         flexDirection: "row",
                         gap: "8px",
+                        width: "100%",
                     }}
                     className={isLoading ? "week-plan-cell-loading" : ""}
                 >
@@ -117,9 +91,18 @@ export default function PreviewMenuURL({ url }) {
                             {content?.description}
                         </p>
                     </div>
+                    {/* this section mister AI */}
+                    <div
+                        style={{
+                            marginLeft: "auto",
+                        }}
+                    >
+                        <a href={url} target="_blank">
+                            <img src={linkIcon} alt="" width={"20px"} />
+                        </a>
+                    </div>
                 </div>
             )}
-        </div>,
-        document.body!
+        </div>
     );
 }
