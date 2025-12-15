@@ -30,6 +30,7 @@ export default function RecipeItem({ url }) {
 
         fetchMetaData();
     }, []);
+
     useEffect(() => {
         const getFavStatus = async () => {
             const { data, error } = await supabase
@@ -48,10 +49,11 @@ export default function RecipeItem({ url }) {
             toast.warning(
                 `Du kan ikke gemme en opskrift uden at angive en favoritperson. Gå under "Check ind/ud" og markér en favorit`
             );
-
             return;
         }
+
         const isAlreadyFavorite = await checkUrlAlreadyFavorite(userID);
+
         if (isAlreadyFavorite) {
             try {
                 const { data, error } = await supabase
@@ -172,6 +174,9 @@ export default function RecipeItem({ url }) {
                             alt=""
                             width={"20px"}
                             onClick={handleFavoriteRecipe}
+                            style={{
+                                cursor: "pointer",
+                            }}
                         />
                     </div>
                 </div>
