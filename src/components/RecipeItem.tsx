@@ -1,12 +1,19 @@
 //@ts-nocheck
+import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
 import LoadingIndicator from "./LoadingIndicator";
 import fallbackImg from "../assets/fallbackImg.svg";
 import linkIcon from "../assets/link-ext-icon.svg";
+import hollowHeart from "../assets/hollow-heart-icon.svg";
+import filledHeart from "../assets/full-heart-icon.svg";
+
 export default function RecipeItem({ url }) {
+    const userID = localStorage.getItem("favoritePersonID");
     const [content, setContent] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isFavorite, setIsFavorite] = useState(null);
+
     useEffect(() => {
         const fetchMetaData = async () => {
             const { data, error } = await supabase.functions.invoke(
@@ -23,6 +30,64 @@ export default function RecipeItem({ url }) {
 
         fetchMetaData();
     }, []);
+    useEffect(() => {
+        const getFavStatus = async () => {
+            const { data, error } = await supabase
+                .from("favorite_recipees")
+                .select("*")
+                .eq("user_id", userID)
+                .eq("url", url);
+
+            setIsFavorite(!data[0] ? false : true);
+        };
+        getFavStatus();
+    }, []);
+
+    const handleFavoriteRecipe = async () => {
+        if (!userID) {
+            toast.warning(
+                `Du kan ikke gemme en opskrift uden at angive en favoritperson. Gå under "Check ind/ud" og markér en favorit`
+            );
+
+            return;
+        }
+        const isAlreadyFavorite = await checkUrlAlreadyFavorite(userID);
+        if (isAlreadyFavorite) {
+            try {
+                const { data, error } = await supabase
+                    .from("favorite_recipees")
+                    .delete()
+                    .eq("user_id", userID)
+                    .eq("url", url);
+                setIsFavorite(!isFavorite);
+            } catch (e) {
+                toast.error(
+                    `Noget gik galt, og favoritstatus på opskriften blev ikke ændret`
+                );
+            }
+        } else {
+            try {
+                const { data, error } = await supabase
+                    .from("favorite_recipees")
+                    .upsert([{ url: url, user_id: userID }]);
+                setIsFavorite(!isFavorite);
+            } catch (e) {
+                toast.error(
+                    `Noget gik galt, og favoritstatus på opskriften blev ikke ændret`
+                );
+            }
+        }
+    };
+
+    const checkUrlAlreadyFavorite = async (userID) => {
+        const { data, error } = await supabase
+            .from("favorite_recipees")
+            .select("*")
+            .eq("user_id", userID)
+            .eq("url", url);
+
+        return !data[0] ? false : true;
+    };
     return (
         <div
             style={{
@@ -89,15 +154,25 @@ export default function RecipeItem({ url }) {
                             {content?.description}
                         </p>
                     </div>
-                    {/* this section mister AI */}
+
                     <div
                         style={{
                             marginLeft: "auto",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "flex-start",
+                            gap: "10px",
                         }}
                     >
                         <a href={url} target="_blank">
                             <img src={linkIcon} alt="" width={"20px"} />
                         </a>
+                        <img
+                            src={isFavorite ? filledHeart : hollowHeart}
+                            alt=""
+                            width={"20px"}
+                            onClick={handleFavoriteRecipe}
+                        />
                     </div>
                 </div>
             )}
