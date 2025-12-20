@@ -20,6 +20,7 @@ type dayType = {
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<boolean>>;
     daysDate: Date;
     elementRef?: React.Ref;
+    chosenYear: number;
 };
 
 export default function Day({
@@ -32,6 +33,7 @@ export default function Day({
     setChosenWeekNumber,
     daysDate,
     elementRef,
+    chosenYear,
 }: dayType) {
     const [attendees, setAttendees] = useState();
     const [selectedWeek, setSelectedWeek] = useState(weekNumber(new Date()));
@@ -48,7 +50,7 @@ export default function Day({
             )
 
             .eq("week", chosenWeekNumber)
-            .eq("year", date.getFullYear())
+            .eq("year", chosenYear)
             .order(`user("name")`, { ascending: true });
 
         if (error) return undefined;
@@ -100,7 +102,7 @@ export default function Day({
                     <DailyMenuCard
                         dayDBName={dayDBName}
                         weekNumber={chosenWeekNumber}
-                        year={new Date().getFullYear()}
+                        year={chosenYear}
                         refetchAttendees={refetchAttendees}
                     />
                     <div className="seperator"></div>

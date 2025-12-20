@@ -9,6 +9,7 @@ export type universalWeekpickerType = {
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
     size?: "small" | "mobile" | undefined;
     setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+    chosenYear: number;
 };
 
 export default function UniversalWeekPicker({
@@ -16,6 +17,7 @@ export default function UniversalWeekPicker({
     setChosenWeekNumber,
     setIsLoading,
     size,
+    chosenYear,
 }: universalWeekpickerType) {
     if (window.innerWidth < 850) size = "mobile"; //If the screen is mobile sized, we adjust som font sizing acordingly
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
@@ -104,10 +106,7 @@ export default function UniversalWeekPicker({
                         color: "#DFDFDF",
                     }}
                 >
-                    {weekToDateRangeString(
-                        chosenWeekNumber,
-                        new Date().getFullYear()
-                    )}
+                    {weekToDateRangeString(chosenWeekNumber, chosenYear)}
                 </h2>
                 <h2
                     style={

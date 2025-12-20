@@ -15,6 +15,7 @@ export type ribbonType = {
     setChosenWeekNumber: React.Dispatch<React.SetStateAction<number>>;
     setRefreshAttendees: React.Dispatch<React.SetStateAction<boolean>>;
     favoritePerson: number;
+    chosenYear: number;
 };
 
 export default function Ribbon({
@@ -22,6 +23,7 @@ export default function Ribbon({
     chosenWeekNumber,
     setChosenWeekNumber,
     setRefreshAttendees,
+    chosenYear,
     favoritePerson,
 }: ribbonType) {
     const [showAttPicker, setShowAttPicker] = useState<boolean>(false);
@@ -65,6 +67,7 @@ export default function Ribbon({
                     : { position: "relative" }
             }
         >
+            {console.log("ribbon: ", chosenYear)}
             {!mobileView && (
                 <img
                     src={LogoIcon}
@@ -78,6 +81,7 @@ export default function Ribbon({
                 chosenWeekNumber={chosenWeekNumber}
                 setChosenWeekNumber={setChosenWeekNumber}
                 size="small"
+                chosenYear={chosenYear}
             />
             <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
                 {!mobileView && (
@@ -137,6 +141,7 @@ export default function Ribbon({
                         setMenuOpen={setMenuOpen}
                         setRefreshAttendees={setRefreshAttendees}
                         weekFromBoard={chosenWeekNumber}
+                        setYear={chosenYear}
                     />,
                     document.body!
                 )}

@@ -44,6 +44,7 @@ export default function Profile({
     favoritePerson,
     setFavoritePerson,
     weekFromBoard,
+    yearFromBoard,
 }) {
     const date = new Date();
     const mobileView = window.innerWidth < 850; //If the screen is mobile sized, we adjust som font sizing acordingly
@@ -51,6 +52,7 @@ export default function Profile({
     const [chosenWeekNumber, setChosenWeekNumber] = useState(weekFromBoard); //Takes the week from the board
     const [collectiveFormData, setCollectiveFormData] = useState([{}]);
     const [isLoading, setIsLoading] = useState(true);
+    const [chosenYear, setChosenYear] = useState(yearFromBoard);
     const [standardWeek, setStandardWeek] = useState({
         fk_user_id: userDetails?.id,
         mon: 2,
@@ -75,6 +77,16 @@ export default function Profile({
     const buttonRef = useRef<HTMLButtonElement>(null);
     const weekDays = ["mon", "tue", "wed", "thu", "fri"];
 
+    useEffect(() => {
+        if (chosenWeekNumber > 52) {
+            setChosenWeekNumber(1);
+            setChosenYear(chosenYear + 1);
+        } else if (chosenWeekNumber < 1) {
+            setChosenWeekNumber(52);
+            setChosenYear(chosenYear - 1);
+        }
+        console.log("profile year", chosenYear);
+    }, [chosenWeekNumber, chosenYear]);
     //Check click anywhere, and if it is inside the opened attPicker
     useEffect(() => {
         const handleRandomClick = (event: MouseEvent) => {
@@ -159,7 +171,7 @@ export default function Profile({
                         thu: 3,
                         fri: 3,
                         week: chosenWeekNumber,
-                        year: date.getFullYear(),
+                        year: chosenYear,
                     };
 
                     // same check before adding
@@ -179,9 +191,7 @@ export default function Profile({
     }, [chosenWeekNumber, userDetails, selectedAtt]);
     //Whenever weekNumber changes, refresh currentWeenDates, to be able to get new events/birthdays
     useEffect(() => {
-        setCurrentWeekDates(
-            weekToDates(chosenWeekNumber, new Date().getFullYear())
-        );
+        setCurrentWeekDates(weekToDates(chosenWeekNumber, chosenYear));
     }, [chosenWeekNumber]);
     //Update Form, user and standard week
     const handleSubmit = async () => {
@@ -371,6 +381,7 @@ export default function Profile({
                             chosenWeekNumber={chosenWeekNumber}
                             setChosenWeekNumber={setChosenWeekNumber}
                             setIsLoading={setIsLoading}
+                            chosenYear={chosenYear}
                         />
 
                         {weekDays.map((day, index) => {

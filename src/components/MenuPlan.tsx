@@ -35,12 +35,14 @@ export default function MenuPlan({
     menuOpen,
     setMenuOpen,
     setRefreshAttendees,
+    setYear,
     weekFromBoard,
 }) {
     // const [madeChanges, setMadeChanges] = useState(false); // TODO: tilfæj, at man lige skal godkende man lukke uden at gemme
     const [chosenWeekNumber, setChosenWeekNumber] = useState(weekFromBoard);
+    const [chosenYear, setChosenYear] = useState(setYear);
     const [currentWeekDates, setCurrentWeekDates] = useState<WeekDates>(
-        weekToDates(chosenWeekNumber, new Date().getFullYear())
+        weekToDates(chosenWeekNumber, setYear)
     );
 
     const [formData, setFormData] = useState<formType>();
@@ -66,6 +68,19 @@ export default function MenuPlan({
         }
         toast.success(`Madplan for uge ${chosenWeekNumber} blev gemt`);
     };
+
+    //Check if weekchange exceed 52 or 1'
+    useEffect(() => {
+        if (chosenWeekNumber > 52) {
+            setChosenWeekNumber(1);
+            setChosenYear(chosenYear + 1);
+        } else if (chosenWeekNumber < 1) {
+            setChosenWeekNumber(52);
+            setChosenYear(chosenYear - 1);
+        }
+        console.log("yoyo");
+    }, [chosenWeekNumber, chosenYear]);
+
     //Lock scroll
     useEffect(() => {
         // Lock scroll
@@ -94,16 +109,14 @@ export default function MenuPlan({
                     thu: "",
                     fri: "",
                     week: chosenWeekNumber,
-                    year: new Date().getFullYear(),
+                    year: chosenYear,
                 });
             }
 
             setIsLoading(false); //set loading spinner when changing the weeknumber
         }
         getMenu(chosenWeekNumber);
-        setCurrentWeekDates(
-            weekToDates(chosenWeekNumber, new Date().getFullYear())
-        );
+        setCurrentWeekDates(weekToDates(chosenWeekNumber, chosenYear));
     }, [chosenWeekNumber]);
 
     return (
@@ -116,6 +129,7 @@ export default function MenuPlan({
                     chosenWeekNumber={chosenWeekNumber}
                     setChosenWeekNumber={setChosenWeekNumber}
                     setIsLoading={setIsLoading}
+                    chosenYear={chosenYear}
                 />
                 <div
                     style={{

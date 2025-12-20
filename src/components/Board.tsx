@@ -15,12 +15,23 @@ export default function Board() {
     const [chosenWeekNumber, setChosenWeekNumber] = useState(
         weekNumber(new Date())
     );
-
+    const [chosenYear, setChosenYear] = useState(new Date().getFullYear());
     const daysDate = weekToDates(chosenWeekNumber, new Date().getFullYear());
     const [favoritePerson, setFavoritePerson] = useState(
         localStorage.getItem("favoritePersonID")
     );
     const currentDayRef = useRef(null);
+
+    //Check if weekchange exceed 52 or 1'
+    useEffect(() => {
+        if (chosenWeekNumber > 52) {
+            setChosenWeekNumber(1);
+            setChosenYear(chosenYear + 1);
+        } else if (chosenWeekNumber < 1) {
+            setChosenWeekNumber(52);
+            setChosenYear(chosenYear - 1);
+        }
+    }, [chosenWeekNumber, chosenYear]);
 
     useEffect(() => {
         // Tjekker hvilken dag det er hver time
@@ -53,11 +64,12 @@ export default function Board() {
             <Ribbon
                 setSelectedAtt={setSelectedAtt}
                 setChosenWeekNumber={setChosenWeekNumber}
+                chosenYear={chosenYear}
                 chosenWeekNumber={chosenWeekNumber}
                 setRefreshAttendees={setRefetchAttendees}
                 favoritePerson={favoritePerson}
             />
-
+            {console.log("Board: ", chosenYear)}
             <div className="board">
                 <Day
                     dayName={"Mandag"}
@@ -69,6 +81,7 @@ export default function Board() {
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.mon}
                     elementRef={day == 1 ? currentDayRef : undefined}
+                    chosenYear={chosenYear}
                 ></Day>
                 <Day
                     dayName={"Tirsdag"}
@@ -80,6 +93,7 @@ export default function Board() {
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.tue}
                     elementRef={day == 2 ? currentDayRef : undefined}
+                    chosenYear={chosenYear}
                 ></Day>
                 <Day
                     dayName={"Onsdag"}
@@ -91,6 +105,7 @@ export default function Board() {
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.wed}
                     elementRef={day == 3 ? currentDayRef : undefined}
+                    chosenYear={chosenYear}
                 ></Day>
                 <Day
                     dayName={"Torsdag"}
@@ -102,6 +117,7 @@ export default function Board() {
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.thu}
                     elementRef={day == 4 ? currentDayRef : undefined}
+                    chosenYear={chosenYear}
                 ></Day>
                 <Day
                     dayName={"Fredag"}
@@ -113,6 +129,7 @@ export default function Board() {
                     setChosenWeekNumber={setChosenWeekNumber}
                     daysDate={daysDate.fri}
                     elementRef={day == 5 ? currentDayRef : undefined}
+                    chosenYear={chosenYear}
                 ></Day>
             </div>
             {selectedAtt &&
@@ -125,6 +142,7 @@ export default function Board() {
                         favoritePerson={favoritePerson}
                         setFavoritePerson={setFavoritePerson}
                         weekFromBoard={chosenWeekNumber}
+                        yearFromBoard={chosenYear}
                     />,
                     document.body!
                 )}
