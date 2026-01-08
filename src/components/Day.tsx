@@ -9,6 +9,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
 import Attnumber from "./AttNumber";
 import Event from "./Events/Event";
+import GuestAttendant from "./GuestAttendant";
 
 type dayType = {
     dayName: string;
@@ -128,6 +129,10 @@ export default function Day({
                                         refetchAttendees={refetchAttendees}
                                     />
                                 ))}
+                        <GuestAttendant
+                            week={chosenWeekNumber}
+                            inheritedDay={dayDBName}
+                        />
                     </motion.div>
                 </>
             )}

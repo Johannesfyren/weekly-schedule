@@ -1,7 +1,7 @@
+//import christmasHat from "../assets/christmas-hat.png";
 import { useEffect, useState } from "react";
 import FavoritePerson from "./FavoritePerson";
 import fetchImage from "../utils/fetchImage";
-import christmasHat from "../assets/christmas-hat.png";
 
 type attendType = {
     id: number;
@@ -55,7 +55,7 @@ export default function Attendance({
                           ></img>
                       )}
                 {/* CHRISTMAS EDITION (CHRISTMAS HAT) START*/}
-                <img
+                {/* <img
                     src={christmasHat}
                     width={"30px"}
                     style={{
@@ -64,7 +64,7 @@ export default function Attendance({
                         left: "-10px",
                         rotate: "-22deg",
                     }}
-                ></img>
+                ></img> */}
                 {/* CHRISTMAS EDITION (CHRISTMAS HAT) END */}
             </div>
 

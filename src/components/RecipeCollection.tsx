@@ -147,30 +147,45 @@ export default function RecipeCollection({
                                             {recipeObj.mon_link && (
                                                 <RecipeItem
                                                     url={recipeObj.mon_link}
+                                                    canteenDescription={
+                                                        recipeObj.mon
+                                                    }
                                                     key={recipeObj.mon_link}
                                                 />
                                             )}
                                             {recipeObj.tue_link && (
                                                 <RecipeItem
                                                     url={recipeObj.tue_link}
+                                                    canteenDescription={
+                                                        recipeObj.tue
+                                                    }
                                                     key={recipeObj.tue_link}
                                                 />
                                             )}
                                             {recipeObj.wed_link && (
                                                 <RecipeItem
                                                     url={recipeObj.wed_link}
+                                                    canteenDescription={
+                                                        recipeObj.wed
+                                                    }
                                                     key={recipeObj.wed_link}
                                                 />
                                             )}
                                             {recipeObj.thu_link && (
                                                 <RecipeItem
                                                     url={recipeObj.thu_link}
+                                                    canteenDescription={
+                                                        recipeObj.thu
+                                                    }
                                                     key={recipeObj.thu_link}
                                                 />
                                             )}
                                             {recipeObj.fri_link && (
                                                 <RecipeItem
                                                     url={recipeObj.fri_link}
+                                                    canteenDescription={
+                                                        recipeObj.fri
+                                                    }
                                                     key={recipeObj.fri_link}
                                                 />
                                             )}

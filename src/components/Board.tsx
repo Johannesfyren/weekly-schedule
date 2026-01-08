@@ -69,7 +69,7 @@ export default function Board() {
                 setRefreshAttendees={setRefetchAttendees}
                 favoritePerson={favoritePerson}
             />
-            {console.log("Board: ", chosenYear)}
+
             <div className="board">
                 <Day
                     dayName={"Mandag"}

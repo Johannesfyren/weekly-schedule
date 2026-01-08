@@ -85,7 +85,6 @@ export default function Profile({
             setChosenWeekNumber(52);
             setChosenYear(chosenYear - 1);
         }
-        console.log("profile year", chosenYear);
     }, [chosenWeekNumber, chosenYear]);
     //Check click anywhere, and if it is inside the opened attPicker
     useEffect(() => {
@@ -210,7 +209,7 @@ export default function Profile({
         const { data, error } = await supabase
             .from("attendances")
             .upsert(cleanedWeeks, {
-                onConflict: ["fk_user", "year", "week"], // match your unique constraint
+                onConflict: ["fk_user", "year", "week"],
             });
 
         //  Handle result

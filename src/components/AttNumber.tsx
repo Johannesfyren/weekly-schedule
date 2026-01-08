@@ -42,6 +42,7 @@ export default function Attnumber({
             setCompleteUserList(
                 data?.filter((att) => att.canteen_personel == 0) //Filter out canteen personal
             );
+            console.log(data);
         };
         countActiveUsers();
     }, []);
@@ -221,6 +222,7 @@ export default function Attnumber({
                         {completeUserList
                             .filter(
                                 (user) =>
+                                    !user.guest &&
                                     !allAttendees
                                         .filter(
                                             (att) =>

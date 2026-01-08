@@ -1,3 +1,4 @@
+//import christmasGurland from "../assets/christmas-gurland.png";
 import Button from "./Button";
 import { useEffect, useState, useRef } from "react";
 import AttendancePicker from "./AttendancePicker";
@@ -6,7 +7,6 @@ import MenuPlan from "./MenuPlan";
 import UniversalWeekPicker from "./UniversalWeekPicker";
 import LogoIcon from "../assets/Logo.svg";
 import EventOverview from "./Events/EventOverview";
-import christmasGurland from "../assets/christmas-gurland.png";
 import RecipeCollection from "./RecipeCollection";
 
 export type ribbonType = {
@@ -67,7 +67,6 @@ export default function Ribbon({
                     : { position: "relative" }
             }
         >
-            {console.log("ribbon: ", chosenYear)}
             {!mobileView && (
                 <img
                     src={LogoIcon}
@@ -164,7 +163,7 @@ export default function Ribbon({
                 )}
 
             {/* CHRISTMAS EDITION (CHRISTMAS HAT) START*/}
-            <div
+            {/* <div
                 style={{
                     position: "absolute",
                     bottom: "0px",
@@ -184,7 +183,7 @@ export default function Ribbon({
                         bottom: "-15px",
                     }}
                 />
-            </div>
+            </div> */}
             {/* CHRISTMAS EDITION (CHRISTMAS HAT) END*/}
         </div>
     );
