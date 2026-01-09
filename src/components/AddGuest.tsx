@@ -3,31 +3,33 @@ import plusFaded from "../assets/plus-faded.svg";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
-export default function GuestAttendant({ week, inheritedDay }) {
+export default function AddGuest({ week, inheritedDay }) {
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState("");
 
     const handleSaveGuest = async () => {
         const { data: insertedUsers, error: insertedUserError } = await supabase
-            .from("user")
+            .from("guests")
             .insert({
-                name: name,
-                guest: true,
+                guest_name: name,
+                day: inheritedDay,
+                week: week,
+                year: new Date().getFullYear(),
             })
             .select();
 
-        const insertedUser = insertedUsers[0];
-        const userId = insertedUser.id;
-        const { data, error } = await supabase.from("attendances").upsert(
-            {
-                fk_user: userId,
-                year: new Date().getFullYear(),
-                week: week,
-                [inheritedDay]: 1,
-            },
-            { onConflict: ["fk_user", "year", "week"] }
-        );
-        console.log("data: ", data, "error: ", error);
+        // const insertedUser = insertedUsers[0];
+        // const userId = insertedUser.id;
+        // const { data, error } = await supabase.from("attendances").upsert(
+        //     {
+        //         fk_user: userId,
+        //         year: new Date().getFullYear(),
+        //         week: week,
+        //         [inheritedDay]: 1,
+        //     },
+        //     { onConflict: ["fk_user", "year", "week"] }
+        // );
+        console.log("data: ", insertedUsers, "error: ", insertedUserError);
     };
 
     return (

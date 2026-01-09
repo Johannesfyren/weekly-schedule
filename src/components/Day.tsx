@@ -9,7 +9,8 @@ import LoadingIndicator from "./LoadingIndicator";
 import BirthdayAnnouncer from "./BirthdayAnnouncer";
 import Attnumber from "./AttNumber";
 import Event from "./Events/Event";
-import GuestAttendant from "./GuestAttendant";
+import AddGuest from "./AddGuest";
+import GuestAttendances from "./GuestAttendances";
 
 type dayType = {
     dayName: string;
@@ -118,6 +119,10 @@ export default function Day({
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
                     >
+                        <GuestAttendances
+                            day={dayDBName}
+                            week={chosenWeekNumber}
+                        />
                         {attendees &&
                             attendees
                                 .filter((att) => att[dayDBName] === 1) //the 1 represents "yes" to eating
@@ -129,7 +134,8 @@ export default function Day({
                                         refetchAttendees={refetchAttendees}
                                     />
                                 ))}
-                        <GuestAttendant
+
+                        <AddGuest
                             week={chosenWeekNumber}
                             inheritedDay={dayDBName}
                         />
