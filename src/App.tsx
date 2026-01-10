@@ -8,7 +8,7 @@ function App() {
     return (
         <>
             {/* <Snowfall snowflakeCount={200} /> */}
-            <Fireworks
+            {/* <Fireworks
                 options={{
                     opacity: 0.5,
                     intensity: 20,
@@ -24,7 +24,7 @@ function App() {
                     height: "100%",
                     position: "fixed",
                 }}
-            />
+            /> */}
             <Board />
             <ToastContainer
                 position="bottom-right"
