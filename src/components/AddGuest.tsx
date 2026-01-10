@@ -1,4 +1,4 @@
-import Button from "./Button";
+//@ts-nocheck
 import plusFaded from "../assets/plus-faded.svg";
 import checkmark from "../assets/checkmark.svg";
 import cross from "../assets/cross.svg";

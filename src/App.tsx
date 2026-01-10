@@ -1,5 +1,5 @@
 //import Snowfall from "react-snowfall";
-import { Fireworks } from "@fireworks-js/react";
+//import { Fireworks } from "@fireworks-js/react";
 import Board from "./components/Board";
 import { ToastContainer } from "react-toastify";
 import "./App.css";

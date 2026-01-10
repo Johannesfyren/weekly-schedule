@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
@@ -21,6 +22,14 @@ export default function GuestAttendances({ day, week, fetchData }) {
     }, [fetchData, week]);
 
     const handleGuestRemoval = async (userID) => {
+        const guestFiltered = guests.filter((guest) => guest.id == userID);
+        console.log(guestFiltered);
+        const confirmed = window.confirm(
+            `Er du sikker på at du vil fjerne ${guestFiltered[0].guest_name}`
+        );
+
+        if (!confirmed) return;
+
         const { data, error } = await supabase
             .from("guests")
             .delete()
