@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
+import crossIcon from "../assets/cross.svg";
 
 export default function GuestAttendances({ day, week, fetchData }) {
     const [guests, setGuests] = useState(Array<any>);
@@ -18,6 +19,26 @@ export default function GuestAttendances({ day, week, fetchData }) {
         };
         fetchGuests();
     }, [fetchData, week]);
+
+    const handleGuestRemoval = async (userID) => {
+        const { data, error } = await supabase
+            .from("guests")
+            .delete()
+            .eq("id", userID);
+
+        const fetchGuests = async () => {
+            const { data, error } = await supabase
+                .from("guests")
+                .select("*")
+                .eq("day", day)
+                .eq("week", week);
+
+            if (!error) {
+                setGuests(data);
+            }
+        };
+        fetchGuests();
+    };
 
     if (guests.length == 0) {
         return "";
@@ -59,6 +80,16 @@ export default function GuestAttendances({ day, week, fetchData }) {
                                         (gæst)
                                     </span>
                                 </p>
+                                <img
+                                    width={"20px"}
+                                    style={{
+                                        marginLeft: "auto",
+                                        cursor: "pointer",
+                                    }}
+                                    src={crossIcon}
+                                    alt=""
+                                    onClick={() => handleGuestRemoval(guest.id)}
+                                />
                             </div>
                         );
                     })}

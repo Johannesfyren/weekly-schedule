@@ -119,6 +119,7 @@ export default function Day({
                         className="attendances-container"
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
+                        style={{ width: "100%" }}
                     >
                         <GuestAttendances
                             day={dayDBName}
