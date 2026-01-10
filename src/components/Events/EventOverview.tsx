@@ -32,10 +32,7 @@ export default function EventOverview({
 
     return (
         eventContainerOpen && (
-            <div
-                className={styles["event-container-bg"]}
-                onClick={(e) => console.log(e.target)}
-            >
+            <div className={styles["event-container-bg"]}>
                 <div
                     className={`${styles["event-container"]} ${styles["hide-scrollbar"]}`}
                 >
@@ -114,7 +111,7 @@ export default function EventOverview({
                                                 return (
                                                     <Event
                                                         event={event}
-                                                        key={event.event_name}
+                                                        key={event.id}
                                                     />
                                                 );
                                             })}

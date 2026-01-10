@@ -67,7 +67,7 @@ export default function Attnumber({
         };
 
         fetchGuests();
-    }, []);
+    }, [week]);
 
     useEffect(() => {
         //Self collapse if not done manually
@@ -121,7 +121,7 @@ export default function Attnumber({
                             {allAttendees &&
                                 allAttendees.filter(
                                     (att) => att[dayDBName] === 1
-                                ).length + guests.length}
+                                ).length + guests?.length}
                         </p>
                     </>
                 )}

@@ -17,7 +17,7 @@ export default function GuestAttendances({ day, week, fetchData }) {
             }
         };
         fetchGuests();
-    }, [fetchData]);
+    }, [fetchData, week]);
 
     if (guests.length == 0) {
         return "";
