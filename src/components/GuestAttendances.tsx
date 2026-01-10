@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
-import crossIcon from "../assets/cross.svg";
+import crossIcon from "../assets/cross-faded.svg";
 
 export default function GuestAttendances({ day, week, fetchData }) {
     const [guests, setGuests] = useState(Array<any>);
