@@ -5,6 +5,7 @@ export default function AttIconAndNumber({
     attIsClicked,
     dayDBName,
     attendanceDBValue,
+    numberOfGuests,
 }) {
     return (
         <div
@@ -25,7 +26,7 @@ export default function AttIconAndNumber({
                 {allAttendees &&
                     allAttendees.filter(
                         (att) => att[dayDBName] === attendanceDBValue
-                    ).length}
+                    ).length + (attendanceDBValue === 1 ? numberOfGuests : 0)}
             </p>
         </div>
     );

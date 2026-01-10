@@ -32,19 +32,41 @@ export default function Attnumber({
     dayDBName,
     attIsClicked,
     setAttIsClicked,
+    week,
 }: Attnumbertype) {
     const [completeUserList, setCompleteUserList] = useState<number>();
     const [attIsExpanded, setAttIsExpanded] = useState(false);
+    const [guests, setGuests] = useState();
+    const guestsAndAttendees: Array<any> = allAttendees;
     useEffect(() => {
-        //Fetch number of active users in the db
+        //Fetch number of active users in the db and guests
         const countActiveUsers = async () => {
             const { data, error } = await supabase.from("user").select("*");
             setCompleteUserList(
                 data?.filter((att) => att.canteen_personel == 0) //Filter out canteen personal
             );
-            // console.log(data);
         };
+
         countActiveUsers();
+    }, []);
+    useEffect(() => {
+        //Fetch number of guests
+
+        const fetchGuests = async () => {
+            const { data, error } = await supabase
+                .from("guests")
+                .select("*")
+                .eq("day", dayDBName)
+                .eq("week", week);
+
+            if (!error) {
+                setGuests(data);
+            } else {
+                console.log(error);
+            }
+        };
+
+        fetchGuests();
     }, []);
 
     useEffect(() => {
@@ -99,7 +121,7 @@ export default function Attnumber({
                             {allAttendees &&
                                 allAttendees.filter(
                                     (att) => att[dayDBName] === 1
-                                ).length}
+                                ).length + guests.length}
                         </p>
                     </>
                 )}
@@ -160,17 +182,35 @@ export default function Attnumber({
                     onClick={() => setAttIsExpanded(false)}
                 >
                     <div className="att-icon-number-expanded">
+                        {/* HER SKAL DER GIVES GÆSTER */}
                         <AttIconAndNumber
                             allAttendees={allAttendees}
                             attIsClicked={attIsClicked}
                             dayDBName={dayDBName}
                             icon={attYesIcon}
                             attendanceDBValue={1}
+                            numberOfGuests={guests?.length}
                         />
                         {allAttendees
                             .filter((att) => att[dayDBName] === 1)
                             .map((att, index) => {
                                 return <div key={index}>{att.user.name}</div>;
+                            })}
+                        {guests &&
+                            guests.map((att, index) => {
+                                return (
+                                    <div key={index}>
+                                        {att.guest_name}{" "}
+                                        <span
+                                            style={{
+                                                fontStyle: "italic",
+                                                color: "#2e2e2ea8",
+                                            }}
+                                        >
+                                            (gæst)
+                                        </span>
+                                    </div>
+                                );
                             })}
                     </div>
                     <div className="att-icon-number-expanded">

@@ -92,6 +92,7 @@ export default function Day({
                 <Attnumber
                     allAttendees={attendees && attendees}
                     dayDBName={dayDBName}
+                    week={chosenWeekNumber}
                     attIsClicked={attIsClicked}
                     setAttIsClicked={setAttIsClicked}
                 />
@@ -122,6 +123,7 @@ export default function Day({
                         <GuestAttendances
                             day={dayDBName}
                             week={chosenWeekNumber}
+                            fetchData={refetchAttendees}
                         />
                         {attendees &&
                             attendees
@@ -138,6 +140,7 @@ export default function Day({
                         <AddGuest
                             week={chosenWeekNumber}
                             inheritedDay={dayDBName}
+                            setRefetchAttendees={setRefetchAttendees}
                         />
                     </motion.div>
                 </>

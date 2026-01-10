@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
 
-export default function GuestAttendances({ day, week }) {
+export default function GuestAttendances({ day, week, fetchData }) {
     const [guests, setGuests] = useState(Array<any>);
     useEffect(() => {
         const fetchGuests = async () => {
@@ -17,7 +17,7 @@ export default function GuestAttendances({ day, week }) {
             }
         };
         fetchGuests();
-    }, []);
+    }, [fetchData]);
 
     if (guests.length == 0) {
         return "";

@@ -1,9 +1,11 @@
 import Button from "./Button";
 import plusFaded from "../assets/plus-faded.svg";
+import checkmark from "../assets/checkmark.svg";
+import cross from "../assets/cross.svg";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
-export default function AddGuest({ week, inheritedDay }) {
+export default function AddGuest({ week, inheritedDay, setRefetchAttendees }) {
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState("");
 
@@ -18,18 +20,7 @@ export default function AddGuest({ week, inheritedDay }) {
             })
             .select();
 
-        // const insertedUser = insertedUsers[0];
-        // const userId = insertedUser.id;
-        // const { data, error } = await supabase.from("attendances").upsert(
-        //     {
-        //         fk_user: userId,
-        //         year: new Date().getFullYear(),
-        //         week: week,
-        //         [inheritedDay]: 1,
-        //     },
-        //     { onConflict: ["fk_user", "year", "week"] }
-        // );
-        console.log("data: ", insertedUsers, "error: ", insertedUserError);
+        setRefetchAttendees(true);
     };
 
     return (
@@ -56,30 +47,50 @@ export default function AddGuest({ week, inheritedDay }) {
                             gap: "10px",
                         }}
                     >
-                        <input onChange={(e) => setName(e.target.value)} />
+                        <input
+                            onChange={(e) => setName(e.target.value)}
+                            style={{
+                                backgroundColor: "#00000054",
+                                borderStyle: "none",
+                                border: "1px solid #85731cff",
+                                borderRadius: "5px",
+                                color: "white",
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key == "Enter") {
+                                    handleSaveGuest();
+                                    setEditMode(false);
+                                }
+                                if (e.key == "Escape") {
+                                    setEditMode(false);
+                                }
+                            }}
+                        />
                         <div
                             style={{
                                 width: "20%",
                                 display: "flex",
                                 alignItems: "center",
+                                gap: "5px",
                             }}
                         >
                             <div
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     handleSaveGuest();
+                                    setEditMode(false);
                                 }}
                             >
-                                ✔️
+                                <img width={"20px"} src={checkmark} alt="" />
                             </div>
-                            <button
+                            <div
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setEditMode(false);
                                 }}
                             >
-                                ❌
-                            </button>
+                                <img width={"20px"} src={cross} alt="" />
+                            </div>
                         </div>
                     </div>
                 )}
