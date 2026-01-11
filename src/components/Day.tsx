@@ -95,6 +95,7 @@ export default function Day({
                     week={chosenWeekNumber}
                     attIsClicked={attIsClicked}
                     setAttIsClicked={setAttIsClicked}
+                    refetchAttendees={refetchAttendees}
                 />
             </div>
 
@@ -125,6 +126,7 @@ export default function Day({
                             day={dayDBName}
                             week={chosenWeekNumber}
                             fetchData={refetchAttendees}
+                            setRefetchAttendees={setRefetchAttendees}
                         />
                         {attendees &&
                             attendees

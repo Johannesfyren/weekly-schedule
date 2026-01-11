@@ -33,6 +33,7 @@ export default function Attnumber({
     attIsClicked,
     setAttIsClicked,
     week,
+    refetchAttendees,
 }: Attnumbertype) {
     const [completeUserList, setCompleteUserList] = useState<number>();
     const [attIsExpanded, setAttIsExpanded] = useState(false);
@@ -67,7 +68,7 @@ export default function Attnumber({
         };
 
         fetchGuests();
-    }, [week]);
+    }, [week, refetchAttendees]);
 
     useEffect(() => {
         //Self collapse if not done manually

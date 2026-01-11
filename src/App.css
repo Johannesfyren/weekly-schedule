@@ -525,9 +525,10 @@ input {
 /*UTILITIES*/
 
 .hover-border:hover {
-    outline: 1px solid #3d3d3d9a;
-    background-color: rgba(49, 49, 49, 0.434);
+    outline: 1px solid #7af3009a;
+    background-color: rgba(49, 49, 49, 0.22);
     border-radius: 5px;
+    color: white;
 }
 
 .btn-primary {

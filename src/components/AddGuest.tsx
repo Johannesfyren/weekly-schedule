@@ -4,6 +4,7 @@ import checkmark from "../assets/checkmark.svg";
 import cross from "../assets/cross.svg";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import clsx from "clsx";
 
 export default function AddGuest({ week, inheritedDay, setRefetchAttendees }) {
     const [editMode, setEditMode] = useState(false);

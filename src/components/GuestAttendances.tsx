@@ -4,7 +4,12 @@ import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
 import crossIcon from "../assets/cross-faded.svg";
 
-export default function GuestAttendances({ day, week, fetchData }) {
+export default function GuestAttendances({
+    day,
+    week,
+    fetchData,
+    setRefetchAttendees,
+}) {
     const [guests, setGuests] = useState(Array<any>);
     useEffect(() => {
         const fetchGuests = async () => {
@@ -47,6 +52,7 @@ export default function GuestAttendances({ day, week, fetchData }) {
             }
         };
         fetchGuests();
+        setRefetchAttendees(true);
     };
 
     if (guests.length == 0) {
