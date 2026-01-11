@@ -43,7 +43,9 @@ export default function AddGuest({ week, inheritedDay, setRefetchAttendees }) {
                     alignItems: "center",
                     gap: "10px",
                     cursor: "pointer",
+                    padding: "5px",
                 }}
+                className={!editMode ? "hover-border" : ""}
                 onClick={() => {
                     setEditMode(true);
                 }}
