@@ -4,7 +4,7 @@ import checkmark from "../assets/checkmark.svg";
 import cross from "../assets/cross.svg";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
-import clsx from "clsx";
+import { toast } from "react-toastify";
 
 export default function AddGuest({ week, inheritedDay, setRefetchAttendees }) {
     const [editMode, setEditMode] = useState(false);
@@ -22,6 +22,13 @@ export default function AddGuest({ week, inheritedDay, setRefetchAttendees }) {
             })
             .select();
 
+        if (insertedUserError) {
+            toast.error(
+                "Noget gik galt. Gæsten er ikke registreret. Prøv igen."
+            );
+        } else {
+            toast.success("Gæst registreret.");
+        }
         setRefetchAttendees(true);
     };
     useEffect(() => {

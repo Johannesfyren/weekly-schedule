@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
 import crossIcon from "../assets/cross-faded.svg";
+import { toast } from "react-toastify";
 
 export default function GuestAttendances({
     day,
@@ -23,6 +24,7 @@ export default function GuestAttendances({
                 setGuests(data);
             }
         };
+
         fetchGuests();
     }, [fetchData, week]);
 
@@ -47,7 +49,11 @@ export default function GuestAttendances({
                 .eq("day", day)
                 .eq("week", week);
 
-            if (!error) {
+            if (error) {
+                toast.error(
+                    "Noget gik galt. Gæsten er ikke slettet. Prøv igen."
+                );
+            } else {
                 setGuests(data);
             }
         };
