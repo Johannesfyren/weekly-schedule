@@ -53,7 +53,6 @@ export default function BirthdayAnnouncer({ daysDate, showDay = false }) {
                     marginBottom: "-10px",
                 }}
             >
-                {console.log(daysDate)}
                 <img src={birthdayIcon} width={"20px"} />
                 <p>{birthdayPerson[0].name}</p>
                 <p style={{ color: "#e3e3e3ff", fontStyle: "italic" }}>

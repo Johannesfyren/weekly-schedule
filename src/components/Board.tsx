@@ -70,7 +70,7 @@ export default function Board() {
                 favoritePerson={favoritePerson}
             />
 
-            <div className="board">
+            <div className="board ">
                 <Day
                     dayName={"Mandag"}
                     dayDBName={"mon"}

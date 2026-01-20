@@ -341,8 +341,8 @@ export default function Profile({
                                     setSelectedAtt={setSelectedAtt}
                                     setShowAttPicker={setShowAttPicker}
                                     customPlacement={{
-                                        top: "160px",
-                                        right: "14%",
+                                        top: "70px",
+                                        right: "8%",
                                     }}
                                 />
                             )}

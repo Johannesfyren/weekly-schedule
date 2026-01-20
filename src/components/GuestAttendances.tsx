@@ -4,6 +4,7 @@ import { supabase } from "../utils/supabaseClient";
 import guestIcon from "../assets/guest.svg";
 import crossIcon from "../assets/cross-faded.svg";
 import { toast } from "react-toastify";
+import { motion } from "motion/react";
 
 export default function GuestAttendances({
     day,
@@ -74,7 +75,9 @@ export default function GuestAttendances({
                 {guests &&
                     guests.map((guest, index) => {
                         return (
-                            <div
+                            <motion.div
+                                initial={{ scale: 0.8 }}
+                                animate={{ scale: 1 }}
                                 key={index}
                                 style={{
                                     display: "flex",
@@ -111,7 +114,7 @@ export default function GuestAttendances({
                                     alt=""
                                     onClick={() => handleGuestRemoval(guest.id)}
                                 />
-                            </div>
+                            </motion.div>
                         );
                     })}
             </div>

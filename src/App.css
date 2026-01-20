@@ -509,6 +509,7 @@ button img {
     cursor: pointer;
     height: 45px;
 }
+
 /* GENERAL EDITS */
 input[type="radio"] {
     transform: scale(1.4);
@@ -525,7 +526,7 @@ input {
 /*UTILITIES*/
 
 .hover-border:hover {
-    outline: 1px solid #7af3009a;
+    outline: 1px solid #ffffff9a;
     background-color: rgba(49, 49, 49, 0.22);
     border-radius: 5px;
     color: white;
