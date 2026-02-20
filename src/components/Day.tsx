@@ -48,7 +48,7 @@ export default function Day({
         const { data, error } = await supabase
             .from("attendances")
             .select(
-                `"mon","tue","wed","thu","fri",user("id", "name", "img_ref","birthday_date")`
+                `"mon","tue","wed","thu","fri",user("id", "name", "img_ref","birthday_date")`,
             )
 
             .eq("week", chosenWeekNumber)
@@ -128,6 +128,7 @@ export default function Day({
                             fetchData={refetchAttendees}
                             setRefetchAttendees={setRefetchAttendees}
                         />
+
                         {attendees &&
                             attendees
                                 .filter((att) => att[dayDBName] === 1) //the 1 represents "yes" to eating

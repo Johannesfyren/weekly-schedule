@@ -62,13 +62,13 @@ export default function Profile({
         fri: 2,
     });
     const [currentWeekDates, setCurrentWeekDates] = useState<WeekDates>(
-        weekToDates(chosenWeekNumber, new Date().getFullYear())
+        weekToDates(chosenWeekNumber, new Date().getFullYear()),
     );
     const [email, setEmail] = useState(
-        (userDetails && userDetails["e-mail"]) || null
+        (userDetails && userDetails["e-mail"]) || null,
     );
     const [emailProvided, setEmailProvided] = useState(
-        userDetails && userDetails["e-mail"] ? true : false
+        userDetails && userDetails["e-mail"] ? true : false,
     );
     const [tabSettingsOpen, setTabSettingsOpen] = useState(false);
     const [tabWeekPlanningOpen, setTabWeekPlanningOpen] = useState(true);
@@ -150,7 +150,7 @@ export default function Profile({
                     // check if week already exists in state
                     setCollectiveFormData((prev) => {
                         const exists = prev.some(
-                            (item) => item.week === dbWeek.week
+                            (item) => item.week === dbWeek.week,
                         );
                         if (exists) {
                             // don't replace, just return current state
@@ -176,7 +176,7 @@ export default function Profile({
                     // same check before adding
                     setCollectiveFormData((prev) => {
                         const exists = prev.some(
-                            (item) => item.week === newWeek.week
+                            (item) => item.week === newWeek.week,
                         );
                         return exists ? prev : [...prev, newWeek];
                     });
@@ -216,7 +216,7 @@ export default function Profile({
         if (error) {
             console.error("❌ Upsert failed:", error);
             toast.error(
-                `Noget gik galt da du gemte. Prøv igen. Fejlbesked: ${error.message}`
+                `Noget gik galt da du gemte. Prøv igen. Fejlbesked: ${error.message}`,
             );
         } else {
             // TODO: Alert component showing which weeks are comitted
@@ -247,7 +247,7 @@ export default function Profile({
                 .eq("id", userDetails.id);
             if (error) {
                 toast.error(
-                    `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`
+                    `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`,
                 );
             } else {
                 // TODO: Alert component showing which weeks are comitted
@@ -261,7 +261,7 @@ export default function Profile({
                 .eq("id", userDetails.id);
             if (error) {
                 toast.error(
-                    `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`
+                    `Noget gik galt da du gemte din e-mail. Prøv igen. Fejlbesked: ${error.message}`,
                 );
             } else {
                 // TODO: Alert component showing which weeks are comitted

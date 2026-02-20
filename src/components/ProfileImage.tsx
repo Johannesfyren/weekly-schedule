@@ -6,6 +6,9 @@ import editIcon from "../assets/edit-icon.svg";
 import imgIcon from "../assets/black-image-icon.svg";
 import camIcon from "../assets/black-cam-icon.svg";
 import Button from "./Button";
+import { GiphyFetch } from "@giphy/js-fetch-api";
+const gf = new GiphyFetch("L53vPQVtedmucsVe3aImzYfIR0pVcA0o");
+import GifGrid from "./GifGrid";
 
 export type profileImageType = {
     imgUrl?: string;
@@ -16,7 +19,11 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     const [publicUrl, setPublicUrl] = useState("");
     const [videoStreamActivated, setVideoStreamActivated] = useState(false);
     const [showMediaMenu, setShowMediaMenu] = useState(false);
+    const [showGifContainer, setShowGifContainer] = useState(false);
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
+    const [gifSearch, setGifSearch] = useState("");
+    const [gifData, setGifData] = useState();
+    const [selectedGif, setSelectedGif] = useState(null);
     const inputRef = useRef(null);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef(null);
@@ -50,7 +57,19 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
         }
     }, [videoStreamActivated]);
 
+    const fetchGifs = async () => {
+        const { data: gifs } = await gf.search(gifSearch, {
+            sort: "relevant",
+            lang: "en",
+            limit: 10,
+            type: "gifs",
+        });
+        console.log(gifs);
+        setGifData(gifs);
+        return gifs;
+    };
     const handleImgUpload = async (file: React.HTMLInputTypeAttribute) => {
+        //TODO: Handle compression of images before storing
         const { error } = await supabase.storage
             .from("profile-pictures")
             .upload(`PF/${name.replace(/[\sæøå]/gi, "")}image.png`, file, {
@@ -89,6 +108,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
 
     return (
         <>
+            {console.log("publicurl", publicUrl)}
             <div className="avatar-big">
                 {!publicUrl
                     ? name && name.slice(0, 2).toUpperCase()
@@ -155,6 +175,54 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                 Tag billede
                             </div>
                         </div>
+                        <div
+                            onClick={
+                                () => setShowGifContainer(true) //!showGifContainer
+                            }
+                        >
+                            {showGifContainer ? (
+                                <div>
+                                    <input
+                                        type="text"
+                                        onChange={(e) => {
+                                            setGifSearch(e.target.value);
+                                            fetchGifs();
+                                        }}
+                                    />
+                                    {
+                                        // (fetchGifs = (offset: number) =>
+                                        //     gf.trending({ offset, limit: 10 }))
+                                    }
+                                    <div
+                                        style={{
+                                            display: "grid",
+                                            gridTemplateRows: "auto",
+                                            gridTemplateColumns:
+                                                "75px 75px 75px",
+                                            width: "225px",
+                                            height: "200px",
+                                            overflowY: "scroll",
+                                        }}
+                                    >
+                                        {gifData &&
+                                            gifData.map((gif, index) => {
+                                                return (
+                                                    <GifGrid
+                                                        imgurl={
+                                                            gif.images.downsized
+                                                                .url
+                                                        }
+                                                        userID={id}
+                                                    />
+                                                );
+                                            })}
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>Add GIF</p>
+                            )}
+                        </div>
+
                         {videoStreamActivated && (
                             <div className="profile-container video-frame hide-scrollbar">
                                 <div
@@ -190,7 +258,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                                 fetch(capturedImage)
                                                     .then((res) => res.blob())
                                                     .then((blob) =>
-                                                        handleImgUpload(blob)
+                                                        handleImgUpload(blob),
                                                     );
                                                 setVideoStreamActivated(false);
                                                 setCapturedImage(null);

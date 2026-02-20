@@ -27,8 +27,12 @@ export default function Attendance({
     useEffect(() => {
         if (imgUrl) {
             async function fetchImageFromUrl() {
-                const url = await fetchImage(imgUrl!);
-                setPublicUrl(url + "?t=" + Date.now()); //making this
+                if (imgUrl?.includes("https")) {
+                    setPublicUrl(imgUrl);
+                } else {
+                    const url = await fetchImage(imgUrl!);
+                    setPublicUrl(url + "?t=" + Date.now());
+                }
             }
             fetchImageFromUrl();
         }

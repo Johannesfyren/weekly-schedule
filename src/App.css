@@ -531,6 +531,13 @@ input {
     border-radius: 5px;
     color: white;
 }
+.hover-border-wide:hover {
+    outline: 2px solid #ffffff9a;
+    background-color: rgba(49, 49, 49, 0.22);
+    border-radius: 5px;
+    color: rgb(134, 255, 14);
+    cursor: pointer;
+}
 
 .btn-primary {
     height: 33px;
