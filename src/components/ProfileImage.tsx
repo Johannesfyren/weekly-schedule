@@ -5,6 +5,7 @@ import { supabase } from "../utils/supabaseClient";
 import editIcon from "../assets/edit-icon.svg";
 import imgIcon from "../assets/black-image-icon.svg";
 import camIcon from "../assets/black-cam-icon.svg";
+import gifIcon from "../assets/gif-icon.gif";
 import Button from "./Button";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 const gf = new GiphyFetch("L53vPQVtedmucsVe3aImzYfIR0pVcA0o");
@@ -61,7 +62,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
         const { data: gifs } = await gf.search(gifSearch, {
             sort: "relevant",
             lang: "en",
-            limit: 10,
+            limit: 25,
             type: "gifs",
         });
         console.log(gifs);
@@ -136,6 +137,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                 display: "flex",
                                 flexDirection: "row",
                                 gap: "5px",
+                                alignItems: "center",
                             }}
                         >
                             <img src={imgIcon} alt="" className="btn-edit-pp" />
@@ -189,10 +191,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                             fetchGifs();
                                         }}
                                     />
-                                    {
-                                        // (fetchGifs = (offset: number) =>
-                                        //     gf.trending({ offset, limit: 10 }))
-                                    }
+
                                     <div
                                         style={{
                                             display: "grid",
@@ -219,7 +218,17 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                     </div>
                                 </div>
                             ) : (
-                                <p>Add GIF</p>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        gap: "5px",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    <img src={gifIcon} alt="" height={"20px"} />
+                                    <p>Tilføj GIF</p>
+                                </div>
                             )}
                         </div>
 
