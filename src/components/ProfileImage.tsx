@@ -129,7 +129,6 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
 
     return (
         <>
-            {console.log("publicurl", publicUrl)}
             <div className="avatar-big">
                 {!publicUrl
                     ? name && name.slice(0, 2).toUpperCase()
