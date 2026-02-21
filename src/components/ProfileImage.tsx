@@ -10,6 +10,7 @@ import Button from "./Button";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 const gf = new GiphyFetch("L53vPQVtedmucsVe3aImzYfIR0pVcA0o");
 import GifGrid from "./GifGrid";
+import imageCompression from "browser-image-compression";
 
 export type profileImageType = {
     imgUrl?: string;
@@ -71,26 +72,45 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     };
     const handleImgUpload = async (file: React.HTMLInputTypeAttribute) => {
         //TODO: Handle compression of images before storing
-        const { error } = await supabase.storage
-            .from("profile-pictures")
-            .upload(`PF/${name.replace(/[\sæøå]/gi, "")}image.png`, file, {
-                cacheControl: "0",
-                upsert: true,
-            });
-        if (error) {
-            console.error("Upload error:", error.message);
-        } else {
-            const { error } = await supabase
-                .from("user")
-                .update({
-                    img_ref: `${name.replace(/[\sæøå]/gi, "")}image.png`,
-                })
-                .eq("id", id);
+        //Test start
+        const options = {
+            maxSizeMB: 1, // target max file size
+            maxWidthOrHeight: 200,
+            useWebWorker: true,
+        };
+        try {
+            const compressedFile = await imageCompression(file, options);
 
+            console.log("Original:", file.size / 1024, "KB");
+            console.log("Compressed:", compressedFile.size / 1024, "KB");
+
+            const { error } = await supabase.storage
+                .from("profile-pictures")
+                .upload(
+                    `PF/${name.replace(/[\sæøå]/gi, "")}image.png`,
+                    compressedFile,
+                    {
+                        cacheControl: "0",
+                        upsert: true,
+                    },
+                );
             if (error) {
-                console.log(error);
-                alert("Der skete en fejl ved upload af billede");
+                console.error("Upload error:", error.message);
+            } else {
+                const { error } = await supabase
+                    .from("user")
+                    .update({
+                        img_ref: `${name.replace(/[\sæøå]/gi, "")}image.png`,
+                    })
+                    .eq("id", id);
+
+                if (error) {
+                    console.log(error);
+                    alert("Der skete en fejl ved upload af billede");
+                }
             }
+        } catch (error) {
+            console.error(error);
         }
     };
 

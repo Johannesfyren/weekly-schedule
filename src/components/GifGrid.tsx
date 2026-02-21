@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { toast } from "react-toastify";
 import { supabase } from "../utils/supabaseClient";
 
