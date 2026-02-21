@@ -171,6 +171,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                 }}
                                 ref={inputRef}
                                 name="img-upload"
+                                style={{ padding: "-4px" }}
                             />
                         </div>
                         <div
@@ -178,6 +179,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                 display: "flex",
                                 flexDirection: "row",
                                 gap: "5px",
+                                marginBottom: "10px",
                             }}
                         >
                             <img
@@ -246,7 +248,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                     }}
                                 >
                                     <img src={gifIcon} alt="" height={"20px"} />
-                                    <p>Tilføj GIF</p>
+                                    <p style={{ color: "black" }}>Tilføj GIF</p>
                                 </div>
                             )}
                         </div>
