@@ -23,7 +23,7 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
     const [showMediaMenu, setShowMediaMenu] = useState(false);
     const [showGifContainer, setShowGifContainer] = useState(false);
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
-    const [gifSearch, setGifSearch] = useState("");
+    const [gifSearch, setGifSearch] = useState("funny");
     const [gifData, setGifData] = useState();
     const [selectedGif, setSelectedGif] = useState(null);
     const inputRef = useRef(null);
@@ -59,30 +59,37 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
         }
     }, [videoStreamActivated]);
 
+    useEffect(() => {
+        // Short delay when entering search params to avoid constant fetching af race conditions
+        const delayTimer = setTimeout(() => {
+            fetchGifs();
+        }, 500);
+
+        return () => clearTimeout(delayTimer);
+    }, [gifSearch]);
+
     const fetchGifs = async () => {
         const { data: gifs } = await gf.search(gifSearch, {
             sort: "relevant",
             lang: "en",
-            limit: 25,
+            limit: 30,
             type: "gifs",
         });
-        console.log(gifs);
+
         setGifData(gifs);
         return gifs;
     };
     const handleImgUpload = async (file: React.HTMLInputTypeAttribute) => {
-        //TODO: Handle compression of images before storing
-        //Test start
         const options = {
-            maxSizeMB: 1, // target max file size
+            maxSizeMB: 1, // target max file size in MB
             maxWidthOrHeight: 200,
             useWebWorker: true,
         };
         try {
             const compressedFile = await imageCompression(file, options);
 
-            console.log("Original:", file.size / 1024, "KB");
-            console.log("Compressed:", compressedFile.size / 1024, "KB");
+            // console.log("Original:", file.size / 1024, "KB");
+            // console.log("Compressed:", compressedFile.size / 1024, "KB");
 
             const { error } = await supabase.storage
                 .from("profile-pictures")
@@ -171,7 +178,6 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                 }}
                                 ref={inputRef}
                                 name="img-upload"
-                                style={{ padding: "-4px" }}
                             />
                         </div>
                         <div
@@ -199,18 +205,22 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                             </div>
                         </div>
                         <div
-                            onClick={
-                                () => setShowGifContainer(true) //!showGifContainer
-                            }
+                            onClick={() => {
+                                setShowGifContainer(true);
+                                fetchGifs();
+                            }}
                         >
                             {showGifContainer ? (
                                 <div>
                                     <input
                                         type="text"
                                         onChange={(e) => {
-                                            setGifSearch(e.target.value);
-                                            fetchGifs();
+                                            setGifSearch(
+                                                (prev) => e.target.value,
+                                            );
+                                            // fetchGifs();
                                         }}
+                                        placeholder="Søg efter hvad som helst"
                                     />
 
                                     <div
@@ -233,6 +243,10 @@ export default function ProfileImage({ id, imgUrl, name }: profileImageType) {
                                                                 .url
                                                         }
                                                         userID={id}
+                                                        key={
+                                                            gif.images.downsized
+                                                                .url
+                                                        }
                                                     />
                                                 );
                                             })}
