@@ -500,24 +500,47 @@ button img {
     height: 45px;
 }
 
+.holiday-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+
 .holiday-container {
     position: relative;
     display: flex;
-    margin-top: auto;
+
+    align-self: flex-end;
+    justify-self: end;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.667);
+    border: 1px solid rgba(255, 255, 255, 0.385);
     gap: 8px;
     width: 100%;
     padding: 8px;
     border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.208);
+    background-color: rgba(0, 0, 0, 0.125);
+}
+.holiday-container-overlay {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(7, 13, 98, 0.105);
 }
 .holiday-icon {
     width: 24px;
     height: 24px;
-    position: absolute;
-    right: 0px;
-    top: -25px;
+}
+.holiday-header {
+    font-size: 16px;
+    font-weight: 400;
+}
+.holiday-iconheader-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 /* GENERAL EDITS */
