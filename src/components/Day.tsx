@@ -11,6 +11,7 @@ import Attnumber from "./AttNumber";
 import Event from "./Events/Event";
 import AddGuest from "./AddGuest";
 import GuestAttendances from "./GuestAttendances";
+import HolidaySection from "./HolidaySection";
 
 type dayType = {
     dayName: string;
@@ -47,9 +48,7 @@ export default function Day({
     async function fetchAttendances(): Promise<userType | undefined> {
         const { data, error } = await supabase
             .from("attendances")
-            .select(
-                `"mon","tue","wed","thu","fri",user("id", "name", "img_ref","birthday_date")`,
-            )
+            .select(`"mon","tue","wed","thu","fri",user("id", "name", "img_ref","birthday_date")`)
 
             .eq("week", chosenWeekNumber)
             .eq("year", chosenYear)
@@ -111,11 +110,7 @@ export default function Day({
                     />
                     <div className="seperator"></div>
                     <BirthdayAnnouncer daysDate={daysDate} />
-                    <Event
-                        daysDate={daysDate}
-                        collapsed={true}
-                        event={undefined}
-                    />
+                    <Event daysDate={daysDate} collapsed={true} event={undefined} />
                     <motion.div
                         className="attendances-container"
                         initial={{ scale: 0.8 }}
@@ -145,6 +140,11 @@ export default function Day({
                             week={chosenWeekNumber}
                             inheritedDay={dayDBName}
                             setRefetchAttendees={setRefetchAttendees}
+                        />
+                        <HolidaySection
+                            attendees={attendees}
+                            dayDBName={dayDBName}
+                            refetchAttendees={refetchAttendees}
                         />
                     </motion.div>
                 </>
