@@ -522,7 +522,7 @@ button img {
 }
 .holiday-container-overlay {
     position: absolute;
-    z-index: 100;
+    z-index: 1;
     top: 0;
     left: 0;
     width: 100%;
