@@ -8,13 +8,7 @@ export default function AttIconAndNumber({
     numberOfGuests,
 }) {
     return (
-        <div
-            className={
-                attIsClicked
-                    ? "att-icon-number att-icon-number-expanded"
-                    : "att-icon-number"
-            }
-        >
+        <div className={attIsClicked ? "att-icon-number att-icon-number-expanded" : "att-icon-number"}>
             <img style={{ width: "24px" }} src={icon} alt="" />
             <p
                 style={{
@@ -23,10 +17,13 @@ export default function AttIconAndNumber({
                     fontSize: "1.1rem",
                 }}
             >
-                {allAttendees &&
-                    allAttendees.filter(
-                        (att) => att[dayDBName] === attendanceDBValue
-                    ).length + (attendanceDBValue === 1 ? numberOfGuests : 0)}
+                {allAttendees
+                    ? allAttendees.filter((att) =>
+                          attendanceDBValue === 2
+                              ? att[dayDBName] === 2 || att[dayDBName] === 4
+                              : att[dayDBName] === attendanceDBValue,
+                      ).length + (attendanceDBValue === 1 ? numberOfGuests || 0 : 0)
+                    : ""}
             </p>
         </div>
     );

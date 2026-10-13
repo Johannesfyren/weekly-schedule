@@ -6,6 +6,7 @@ import { supabase } from "../utils/supabaseClient";
 import AttYes from "../assets/checkmark.svg?react";
 import AttNo from "../assets/cross.svg?react";
 import AttMaybe from "../assets/questionmark.svg?react";
+import VacancyIcon from "../assets/vacancy-icon.svg?react";
 export type formType = {
     fk_user: number;
     mon: number;
@@ -33,10 +34,7 @@ export default function WeekPlanForm({
     return (
         <div className="week-plan-container">
             <div className="container-header"></div>
-            <div
-                className="container-header"
-                style={{ alignSelf: "center", justifySelf: "center" }}
-            >
+            <div className="container-header" style={{ alignSelf: "center", justifySelf: "center" }}>
                 Spiser
             </div>
             <div
@@ -48,11 +46,11 @@ export default function WeekPlanForm({
             >
                 Spiser ikke
             </div>
-            <div
-                className="container-header"
-                style={{ alignSelf: "center", justifySelf: "center" }}
-            >
+            <div className="container-header" style={{ alignSelf: "center", justifySelf: "center" }}>
                 Intet svar
+            </div>
+            <div className="container-header" style={{ alignSelf: "center", justifySelf: "center" }}>
+                Ferie
             </div>
 
             <GridDay
@@ -99,18 +97,9 @@ export default function WeekPlanForm({
     );
 }
 
-function GridDay({
-    dayDBname,
-    dayName,
-    isLoading,
-    setCollectiveFormData,
-    chosenWeekNumber,
-    collectiveFormData,
-}) {
+function GridDay({ dayDBname, dayName, isLoading, setCollectiveFormData, chosenWeekNumber, collectiveFormData }) {
     //Find object matching the current week
-    const currentWeekData = collectiveFormData.find(
-        (week) => week.week === chosenWeekNumber
-    );
+    const currentWeekData = collectiveFormData.find((week) => week.week === chosenWeekNumber);
 
     const handleChosenDay = (e: React.EventHandler) => {
         if (!currentWeekData) return;
@@ -120,11 +109,7 @@ function GridDay({
 
         // update the correct week inside collectiveFormData
         setCollectiveFormData((prev) =>
-            prev.map((week) =>
-                week.week === chosenWeekNumber
-                    ? { ...week, [dbName]: value }
-                    : week
-            )
+            prev.map((week) => (week.week === chosenWeekNumber ? { ...week, [dbName]: value } : week)),
         );
     };
     return (
@@ -134,16 +119,11 @@ function GridDay({
                 data-dbname={dayDBname}
                 data-value={"1"}
                 onClick={handleChosenDay}
-                className={
-                    isLoading ? "week-plan-cell-loading " : "week-plan-cell"
-                }
+                className={isLoading ? "week-plan-cell-loading " : "week-plan-cell"}
             >
                 {currentWeekData && currentWeekData[dayDBname] == 1 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                        <AttYes
-                            style={{ width: "30px", height: "30px" }}
-                            className="line"
-                        />
+                        <AttYes style={{ width: "30px", height: "30px" }} className="line" />
                     </motion.div>
                 ) : (
                     ""
@@ -153,16 +133,11 @@ function GridDay({
                 data-dbname={dayDBname}
                 data-value={"2"}
                 onClick={handleChosenDay}
-                className={
-                    isLoading ? "week-plan-cell-loading " : "week-plan-cell"
-                }
+                className={isLoading ? "week-plan-cell-loading " : "week-plan-cell"}
             >
                 {currentWeekData && currentWeekData[dayDBname] == 2 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                        <AttNo
-                            style={{ width: "30px", height: "30px" }}
-                            className="line"
-                        />
+                        <AttNo style={{ width: "30px", height: "30px" }} className="line" />
                     </motion.div>
                 ) : (
                     ""
@@ -172,16 +147,25 @@ function GridDay({
                 data-dbname={dayDBname}
                 data-value={"3"}
                 onClick={handleChosenDay}
-                className={
-                    isLoading ? "week-plan-cell-loading " : "week-plan-cell"
-                }
+                className={isLoading ? "week-plan-cell-loading " : "week-plan-cell"}
             >
                 {currentWeekData && currentWeekData[dayDBname] == 3 ? (
                     <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
-                        <AttMaybe
-                            style={{ width: "30px", height: "30px" }}
-                            className="line"
-                        />
+                        <AttMaybe style={{ width: "30px", height: "30px" }} className="line" />
+                    </motion.div>
+                ) : (
+                    ""
+                )}
+            </div>
+            <div
+                data-dbname={dayDBname}
+                data-value={"4"}
+                onClick={handleChosenDay}
+                className={isLoading ? "week-plan-cell-loading " : "week-plan-cell"}
+            >
+                {currentWeekData && currentWeekData[dayDBname] == 4 ? (
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                        <VacancyIcon style={{ width: "30px", height: "30px" }} className="line" />
                     </motion.div>
                 ) : (
                     ""

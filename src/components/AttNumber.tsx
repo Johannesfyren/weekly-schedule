@@ -44,7 +44,7 @@ export default function Attnumber({
         const countActiveUsers = async () => {
             const { data, error } = await supabase.from("user").select("*");
             setCompleteUserList(
-                data?.filter((att) => att.canteen_personel == 0) //Filter out canteen personal
+                data?.filter((att) => att.canteen_personel == 0), //Filter out canteen personal
             );
         };
 
@@ -54,11 +54,7 @@ export default function Attnumber({
         //Fetch number of guests
 
         const fetchGuests = async () => {
-            const { data, error } = await supabase
-                .from("guests")
-                .select("*")
-                .eq("day", dayDBName)
-                .eq("week", week);
+            const { data, error } = await supabase.from("guests").select("*").eq("day", dayDBName).eq("week", week);
 
             if (!error) {
                 setGuests(data);
@@ -85,11 +81,7 @@ export default function Attnumber({
         <motion.div
             layout
             transition={{ duration: 0.15 }}
-            className={
-                attIsExpanded
-                    ? "att-number-container-exp"
-                    : "att-number-container"
-            }
+            className={attIsExpanded ? "att-number-container-exp" : "att-number-container"}
             onMouseEnter={() => setAttIsClicked(true)}
             onMouseLeave={() => {
                 setAttIsExpanded(false);
@@ -107,11 +99,7 @@ export default function Attnumber({
             <div className="att-icon-number">
                 {!attIsExpanded && (
                     <>
-                        <img
-                            style={{ width: "24px" }}
-                            src={attIsClicked ? attYesIcon : attIcon}
-                            alt=""
-                        />
+                        <img style={{ width: "24px" }} src={attIsClicked ? attYesIcon : attIcon} alt="" />
                         <p
                             style={{
                                 color: "#300276",
@@ -119,10 +107,7 @@ export default function Attnumber({
                                 fontSize: "1.1rem",
                             }}
                         >
-                            {allAttendees &&
-                                allAttendees.filter(
-                                    (att) => att[dayDBName] === 1
-                                ).length + guests?.length}
+                            {allAttendees && allAttendees.filter((att) => att[dayDBName] === 1).length + guests?.length}
                         </p>
                     </>
                 )}
@@ -137,19 +122,12 @@ export default function Attnumber({
                         icon={attNoIcon}
                         attendanceDBValue={2}
                     />
+
                     <div
                         className="att-icon-number"
-                        onClick={() =>
-                            attIsClicked
-                                ? setAttIsExpanded(false)
-                                : setAttIsExpanded(true)
-                        }
+                        onClick={() => (attIsClicked ? setAttIsExpanded(false) : setAttIsExpanded(true))}
                     >
-                        <img
-                            style={{ width: "24px" }}
-                            src={attMaybeIcon}
-                            alt=""
-                        />
+                        <img style={{ width: "24px" }} src={attMaybeIcon} alt="" />
                         <p
                             style={{
                                 color: "#300276",
@@ -160,28 +138,17 @@ export default function Attnumber({
                             {allAttendees &&
                                 completeUserList &&
                                 Number(completeUserList.length) -
-                                    (allAttendees.filter(
-                                        (att) => att[dayDBName] === 1
-                                    ).length +
-                                        allAttendees.filter(
-                                            (att) => att[dayDBName] === 2
-                                        ).length)}
+                                    (allAttendees.filter((att) => att[dayDBName] === 1).length +
+                                        allAttendees.filter((att) => att[dayDBName] === 2).length +
+                                        allAttendees.filter((att) => att[dayDBName] === 4).length)}
                         </p>
                     </div>
                     <div className="seperator"></div>
-                    <img
-                        src={expandIcon}
-                        alt=""
-                        width={"20px"}
-                        style={{ alignSelf: "center" }}
-                    />
+                    <img src={expandIcon} alt="" width={"20px"} style={{ alignSelf: "center" }} />
                 </>
             )}
             {attIsExpanded && (
-                <div
-                    className="att-icon-expanded-container"
-                    onClick={() => setAttIsExpanded(false)}
-                >
+                <div className="att-icon-expanded-container" onClick={() => setAttIsExpanded(false)}>
                     <div className="att-icon-number-expanded">
                         {/* HER SKAL DER GIVES GÆSTER */}
                         <AttIconAndNumber
@@ -223,7 +190,7 @@ export default function Attnumber({
                             attendanceDBValue={2}
                         />
                         {allAttendees
-                            .filter((att) => att[dayDBName] === 2)
+                            .filter((att) => att[dayDBName] === 2 || att[dayDBName] === 4) // 2 means no, and 4 means on holiday (counts for no)
                             .map((att, index) => {
                                 return <div key={index}>{att.user.name}</div>;
                             })}
@@ -231,17 +198,9 @@ export default function Attnumber({
                     <div className="att-icon-number-expanded">
                         <div
                             className="att-icon-number att-icon-number-expanded"
-                            onClick={() =>
-                                attIsClicked
-                                    ? setAttIsExpanded(false)
-                                    : setAttIsExpanded(true)
-                            }
+                            onClick={() => (attIsClicked ? setAttIsExpanded(false) : setAttIsExpanded(true))}
                         >
-                            <img
-                                style={{ width: "24px" }}
-                                src={attMaybeIcon}
-                                alt=""
-                            />
+                            <img style={{ width: "24px" }} src={attMaybeIcon} alt="" />
                             <p
                                 style={{
                                     color: "#300276",
@@ -252,12 +211,9 @@ export default function Attnumber({
                                 {allAttendees &&
                                     completeUserList &&
                                     Number(completeUserList.length) -
-                                        (allAttendees.filter(
-                                            (att) => att[dayDBName] === 1
-                                        ).length +
-                                            allAttendees.filter(
-                                                (att) => att[dayDBName] === 2
-                                            ).length)}
+                                        (allAttendees.filter((att) => att[dayDBName] === 1).length +
+                                            allAttendees.filter((att) => att[dayDBName] === 2).length) -
+                                        allAttendees.filter((att) => att[dayDBName] === 4).length}
                             </p>
                         </div>
                         {completeUserList
@@ -267,10 +223,9 @@ export default function Attnumber({
                                     !allAttendees
                                         .filter(
                                             (att) =>
-                                                att[dayDBName] === 1 ||
-                                                att[dayDBName] === 2
+                                                att[dayDBName] === 1 || att[dayDBName] === 2 || att[dayDBName] === 4,
                                         )
-                                        .some((att) => att.user.id === user.id)
+                                        .some((att) => att.user.id === user.id),
                             )
                             .map((user) => (
                                 <div key={user.id}>{user.name}</div>

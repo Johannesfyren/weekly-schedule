@@ -442,7 +442,7 @@ button img {
 .week-plan-container {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: auto 1fr 1fr 1fr;
+    grid-template-columns: auto 1fr 1fr 1fr 1fr;
     height: 333px;
     width: 100%;
     background-color: rgba(6, 5, 5, 0.054);
